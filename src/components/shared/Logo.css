@@ -1,0 +1,37 @@
+.logo {
+  display: block;
+  object-fit: contain;
+}
+
+/* Size variants */
+.logo--small {
+  width: 32px;
+  height: 32px;
+}
+
+.logo--medium {
+  width: 80px;
+  height: 80px;
+}
+
+.logo--large {
+  width: 120px;
+  height: 120px;
+}
+
+.logo--xlarge {
+  width: 150px;
+  height: 150px;
+}
+
+/* Full size for splash screens */
+.logo--full {
+  width: 250px;
+  height: 250px;
+}
+
+/* Icon size for lists */
+.logo--icon {
+  width: 28px;
+  height: 28px;
+}

@@ -1,0 +1,130 @@
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.signup-form__title {
+  font-size: var(--heading);
+  font-weight: var(--font-bold);
+  color: var(--dark-neutral);
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.signup-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+@media (max-width: 480px) {
+  .signup-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.signup-form__error {
+  background-color: rgba(214, 107, 74, 0.1);
+  border: 1px solid var(--faith);
+  border-radius: var(--radius-input);
+  padding: var(--space-sm);
+  color: var(--faith);
+  font-size: var(--small);
+  text-align: center;
+}
+
+.signup-form__requirements {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  background-color: rgba(39, 38, 36, 0.05);
+  border-radius: var(--radius-input);
+}
+
+.requirement {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 14px;
+  color: var(--dark-neutral);
+  opacity: 0.6;
+  transition: all var(--duration-fast);
+}
+
+.requirement.met {
+  opacity: 1;
+  color: var(--health);
+}
+
+.requirement__icon {
+  width: 18px;
+  text-align: center;
+  font-weight: var(--font-bold);
+}
+
+.signup-form__match {
+  font-size: 14px;
+  font-weight: var(--font-medium);
+  padding: var(--space-xs) 0;
+}
+
+.signup-form__match.match {
+  color: var(--health);
+}
+
+.signup-form__match.no-match {
+  color: var(--faith);
+}
+
+.signup-form__buttons {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.signup-form__buttons > * {
+  flex: 1;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(39, 38, 36, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-horizontal);
+  z-index: 100;
+}
+
+.modal {
+  background-color: var(--light-neutral);
+  border-radius: var(--radius-card);
+  padding: var(--space-lg);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.modal__text {
+  font-size: var(--body);
+  color: var(--dark-neutral);
+  margin-bottom: var(--space-lg);
+  line-height: 1.5;
+}
+
+.modal__buttons {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.modal__buttons > * {
+  flex: 1;
+}

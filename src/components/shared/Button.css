@@ -1,0 +1,123 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--button-height);
+  padding: 0 32px;
+  border-radius: var(--radius-button);
+  font-size: var(--button);
+  font-weight: var(--font-bold);
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: opacity var(--duration-fast) var(--timing-function),
+              transform var(--duration-fast) var(--timing-function);
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+/* Primary variant - dark button on light background */
+.button--primary {
+  background-color: var(--dark-neutral);
+  color: var(--light-neutral);
+}
+
+/* Primary on colored background - light button */
+.button--primary-on-color {
+  background-color: var(--light-neutral);
+  color: var(--dark-neutral);
+}
+
+/* Outlined variant */
+.button--outlined {
+  background-color: transparent;
+  border: 2px solid var(--dark-neutral);
+  color: var(--dark-neutral);
+}
+
+/* Outlined on color variant - for use on colored backgrounds */
+.button--outlined-on-color {
+  background-color: transparent;
+  border: 2px solid var(--light-neutral);
+  color: var(--light-neutral);
+}
+
+/* Secondary variant */
+.button--secondary {
+  background-color: transparent;
+  border: 2px solid var(--dark-neutral);
+  color: var(--dark-neutral);
+}
+
+/* Full width modifier */
+.button--full-width {
+  width: 100%;
+}
+
+/* Disabled state */
+.button--disabled,
+.button:disabled,
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.button--disabled:active,
+.button:disabled:active,
+button:disabled:active {
+  transform: none;
+}
+
+.button.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Back button - circular */
+.button--back {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid var(--dark-neutral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button--back svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Add button - circular with plus */
+.button--add {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: var(--font-medium);
+}
+
+/* Link style button */
+.button--link {
+  background: none;
+  border: none;
+  height: auto;
+  padding: 8px 0;
+  color: var(--dark-neutral);
+  text-decoration: underline;
+  text-transform: none;
+  font-weight: var(--font-medium);
+}

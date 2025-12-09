@@ -1,0 +1,86 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.input-label {
+  font-size: var(--label);
+  font-weight: var(--font-medium);
+  color: var(--dark-neutral);
+}
+
+.input-required {
+  color: var(--faith);
+  margin-left: 4px;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-field {
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  font-size: var(--body);
+  font-family: var(--font-family);
+  font-weight: var(--font-medium);
+  color: var(--dark-neutral);
+  background-color: white;
+  border: 2px solid rgba(39, 38, 36, 0.2);
+  border-radius: var(--radius-input);
+  transition: border-color var(--duration-fast) var(--timing-function);
+}
+
+.input-field::placeholder {
+  color: rgba(39, 38, 36, 0.4);
+}
+
+.input-field:focus {
+  border-color: var(--purpose);
+  outline: none;
+}
+
+.input-wrapper--error .input-field {
+  border-color: var(--faith);
+}
+
+.input-wrapper--disabled .input-field {
+  background-color: rgba(39, 38, 36, 0.05);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.input-toggle-password {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--dark-neutral);
+  opacity: 0.5;
+  transition: opacity var(--duration-fast);
+}
+
+.input-toggle-password:hover {
+  opacity: 0.8;
+}
+
+.input-error {
+  font-size: 14px;
+  color: var(--faith);
+  font-weight: var(--font-medium);
+}
+
+/* Textarea variant */
+.input-field--textarea {
+  height: auto;
+  min-height: 100px;
+  padding: 12px 16px;
+  resize: vertical;
+}

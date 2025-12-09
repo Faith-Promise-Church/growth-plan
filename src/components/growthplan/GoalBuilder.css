@@ -1,0 +1,238 @@
+.goal-builder {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light-neutral);
+}
+
+.goal-builder__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-lg) var(--padding-horizontal);
+  gap: var(--space-md);
+}
+
+.goal-builder__score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.goal-builder__score-label {
+  font-size: var(--heading);
+  font-weight: 600;
+}
+
+.goal-builder__score-value {
+  font-size: var(--score-value);
+  font-weight: var(--font-bold);
+  color: var(--dark-neutral);
+}
+
+.goal-builder__title {
+  font-size: var(--heading);
+  font-weight: var(--font-bold);
+  color: var(--dark-neutral);
+  text-align: center;
+}
+
+.goal-builder__content {
+  flex: 1;
+  padding: 0 var(--padding-horizontal);
+  padding-bottom: 120px; /* Space for footer */
+}
+
+.goal-builder__goals {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.goal-builder__add {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-sm) 0;
+}
+
+.goal-builder__add-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-neutral);
+  font-size: 28px;
+  font-weight: var(--font-medium);
+}
+
+.goal-builder__add-text {
+  font-size: var(--label);
+  color: var(--dark-neutral);
+  font-weight: var(--font-medium);
+}
+
+.goal-builder__suggested {
+  margin-top: var(--space-lg);
+  font-size: var(--small);
+  color: var(--dark-neutral);
+  opacity: 0.7;
+  line-height: 1.5;
+}
+
+.goal-builder__footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--padding-horizontal);
+  background-color: var(--light-neutral);
+  border-top: 1px solid rgba(39, 38, 36, 0.1);
+}
+
+.goal-builder__back-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--dark-neutral);
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--duration-fast);
+}
+
+.goal-builder__back-btn:hover {
+  background-color: rgba(39, 38, 36, 0.05);
+}
+
+.goal-builder__back-icon {
+  font-size: 20px;
+  color: var(--dark-neutral);
+}
+
+/* Modal styles */
+.goal-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(39, 38, 36, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-horizontal);
+  z-index: 100;
+}
+
+.goal-modal {
+  background-color: var(--light-neutral);
+  border-radius: var(--radius-card);
+  padding: var(--space-lg);
+  max-width: 400px;
+  width: 100%;
+}
+
+.goal-modal__title {
+  font-size: var(--heading);
+  font-weight: var(--font-bold);
+  color: var(--dark-neutral);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.goal-modal__text {
+  font-size: var(--body);
+  color: var(--dark-neutral);
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: var(--space-lg);
+}
+
+.goal-modal__field {
+  margin-bottom: var(--space-md);
+}
+
+.goal-modal__field label {
+  display: block;
+  font-size: var(--label);
+  font-weight: var(--font-medium);
+  color: var(--dark-neutral);
+  margin-bottom: var(--space-xs);
+}
+
+.goal-modal__field input,
+.goal-modal__field textarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: var(--body);
+  font-family: var(--font-family);
+  color: var(--dark-neutral);
+  background-color: white;
+  border: 2px solid rgba(39, 38, 36, 0.2);
+  border-radius: var(--radius-input);
+  transition: border-color var(--duration-fast);
+}
+
+.goal-modal__field input:focus,
+.goal-modal__field textarea:focus {
+  outline: none;
+  border-color: var(--purpose);
+}
+
+.goal-modal__field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.goal-modal__buttons {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.goal-modal__buttons > * {
+  flex: 1;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: var(--dark-neutral);
+  font-size: 14px;
+  opacity: 0.6;
+  animation: bounce 2s infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.scroll-indicator p {
+  margin-bottom: 4px;
+}
+
+.scroll-indicator__chevron {
+  width: 24px;
+  height: 24px;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-10px); }
+  60% { transform: translateX(-50%) translateY(-5px); }
+}

@@ -1,0 +1,73 @@
+/* Growth Plan Builder - Design System Variables */
+
+:root {
+  /* Neutrals */
+  --light-neutral: #F4F2EE;
+  --dark-neutral: #272624;
+
+  /* Dimension Colors (Primary) */
+  --faith: #d66b4a;
+  --relationships: #e69c5a;
+  --finances: #dfbd60;
+  --health: #83a672;
+  --purpose: #409083;
+  --character: #326565;
+  --contentment: #283d49;
+
+  /* Dimension Colors (Darker Variants - for gradients) */
+  --faith-dark: #c74c26;
+  --relationships-dark: #e67e21;
+  --finances-dark: #dcac2a;
+  --health-dark: #6a8d58;
+  --purpose-dark: #377e72;
+  --character-dark: #2d5b5b;
+  --contentment-dark: #243742;
+
+  /* Typography */
+  --font-family: "neue-haas-grotesk-display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  
+  /* Font Sizes */
+  --dimension-name-large: 56px;
+  --score-value: 48px;
+  --heading: 22px;
+  --body: 20px;
+  --label: 18px;
+  --button: 18px;
+  --small: 16px;
+
+  /* Font Weights */
+  --font-medium: 500;
+  --font-bold: 700;
+  --font-black: 900;
+
+  /* Letter Spacing */
+  --letter-spacing-condensed: -0.02em;
+
+  /* Spacing */
+  --padding-horizontal: 24px;
+  --padding-vertical: 32px;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+
+  /* Border Radius */
+  --radius-button: 24px;
+  --radius-card: 16px;
+  --radius-input: 8px;
+
+  /* Button Specifications */
+  --button-height: 56px;
+  --button-padding: 0 32px;
+
+  /* Transitions */
+  --timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+
+  /* Gradients */
+  --gradient-home: linear-gradient(180deg, #2A9D8F 0%, #264653 100%);
+  --gradient-growth-plan-header: linear-gradient(180deg, #409083 0%, #326565 100%);
+}

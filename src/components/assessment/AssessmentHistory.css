@@ -1,0 +1,102 @@
+.assessment-history {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light-neutral);
+  padding: var(--padding-horizontal);
+}
+
+.assessment-history__header {
+  text-align: center;
+  padding-top: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.assessment-history__title {
+  font-size: 28px;
+  font-weight: var(--font-black);
+  color: var(--dark-neutral);
+  margin-bottom: var(--space-xs);
+}
+
+.assessment-history__subtitle {
+  font-size: var(--small);
+  color: var(--dark-neutral);
+  opacity: 0.6;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.assessment-history__empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dark-neutral);
+  opacity: 0.6;
+}
+
+.assessment-history__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+}
+
+.assessment-history__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-md);
+  background-color: white;
+  border: 1px solid rgba(39, 38, 36, 0.1);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.assessment-history__item:hover {
+  background-color: rgba(64, 144, 131, 0.05);
+  border-color: var(--purpose);
+}
+
+.assessment-history__item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.assessment-history__date {
+  font-size: var(--body);
+  font-weight: var(--font-bold);
+  color: var(--dark-neutral);
+}
+
+.assessment-history__avg {
+  font-size: var(--small);
+  color: var(--purpose);
+  font-weight: var(--font-medium);
+}
+
+.assessment-history__arrow {
+  font-size: 20px;
+  color: var(--purpose);
+  opacity: 0.6;
+}
+
+.assessment-history__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 320px;
+  margin: var(--space-lg) auto;
+  width: 100%;
+}
