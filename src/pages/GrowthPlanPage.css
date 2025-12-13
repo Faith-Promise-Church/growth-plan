@@ -29,17 +29,20 @@
   box-shadow: 0 4px 24px rgba(0,0,0,0.1);
 }
 
-.growth-plan-menu__title {
-  font-size: 32px;
-  font-weight: var(--font-black);
-  color: var(--dark-neutral);
-  margin-bottom: var(--space-md);
+/* Logo replaces text title */
+.growth-plan-menu__logo {
+  width: 180px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  /* No margin-bottom - description provides spacing */
 }
 
 .growth-plan-menu__description {
   font-size: var(--body);
   color: var(--dark-neutral);
   opacity: 0.8;
+  margin-top: var(--space-md);
   margin-bottom: var(--space-xl);
   line-height: 1.5;
 }

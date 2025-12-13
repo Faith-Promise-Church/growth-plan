@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../utils/AuthContext';
 import { supabase } from '../utils/supabaseClient';
 import { DIMENSIONS, DIMENSION_ORDER } from '../utils/dimensionData';
+import { generateGrowthPlanPDF } from '../utils/pdfExport';
 import YearSelector from '../components/growthplan/YearSelector';
 import DimensionSplashSequence from '../components/growthplan/DimensionSplashSequence';
 import GoalBuilder from '../components/growthplan/GoalBuilder';
@@ -15,12 +16,12 @@ import './GrowthPlanPage.css';
 
 export default function GrowthPlanPage() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   
   // View states: 'menu' | 'year-select' | 'workflow-select' | 'walk-through' | 
   //              'choose-dimensions' | 'splash-sequence' | 'builder' | 'view' | 'completion'
   const [view, setView] = useState('menu');
-  const [mode, setMode] = useState(null); // 'create' | 'view' | 'edit'
+  const [mode, setMode] = useState(null); // 'create' | 'view' | 'edit' | 'export'
   const [selectedYear, setSelectedYear] = useState(null);
   const [workflowType, setWorkflowType] = useState(null); // 'walk-through' | 'choose'
   const [currentDimensionIndex, setCurrentDimensionIndex] = useState(0);
@@ -156,6 +157,40 @@ export default function GrowthPlanPage() {
         setMode('create');
         setView('workflow-select');
       }
+    } else if (mode === 'export') {
+      if (plan) {
+        // Need to fetch goals fresh since existingGoals state may not be updated yet
+        try {
+          const { data: goals, error: goalsError } = await supabase
+            .from('goals')
+            .select('*')
+            .eq('growth_plan_id', plan.id)
+            .order('sort_order');
+
+          if (goalsError) throw goalsError;
+
+          // Group goals by dimension
+          const groupedGoals = {};
+          goals?.forEach(goal => {
+            if (!groupedGoals[goal.dimension]) {
+              groupedGoals[goal.dimension] = [];
+            }
+            groupedGoals[goal.dimension].push(goal);
+          });
+
+          // Trigger PDF export with freshly fetched goals
+          handleExportPDF(year, groupedGoals);
+        } catch (err) {
+          console.error('Error fetching goals for export:', err);
+          alert('Error loading goals for export. Please try again.');
+        }
+        setView('menu');
+        setSelectedYear(null);
+      } else {
+        alert(`No plan found for ${year}. Create one first.`);
+        setView('menu');
+        setSelectedYear(null);
+      }
     }
 
     setLoading(false);
@@ -174,6 +209,34 @@ export default function GrowthPlanPage() {
 
   const handleSplashComplete = () => {
     setView('builder');
+  };
+
+  // PDF Export handler - generates and downloads PDF
+  const handleExportPDF = async (year, goals) => {
+    try {
+      console.log('Generating PDF for year:', year);
+      
+      // Get user's first name from auth context or profile
+      const firstName = profile?.first_name || user?.user_metadata?.first_name || 'User';
+      
+      // Prepare data for PDF
+      const planData = {
+        year: year,
+        goals: goals
+      };
+      
+      const userData = {
+        firstName: firstName
+      };
+      
+      // Generate and download PDF
+      const filename = await generateGrowthPlanPDF(planData, userData);
+      console.log('PDF generated successfully:', filename);
+      
+    } catch (error) {
+      console.error('PDF export failed:', error);
+      alert('Failed to generate PDF. Please try again.');
+    }
   };
 
   const handleBuilderComplete = async (goals) => {
@@ -380,6 +443,7 @@ export default function GrowthPlanPage() {
               setMode('edit');
               setView('choose-dimensions');
             }}
+            onExportPDF={() => handleExportPDF(selectedYear, existingGoals)}
           />
         );
 
@@ -428,7 +492,12 @@ export default function GrowthPlanPage() {
             animate={{ opacity: 1, y: 0 }}
           >
             <div className="growth-plan-menu__container">
-              <h1 className="growth-plan-menu__title">Growth Plan</h1>
+              {/* Logo replaces text title */}
+              <Logo
+                type="app"
+                appLogo="growth-plan-dark"
+                className="growth-plan-menu__logo"
+              />
               <p className="growth-plan-menu__description">
                 Create a plan to grow in every area of your life.
               </p>
@@ -460,6 +529,16 @@ export default function GrowthPlanPage() {
                   title={!hasPlans ? 'Create a plan first' : ''}
                 >
                   Edit My Growth Plan
+                </Button>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  onClick={() => handleModeSelect('export')}
+                  disabled={!hasPlans}
+                  className={!hasPlans ? 'disabled' : ''}
+                  title={!hasPlans ? 'Create a plan first' : ''}
+                >
+                  Export Plan as PDF
                 </Button>
                 <Button
                   variant="outlined"
