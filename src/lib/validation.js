@@ -115,18 +115,3 @@ export function clearRateLimitOnSuccess(phoneNumber) {
     // Ignore errors
   }
 }
-
-// Sanitize user input to prevent XSS
-export function sanitizeInput(input) {
-  if (typeof input !== 'string') return input;
-  return input
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
-
-// Trim and normalize text
-export function normalizeText(text) {
-  return text?.trim() || '';
-}
