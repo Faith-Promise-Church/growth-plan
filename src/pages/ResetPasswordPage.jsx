@@ -1,179 +1,66 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { supabase } from '../utils/supabaseClient';
-import { validatePassword, passwordsMatch } from '../utils/validation';
-import Input from '../components/shared/Input';
-import Button from '../components/shared/Button';
-import Logo from '../components/shared/Logo';
-import './LoginPage.css';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { supabase } from '../data/client.js';
+import { validatePassword } from '../lib/validation.js';
+import { Button, Field, Banner } from '../components/ui/index.jsx';
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [confirm, setConfirm] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [ready, setReady] = useState(null);
+  const [done, setDone] = useState(false);
+  const pw = validatePassword(password);
 
-  const passwordValidation = validatePassword(password);
-  const doPasswordsMatch = passwordsMatch(password, confirmPassword);
-
-  // Check if we have a valid session from the reset link
   useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        setError('Invalid or expired reset link. Please request a new password reset.');
-      }
-    };
-    checkSession();
+    supabase.auth.getSession().then(({ data }) => setReady(Boolean(data?.session)));
   }, []);
 
-  const handleSubmit = async (e) => {
+  async function submit(e) {
     e.preventDefault();
+    if (!pw.isValid) return setError('Use at least 8 characters with a capital letter and a number.');
+    if (password !== confirm) return setError('The two passwords do not match.');
     setError('');
-
-    if (!passwordValidation.isValid) {
-      setError('Password does not meet all requirements');
-      return;
-    }
-
-    if (!doPasswordsMatch) {
-      setError('Passwords do not match');
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const { error: updateError } = await supabase.auth.updateUser({
-        password: password
-      });
-
-      if (updateError) throw updateError;
-
-      setSuccess(true);
-      
-      // Redirect to login after 2 seconds
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
-    } catch (err) {
-      console.error('Password reset error:', err);
-      setError(err.message || 'Failed to reset password. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+    const { error: err } = await supabase.auth.updateUser({ password });
+    if (err) return setError('Your password was not changed. Request a new reset link and try again.');
+    setDone(true);
+  }
 
   return (
-    <div className="login-page">
-      <header className="login-page__header">
-        <Logo 
-          type="app"
-          appLogo="growth-plan-builder-dark"
-          size={180}
-          className="login-page__logo"
-        />
-      </header>
-
-      <main className="login-page__content">
-        {success ? (
-          <motion.div 
-            className="reset-success"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-          >
-            <div className="reset-success__icon">✓</div>
-            <h2>Password Reset Successfully!</h2>
-            <p>Redirecting to login...</p>
-          </motion.div>
-        ) : (
-          <motion.form 
-            className="login-form"
-            onSubmit={handleSubmit}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <h2 className="login-form__title">Reset Your Password</h2>
-            <p style={{ marginBottom: '24px', opacity: 0.8 }}>
-              Enter your new password below.
-            </p>
-            
-            <Input
-              type="password"
-              label="New Password"
-              value={password}
-              onChange={setPassword}
-              placeholder="Create a new password"
-              autoComplete="new-password"
-              showPasswordToggle
-              required
-            />
-
-            <div className="signup-form__requirements">
-              <div className={`requirement ${passwordValidation.requirements.minLength ? 'met' : ''}`}>
-                <span className="requirement__icon">{passwordValidation.requirements.minLength ? '✓' : '○'}</span>
-                At least 8 characters
-              </div>
-              <div className={`requirement ${passwordValidation.requirements.hasUppercase ? 'met' : ''}`}>
-                <span className="requirement__icon">{passwordValidation.requirements.hasUppercase ? '✓' : '○'}</span>
-                At least 1 uppercase letter
-              </div>
-              <div className={`requirement ${passwordValidation.requirements.hasNumber ? 'met' : ''}`}>
-                <span className="requirement__icon">{passwordValidation.requirements.hasNumber ? '✓' : '○'}</span>
-                At least 1 number
-              </div>
-            </div>
-
-            <Input
-              type="password"
-              label="Confirm Password"
-              value={confirmPassword}
-              onChange={setConfirmPassword}
-              placeholder="Confirm your new password"
-              autoComplete="new-password"
-              showPasswordToggle
-              required
-            />
-
-            {confirmPassword && (
-              <div className={`signup-form__match ${doPasswordsMatch ? 'match' : 'no-match'}`}>
-                {doPasswordsMatch ? '✓ Passwords match' : '✗ Passwords do not match'}
-              </div>
-            )}
-
-            {error && (
-              <motion.div 
-                className="login-form__error"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-              >
-                {error}
-              </motion.div>
-            )}
-
-            <Button 
-              type="submit" 
-              variant="primary"
-              fullWidth 
-              disabled={loading || !passwordValidation.isValid || !doPasswordsMatch}
-            >
-              {loading ? 'Resetting...' : 'Reset Password'}
+    <div className="auth-page">
+      <div className="auth-card">
+        <img className="auth-card__logo" src="/assets/logos/growth-plan-builder-dark.png" alt="Growth Plan Builder" width="120" height="158" />
+        <h1 className="auth-card__title">Choose a new password</h1>
+        {done ? (
+          <div className="stack">
+            <Banner tone="success">Your password is changed.</Banner>
+            <Button block onClick={() => navigate('/home')}>
+              Go to my plan
             </Button>
-
-            <button 
-              type="button"
-              className="login-form__forgot"
-              onClick={() => navigate('/login')}
-            >
-              Back to Login
-            </button>
-          </motion.form>
+          </div>
+        ) : ready === false ? (
+          <div className="stack">
+            <Banner tone="error">This reset link has expired or was already used. Request a new one from the log in page.</Banner>
+            <Link className="btn btn--secondary btn--block" to="/login">
+              Back to log in
+            </Link>
+          </div>
+        ) : (
+          <form className="stack" onSubmit={submit} noValidate>
+            <Field label="New password" hint="At least 8 characters, with a capital letter and a number.">
+              {(a) => <input {...a} className="input" type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} />}
+            </Field>
+            <Field label="Type it again">
+              {(a) => <input {...a} className="input" type="password" autoComplete="new-password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />}
+            </Field>
+            {error ? <Banner tone="error">{error}</Banner> : null}
+            <Button type="submit" block disabled={ready === null}>
+              Save my new password
+            </Button>
+          </form>
         )}
-      </main>
+      </div>
     </div>
   );
 }
