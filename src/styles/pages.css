@@ -373,6 +373,7 @@
 }
 
 .table-scroll {
+  position: relative;
   width: 100%;
   overflow-x: auto;
 }
@@ -940,9 +941,3 @@
   width: 100%;
 }
 
-@media (max-width: 640px) {
-  .page--admin .data-table {
-    display: block;
-    overflow-x: auto;
-  }
-}

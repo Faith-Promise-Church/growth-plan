@@ -95,7 +95,7 @@ export default function HomePage() {
           <Button to={step.to}>{step.label}</Button>
         </Card>
 
-        {offersNextYear() && !hasNextYearPlan ? (
+        {offersNextYear() && data.plan && !hasNextYearPlan ? (
           <Card className="row-card">
             <div>
               <h2 className="card__title">{`Start your ${nextYear} plan`}</h2>

@@ -80,6 +80,27 @@
   break-inside: avoid;
 }
 
+@media screen and (max-width: 640px) {
+  .print-sheet {
+    padding: var(--space-5);
+  }
+  .print-sheet__header {
+    flex-direction: column;
+  }
+  .print-sheet__title,
+  .print-sheet__name {
+    text-align: left;
+  }
+  .print-sheet__header img {
+    width: 160px;
+  }
+}
+
+.print-sheet__title,
+.print-sheet__name {
+  overflow-wrap: anywhere;
+}
+
 .print-sheet__footer {
   margin-top: 0.3in;
   font-size: 9pt;

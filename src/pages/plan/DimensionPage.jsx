@@ -141,7 +141,7 @@ export default function DimensionPage() {
   }
 
   return (
-    <div className="page page--wide" style={{ '--dim': `var(--${dimension})`, '--dim-ink': `var(--${dimension}-ink)`, '--dim-on': `var(--${dimension}-on)` }}>
+    <div className="page" style={{ '--dim': `var(--${dimension})`, '--dim-ink': `var(--${dimension}-ink)`, '--dim-on': `var(--${dimension}-on)` }}>
       <div className="page-main">
         <Link className="page-header__back" to={`/plan/${year}`}>
           <span aria-hidden="true">←</span> {`${year} plan`}
@@ -156,10 +156,12 @@ export default function DimensionPage() {
             <span className="muted">Flourishing</span>
             <strong>{scores?.flourishing != null ? formatScore(scores.flourishing) : 'Not measured'}</strong>
           </div>
-          <div>
-            <span className="muted">Habits</span>
-            <strong>{scores?.habit != null ? formatScore(scores.habit) : 'Not measured'}</strong>
-          </div>
+          {scores?.habit != null ? (
+            <div>
+              <span className="muted">Habits</span>
+              <strong>{formatScore(scores.habit)}</strong>
+            </div>
+          ) : null}
           {read ? <p className="read">{read.label}</p> : null}
         </div>
 

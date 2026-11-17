@@ -421,7 +421,7 @@ export const PRACTICES = [
     steady: s('Read one verse slowly three times and pray it', 'few-weekly'),
     stretch: s('Choose a verse for the week and pray it each morning', 'daily'),
   }),
-  practice('living-simply', 'contentment', 'Living simply', {
+  practice('living-simply', 'contentment', 'Living with less', {
     legacyNames: ['Decluttering/Living Simply'],
     why: 'Less clutter leaves more room for what matters.',
     small: s('Clear one drawer or shelf', 'weekly'),

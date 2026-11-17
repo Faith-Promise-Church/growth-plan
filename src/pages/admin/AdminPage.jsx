@@ -120,6 +120,7 @@ export default function AdminPage() {
               <Card>
                 <h2 className="card__title">Average answer by question</h2>
                 <p className="muted">{`From ${data.questions?.responses ?? 0} assessments.`}</p>
+                <div className="table-scroll">
                 <table className="data-table">
                   <thead>
                     <tr>
@@ -141,6 +142,7 @@ export default function AdminPage() {
                     )}
                   </tbody>
                 </table>
+                </div>
               </Card>
               <p className="muted">
                 <Link to="/home">Back to the app</Link>

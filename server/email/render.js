@@ -11,7 +11,7 @@ export const FOOTER_REASON =
   'You are getting this because you signed up for monthly check-ins in the Growth Plan Builder.';
 export const MAX_HABITS_IN_EMAIL = 5;
 
-const FONT = '"Helvetica Neue", Helvetica, Arial, sans-serif';
+const FONT = "'Helvetica Neue', Helvetica, Arial, sans-serif";
 const C = {
   page: '#F4F2EE',
   card: '#ffffff',
@@ -122,7 +122,7 @@ export function renderCheckinEmail({ edition, period, recipient, urls, preview =
   }
 
   const logo = isHttpsUrl(urls.logo)
-    ? `<img src="${escapeHtml(urls.logo)}" width="200" height="35" alt="Growth Plan Builder" style="display:block;width:200px;max-width:200px;height:auto;border:0;">`
+    ? `<img src="${escapeHtml(urls.logo)}" width="200" height="35" alt="Growth Plan Builder" style="display:block;width:200px;max-width:200px;height:auto;border:0;color:#ffffff;font-family:${FONT};font-size:18px;font-weight:bold;">`
     : `<span style="font-family:${FONT};font-size:20px;font-weight:bold;color:${C.brandOn};">Growth Plan Builder</span>`;
 
   const footer = [

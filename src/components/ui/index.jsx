@@ -152,6 +152,7 @@ export function Stepper({ current, total, label }) {
       <div
         className="stepper__bar"
         role="progressbar"
+        aria-label={label ?? 'Progress'}
         aria-valuemin={1}
         aria-valuemax={total}
         aria-valuenow={current}

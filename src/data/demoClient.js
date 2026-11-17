@@ -79,6 +79,8 @@ export function createDemoClient() {
     }
   }
 
+  if (hasStorage() && !localStorage.getItem(DB_KEY)) persist();
+
   function emit(event) {
     for (const fn of listeners) fn(event, session);
   }

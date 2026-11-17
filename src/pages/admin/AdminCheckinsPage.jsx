@@ -103,6 +103,7 @@ export default function AdminCheckinsPage() {
           {content.error ? <Banner tone="error">{content.error.message}</Banner> : null}
           {stats.error ? <Banner tone="error">{stats.error.message}</Banner> : null}
           <Card>
+            <div className="table-scroll">
             <table className="data-table">
               <thead>
                 <tr>
@@ -138,6 +139,7 @@ export default function AdminCheckinsPage() {
                 })}
               </tbody>
             </table>
+            </div>
           </Card>
           {open ? (
             <Card>
