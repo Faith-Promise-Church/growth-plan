@@ -121,3 +121,22 @@ decided and why, so it can be reversed on purpose.
   type. Selected states use the `--{dim}-ink` fill with white text, which passes 4.5:1.
 - **Primary buttons use Character teal (`#326565`) with white text.** The header gradient teal
   (`#2A9D8F`) fails 4.5:1 with white.
+
+## 2026-11-17: after the independent review
+
+- **A send that may have reached SendGrid is never retried automatically.** `send_started_at` is set
+  just before the request; only a clear "no" from SendGrid (an error status) clears it. If recording
+  "sent" fails afterward, the row stays as it is and the summary counts it as unconfirmed.
+- **Timeouts are still retried**, because the brief asks for timeouts to be retried up to three times.
+  A 15-second timeout before SendGrid answers almost always means it was not accepted, but it is
+  possible for one person to get a second email in that rare case. Reverse by making timeouts
+  permanent in `server/sendgrid.js` (`retryable: false` for `AbortError`).
+- **A missed 8 AM run is made up within three days.** If a later call finds nothing queued for the
+  month, it queues and sends then.
+- **The lockdown keeps owner policies that also mention the admin check**, adds owner read policies as
+  a safety net, and refuses to finish if owner write policies are missing.
+- **The signup trigger function is `growth_plan_handle_new_user`**, so it cannot replace a
+  `handle_new_user` that may already exist.
+- **The check-in token response is trimmed** to first name, focus areas and each habit's id, area and
+  sentence. Signed-in sessions also get the plan year and their saved answers.
+- **Habit autosaves run one at a time, in order**, and flush only when the editor closes or unmounts.

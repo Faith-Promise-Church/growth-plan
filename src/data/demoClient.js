@@ -222,7 +222,10 @@ export function createDemoClient() {
           if (!r.monthly_checkin && r.opted_in_at) r.opted_out_at = new Date().toISOString();
         }
       }
-      if (this.op !== 'select') persist();
+      if (this.op !== 'select') {
+        persist();
+        if (typeof window !== 'undefined') window.__demoWrites = (window.__demoWrites ?? 0) + 1;
+      }
 
       for (const [c, asc] of [...this.orders].reverse()) {
         result = [...result].sort((a, b) => {

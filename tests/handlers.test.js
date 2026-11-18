@@ -36,8 +36,8 @@ describe('check-in endpoints', () => {
     const body = await res.json();
     expect(body.firstName).toBe('Alice');
     expect(body.habits.length).toBe(3);
-    expect(Object.keys(body).sort()).toEqual(['firstName', 'focus', 'habits', 'monthLabel', 'period', 'planYear', 'via']);
-    expect(Object.keys(body.habits[0]).sort()).toEqual(['dimension', 'id', 'practice_key', 'sentence', 'status']);
+    expect(Object.keys(body).sort()).toEqual(['firstName', 'focus', 'habits', 'monthLabel', 'period', 'via']);
+    expect(Object.keys(body.habits[0]).sort()).toEqual(['dimension', 'id', 'sentence']);
     expect(JSON.stringify(body)).not.toContain('@');
   });
 

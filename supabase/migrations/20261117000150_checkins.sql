@@ -143,6 +143,9 @@ create table if not exists public.checkin_sends (
   sent_at timestamptz,
   claimed_at timestamptz,
   claim_id uuid,
+  -- Set just before the request to SendGrid. A row with this set and no result is never sent
+  -- again automatically, because SendGrid may already have accepted it.
+  send_started_at timestamptz,
   created_at timestamptz not null default now(),
   constraint checkin_sends_period_user_key unique (period, user_id),
   constraint checkin_sends_status_check check (status in ('queued', 'sent', 'failed', 'skipped'))
@@ -176,7 +179,7 @@ end;
 $$;
 
 -- Claim a batch to send. A row can be claimed when it is queued or failed with
--- fewer than three attempts and no live claim. Rows for people who have opted
+-- fewer than three attempts, no live claim, and no send in progress or of unknown outcome. Rows for people who have opted
 -- out since they were queued are marked skipped and never sent.
 create or replace function public.claim_checkin_sends(
   p_period date,
@@ -195,6 +198,7 @@ begin
   set status = 'skipped', error = 'opted out or no address', claimed_at = null, claim_id = null
   where s.period = p_period
     and s.status in ('queued', 'failed')
+    and s.send_started_at is null
     and (s.claimed_at is null or s.claimed_at < now() - make_interval(secs => p_lease_seconds))
     and not exists (
       select 1 from public.email_preferences ep
@@ -210,6 +214,7 @@ begin
     where c.period = p_period
       and c.status in ('queued', 'failed')
       and c.attempts < 3
+      and c.send_started_at is null
       and (c.claimed_at is null or c.claimed_at < now() - make_interval(secs => p_lease_seconds))
     order by c.created_at, c.id
     limit greatest(1, least(p_limit, 200))

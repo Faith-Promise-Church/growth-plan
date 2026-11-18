@@ -164,6 +164,10 @@ export async function runMonthlyCheckin({ now, db, mailer, env, dry = false, onR
         text: `There was no check-in content for ${period}, so this month's email used the evergreen edition. Add next month's content in the admin page under Check-ins.`,
       });
     }
+  } else if (!(await db.periodHasRows(period))) {
+    // The send-hour run never happened (a missed cron). Queue now so the month is not lost.
+    summary.enqueued = await db.enqueue(period);
+    summary.lateStart = true;
   } else {
     const remaining = await db.countUnfinished(period);
     if (remaining === 0) {
@@ -197,10 +201,25 @@ export async function runMonthlyCheckin({ now, db, mailer, env, dry = false, onR
           return;
         }
         const { payload } = buildMessage({ env, edition, period, bundle });
+        // Mark the row before calling SendGrid. If anything goes wrong after this point, the
+        // row is never sent again automatically, because the email may already be on its way.
+        if (!(await db.markSending(row.id, claimId))) {
+          summary.skipped += 1;
+          return;
+        }
         const res = await mailer.send(payload);
         if (res.ok) {
-          await db.markSent(row.id, claimId);
+          let recorded = false;
+          for (let i = 0; i < 3 && !recorded; i += 1) {
+            try {
+              await db.markSent(row.id, claimId);
+              recorded = true;
+            } catch (err) {
+              log('could not record a sent email; it will not be resent', { error: err?.message });
+            }
+          }
           summary.sent += 1;
+          if (!recorded) summary.unconfirmed = (summary.unconfirmed ?? 0) + 1;
         } else {
           await db.markFailed(row.id, claimId, res.error ?? `status ${res.status}`, !res.retryable);
           summary.failed += 1;

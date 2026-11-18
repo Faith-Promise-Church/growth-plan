@@ -104,6 +104,7 @@ async function main() {
       public.email_preferences_stamp(), public.checkin_responses_valid(jsonb) cascade;
     drop trigger if exists growth_plan_on_auth_user_created on auth.users;
     drop function if exists public.handle_new_user() cascade;
+    drop function if exists public.growth_plan_handle_new_user() cascade;
     delete from auth.users;
   `);
   psqlFile(`${HERE}baseline.sql`);
@@ -226,6 +227,7 @@ async function main() {
   // Rows added by the rehearsal's own v1 flows are the only difference from the original checksum.
   record('rehearsal', 'assessments and plans byte-identical from seed to lockdown', before.assessments === afterLockdown.assessments && before.growth_plans === afterLockdown.growth_plans);
 
+  record('after lockdown', 'an owner policy written as "owner OR admin" is kept', psql(`select count(*) from pg_policies where tablename = 'goals' and policyname = 'Users can view own goals'`) === '1');
   {
     const a = anon();
     const { data, error } = await a.from('user_profiles').select('email').eq('phone', '865-111-0001');

@@ -155,6 +155,27 @@ test.describe('rough conditions', () => {
     expect(db.goals.some((g) => g.goal_text.startsWith('Put my phone in the kitchen before bed'))).toBe(true);
   });
 
+  test('autosave settles: typing during a save does not start a save loop, and the last text wins', async ({ page }) => {
+    await login(page, 'grace');
+    await page.evaluate(() => localStorage.setItem('gp-demo-latency', '300'));
+    await page.goto('/plan/2026/health');
+    await page.locator('.habit').first().getByRole('button', { name: 'Edit' }).click();
+    const what = page.locator('.habit-editor').getByLabel('What I will do');
+    await what.fill('First version');
+    await page.waitForTimeout(700); // autosave starts
+    await what.fill('Second version');
+    await page.waitForTimeout(150);
+    await what.fill('Final version');
+    await page.waitForTimeout(2500);
+    const settled = await page.evaluate(() => window.__demoWrites ?? 0);
+    await page.waitForTimeout(2500);
+    expect(await page.evaluate(() => window.__demoWrites ?? 0)).toBe(settled);
+    expect(settled).toBeLessThanOrEqual(4);
+    const db = await demoDb(page);
+    expect(db.goals.some((g) => g.goal_text.startsWith('Final version'))).toBe(true);
+    expect(db.goals.some((g) => g.goal_text.startsWith('Second version'))).toBe(false);
+  });
+
   test('the final assessment save keeps the draft and offers a retry when offline', async ({ page, context }) => {
     await login(page, 'nora');
     await page.goto('/assessment/take/1');

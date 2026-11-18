@@ -27,7 +27,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['server/**/*.js', 'api/**/*.js', 'scripts/**/*.js', 'tests/**/*.{js,jsx}', 'e2e/**/*.js', '*.config.js'],
+    files: ['server/**/*.js', 'api/**/*.js', 'scripts/**/*.js', 'supabase/tests/**/*.js', 'tests/**/*.{js,jsx}', 'e2e/**/*.js', '*.config.js'],
     languageOptions: {
       globals: { ...globals.node, ...globals.browser },
     },

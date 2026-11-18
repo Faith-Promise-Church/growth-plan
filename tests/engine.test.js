@@ -23,7 +23,7 @@ describe('monthly check-in engine', () => {
   it('does nothing outside a send, preview or resume window', async () => {
     const { db } = setup(2);
     const mailer = createFakeMailer();
-    const res = await runMonthlyCheckin({ now: new Date('2026-12-08T13:00:00Z'), db, mailer, env: TEST_ENV });
+    const res = await runMonthlyCheckin({ now: new Date('2026-12-14T13:00:00Z'), db, mailer, env: TEST_ENV });
     expect(res.action).toBe('none');
     expect(mailer.calls).toBe(0);
   });
@@ -208,5 +208,30 @@ describe('monthly check-in engine', () => {
     expect(p.tracking_settings.open_tracking.enable).toBe(false);
     expect(p.subject).toBe('Your December check-in: look back, look ahead');
     expect(p.reply_to.email).toBe('hello@example.org');
+  });
+
+  it('a sent email whose result cannot be recorded is never sent again', async () => {
+    const { db, advance } = setup(5);
+    db.failNextMarkSent = 3; // the first recipient's three attempts to record "sent" all fail
+    const mailer = createFakeMailer();
+    const first = await runMonthlyCheckin({ now: SEND, db, mailer, env: TEST_ENV, options: { concurrency: 1 } });
+    expect(first.unconfirmed).toBe(1);
+    for (let i = 1; i <= 3; i += 1) {
+      advance(12 * 3600_000);
+      await runMonthlyCheckin({ now: new Date(SEND.getTime() + i * 12 * 3600_000), db, mailer, env: TEST_ENV });
+    }
+    const to = sentTo(mailer);
+    expect(to.length).toBe(5);
+    expect(new Set(to).size).toBe(5);
+  });
+
+  it('a missed send-hour run is made up later the same day', async () => {
+    const { db } = setup(4);
+    const mailer = createFakeMailer();
+    // No run at 8 AM. The 9 AM (13:00 UTC in summer would be 9 AM) call finds no rows and starts late.
+    const res = await runMonthlyCheckin({ now: new Date(SEND.getTime() + 3600_000), db, mailer, env: TEST_ENV });
+    expect(res.action).toBe('resume');
+    expect(res.lateStart).toBe(true);
+    expect(res.sent).toBe(4);
   });
 });

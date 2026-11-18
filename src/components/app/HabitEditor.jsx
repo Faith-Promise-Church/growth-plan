@@ -71,25 +71,50 @@ export default function HabitEditor({ goal, initialDraft, isNew = false, onSaved
     [practice],
   );
 
+  // Saves run one after another, in the order they were asked for, so an older save can never
+  // land after a newer one. The latest onSaved is read from a ref so a parent re-render never
+  // re-runs anything.
+  const queue = useRef(Promise.resolve());
+  const onSavedRef = useRef(onSaved);
+  const mounted = useRef(true);
+  useEffect(() => {
+    onSavedRef.current = onSaved;
+  }, [onSaved]);
+
   const persist = useCallback(
-    async (d) => {
-      if (!d.what.trim()) return false;
-      setStatus('saving');
-      setError('');
-      try {
-        const row = await saveGoal(buildRow(d));
-        latestGoal.current = { ...latestGoal.current, ...row };
-        setStatus('saved');
-        onSaved?.(row);
-        return true;
-      } catch {
-        setStatus('error');
-        setError('Your change was not saved. Your text is still here.');
-        return false;
-      }
+    (d) => {
+      if (!d.what.trim()) return Promise.resolve(false);
+      const row = buildRow(d);
+      const run = async () => {
+        if (mounted.current) {
+          setStatus('saving');
+          setError('');
+        }
+        try {
+          const savedRow = await saveGoal(row);
+          latestGoal.current = { ...latestGoal.current, ...savedRow };
+          if (mounted.current) setStatus('saved');
+          onSavedRef.current?.(savedRow);
+          return true;
+        } catch {
+          if (mounted.current) {
+            setStatus('error');
+            setError('Your change was not saved. Your text is still here.');
+          }
+          return false;
+        }
+      };
+      const next = queue.current.then(run, run);
+      queue.current = next;
+      return next;
     },
-    [buildRow, onSaved],
+    [buildRow],
   );
+
+  const persistRef = useRef(persist);
+  useEffect(() => {
+    persistRef.current = persist;
+  }, [persist]);
 
   // Debounced autosave once the habit exists.
   function change(patch) {
@@ -99,8 +124,9 @@ export default function HabitEditor({ goal, initialDraft, isNew = false, onSaved
         pending.current = next;
         clearTimeout(timer.current);
         timer.current = setTimeout(() => {
+          const toSave = pending.current;
           pending.current = null;
-          persist(next);
+          if (toSave) persistRef.current(toSave);
         }, AUTOSAVE_MS);
         setStatus('editing');
       }
@@ -108,14 +134,17 @@ export default function HabitEditor({ goal, initialDraft, isNew = false, onSaved
     });
   }
 
-  // Flush on unmount.
-  useEffect(
-    () => () => {
+  // Flush on unmount only.
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
       clearTimeout(timer.current);
-      if (pending.current) persist(pending.current);
-    },
-    [persist],
-  );
+      const toSave = pending.current;
+      pending.current = null;
+      if (toSave) persistRef.current(toSave);
+    };
+  }, []);
 
   async function add() {
     if (!draft.what.trim()) {
@@ -127,11 +156,9 @@ export default function HabitEditor({ goal, initialDraft, isNew = false, onSaved
 
   function close() {
     clearTimeout(timer.current);
-    if (pending.current) {
-      const d = pending.current;
-      pending.current = null;
-      persist(d);
-    }
+    const toSave = pending.current;
+    pending.current = null;
+    if (toSave) persist(toSave);
     onClose?.();
   }
 

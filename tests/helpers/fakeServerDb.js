@@ -87,7 +87,7 @@ export function createFakeServerDb({ clock = () => Date.now() } = {}) {
       const rows = [];
       for (const s of t.sends) {
         if (rows.length >= limit) break;
-        if (s.period !== period || !['queued', 'failed'].includes(s.status) || !leaseOk(s)) continue;
+        if (s.period !== period || !['queued', 'failed'].includes(s.status) || s.send_started_at || !leaseOk(s)) continue;
         const pref = t.prefs.find((p) => p.user_id === s.user_id);
         const prof = t.profiles.find((p) => p.id === s.user_id);
         if (!pref?.monthly_checkin || !(pref.email || prof?.email)) {
@@ -108,7 +108,21 @@ export function createFakeServerDb({ clock = () => Date.now() } = {}) {
       await tick();
       return out;
     },
+    failNextMarkSent: 0,
+    async markSending(id, claimId) {
+      const s = t.sends.find((x) => x.id === id && x.claim_id === claimId && !x.send_started_at);
+      if (s) s.send_started_at = clock();
+      await tick();
+      return Boolean(s);
+    },
+    async periodHasRows(period) {
+      return t.sends.some((s) => s.period === period);
+    },
     async markSent(id, claimId) {
+      if (db.failNextMarkSent > 0) {
+        db.failNextMarkSent -= 1;
+        throw new Error('simulated database failure on markSent');
+      }
       const s = t.sends.find((x) => x.id === id && x.claim_id === claimId);
       if (s) Object.assign(s, { status: 'sent', sent_at: clock(), error: null, claimed_at: null });
       await tick();
@@ -118,6 +132,7 @@ export function createFakeServerDb({ clock = () => Date.now() } = {}) {
       if (s) {
         s.status = 'failed';
         s.error = String(error).slice(0, 500);
+        s.send_started_at = null;
         if (permanent) s.attempts = 3;
       }
       await tick();
@@ -128,7 +143,7 @@ export function createFakeServerDb({ clock = () => Date.now() } = {}) {
       await tick();
     },
     async countUnfinished(period) {
-      const n = t.sends.filter((s) => s.period === period && ['queued', 'failed'].includes(s.status) && s.attempts < 3).length;
+      const n = t.sends.filter((s) => s.period === period && ['queued', 'failed'].includes(s.status) && s.attempts < 3 && !s.send_started_at).length;
       await tick();
       return n;
     },

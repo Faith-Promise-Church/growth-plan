@@ -81,16 +81,21 @@ export function createHandlers({ env, db, mailer, now = () => new Date(), log = 
         if (who.error) return authError(who.error);
         const bundle = await db.bundleFor(who.userId, who.period);
         if (!bundle) return authError('invalid');
+        // A check-in link reads only the first name and the active habit sentences (with the ids
+        // needed to answer them, and focus areas so they can be shown first).
         const body = {
           firstName: bundle.firstName ?? '',
           period: who.period,
           monthLabel: monthYearLabel(who.period),
           focus: bundle.plan?.focus_dimensions ?? [],
-          planYear: bundle.plan?.year ?? null,
-          habits: bundle.habits.map(publicHabit),
+          habits: bundle.habits.map((g) => {
+            const h = publicHabit(g);
+            return { id: h.id, dimension: h.dimension, sentence: h.sentence };
+          }),
           via: who.via,
         };
         if (who.via === 'session') {
+          body.planYear = bundle.plan?.year ?? null;
           const existing = await db.getCheckin(who.userId, who.period);
           body.existing = existing ? { responses: existing.responses, note: existing.note } : null;
         }

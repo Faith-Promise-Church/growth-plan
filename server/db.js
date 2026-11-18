@@ -74,6 +74,23 @@ export function createServerDb(supabase) {
         }),
       );
     },
+    async markSending(rowId, claimId) {
+      const rows = must(
+        await supabase
+          .from('checkin_sends')
+          .update({ send_started_at: new Date().toISOString() })
+          .eq('id', rowId)
+          .eq('claim_id', claimId)
+          .is('send_started_at', null)
+          .select('id'),
+      );
+      return rows.length === 1;
+    },
+    async periodHasRows(period) {
+      const { count, error } = await supabase.from('checkin_sends').select('id', { count: 'exact', head: true }).eq('period', period);
+      if (error) throw new Error(error.message);
+      return (count ?? 0) > 0;
+    },
     async markSent(rowId, claimId) {
       must(
         await supabase
@@ -84,7 +101,8 @@ export function createServerDb(supabase) {
       );
     },
     async markFailed(rowId, claimId, error, permanent) {
-      const patch = { status: 'failed', error: String(error).slice(0, 500) };
+      // The send did not go through, so it may be tried again (unless permanent).
+      const patch = { status: 'failed', error: String(error).slice(0, 500), send_started_at: null };
       if (permanent) patch.attempts = 3;
       must(await supabase.from('checkin_sends').update(patch).eq('id', rowId).eq('claim_id', claimId));
     },
@@ -103,7 +121,8 @@ export function createServerDb(supabase) {
         .select('id', { count: 'exact', head: true })
         .eq('period', period)
         .in('status', ['queued', 'failed'])
-        .lt('attempts', 3);
+        .lt('attempts', 3)
+        .is('send_started_at', null);
       if (error) throw new Error(error.message);
       return count ?? 0;
     },

@@ -106,8 +106,10 @@ create policy "Users can update own plans" on public.growth_plans
   for update using (auth.uid() = user_id);
 create policy "Users can delete own plans" on public.growth_plans
   for delete using (auth.uid() = user_id);
+-- Written in the combined owner-or-admin form on purpose, so the rehearsal proves the lockdown
+-- does not drop an owner policy that also mentions the admin check.
 create policy "Users can view own goals" on public.goals
-  for select using (exists (select 1 from public.growth_plans p where p.id = growth_plan_id and p.user_id = auth.uid()));
+  for select using (exists (select 1 from public.growth_plans p where p.id = growth_plan_id and p.user_id = auth.uid()) or public.is_current_user_admin());
 create policy "Users can insert own goals" on public.goals
   for insert with check (exists (select 1 from public.growth_plans p where p.id = growth_plan_id and p.user_id = auth.uid()));
 create policy "Users can update own goals" on public.goals

@@ -45,12 +45,13 @@ grant execute on function public.phone_is_registered(text) to anon, authenticate
 
 -- ---------------------------------------------------------------------------
 -- Create the profile row on the server when an auth user is created, from the
--- metadata the signup form already sends. This must never block a signup, so a
+-- metadata the signup form already sends. The function has its own name so it can never replace
+-- a handle_new_user() that may already exist in the live project. This must never block a signup, so a
 -- duplicate phone falls back to a row without the phone, and any other failure
 -- is logged and skipped (the app self-heals a missing profile at sign-in).
 -- ---------------------------------------------------------------------------
 
-create or replace function public.handle_new_user()
+create or replace function public.growth_plan_handle_new_user()
 returns trigger
 language plpgsql
 security definer
@@ -72,21 +73,21 @@ begin
         values (new.id, v_first, v_last, new.email)
         on conflict (id) do nothing;
       exception when others then
-        raise warning 'handle_new_user: could not create profile for %: %', new.id, sqlerrm;
+        raise warning 'growth_plan_handle_new_user: could not create profile for %: %', new.id, sqlerrm;
       end;
     when others then
-      raise warning 'handle_new_user: could not create profile for %: %', new.id, sqlerrm;
+      raise warning 'growth_plan_handle_new_user: could not create profile for %: %', new.id, sqlerrm;
   end;
   return new;
 end;
 $$;
 
-revoke all on function public.handle_new_user() from public, anon, authenticated;
+revoke all on function public.growth_plan_handle_new_user() from public, anon, authenticated;
 
 drop trigger if exists growth_plan_on_auth_user_created on auth.users;
 create trigger growth_plan_on_auth_user_created
   after insert on auth.users
-  for each row execute function public.handle_new_user();
+  for each row execute function public.growth_plan_handle_new_user();
 
 -- ---------------------------------------------------------------------------
 -- Pin the search_path of the existing admin check (a SECURITY DEFINER function
