@@ -16,6 +16,7 @@ const [NORA, LEE, GRACE, ADAM] = DEMO_PEOPLE.map((p) => p.id);
 const LEE_PLAN = '10000000-0000-4000-8000-000000000002';
 const GRACE_PLAN = '10000000-0000-4000-8000-000000000003';
 const ADAM_PLAN = '10000000-0000-4000-8000-000000000004';
+export const DEMO_SHARE_ID = '60000000-0000-4000-8000-000000000003';
 
 function v1Assessment(id, userId, date, answers) {
   const cols = [
@@ -203,7 +204,20 @@ export function buildDemoDb() {
     { id: '50000000-0000-4000-8000-000000000002', period: '2026-11-01', user_id: ADAM, status: 'sent', attempts: 1, error: null, sent_at: '2026-11-02T13:00:06Z', created_at: '2026-11-02T13:00:00Z' },
   ];
 
-  return { auth_users, user_profiles, assessments, growth_plans, goals, email_preferences, checkins, checkin_content, checkin_sends };
+  // One private link, so the shared page can be seen in demo mode.
+  const plan_shares = [
+    {
+      id: DEMO_SHARE_ID,
+      user_id: GRACE,
+      growth_plan_id: GRACE_PLAN,
+      dimensions: ['health', 'character'],
+      created_at: new Date().toISOString(),
+      expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      revoked_at: null,
+    },
+  ];
+
+  return { auth_users, user_profiles, assessments, growth_plans, goals, email_preferences, checkins, checkin_content, checkin_sends, plan_shares };
 }
 
 export const DEMO_IDS = { NORA, LEE, GRACE, ADAM, LEE_PLAN, GRACE_PLAN, ADAM_PLAN };

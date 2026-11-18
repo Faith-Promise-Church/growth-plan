@@ -1124,3 +1124,97 @@
   width: 100%;
 }
 
+/* ---------- Plans by year ---------- */
+.year-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.year-switch__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: var(--font-bold);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+
+.year-switch__link:hover {
+  border-color: var(--brand);
+}
+
+.year-switch__link.is-active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--brand-on);
+}
+
+/* ---------- Share my plan ---------- */
+.share {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.share__preview {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  background: var(--page);
+  border-radius: var(--radius-sm);
+}
+
+.share__label {
+  font-size: var(--text-13);
+  line-height: var(--line-small);
+  font-weight: var(--font-bold);
+  color: var(--ink-muted);
+}
+
+.share__preview pre {
+  margin: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  font: inherit;
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.share__links {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.share__links > .muted {
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+}
+
+.share__list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.share__list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+}
+

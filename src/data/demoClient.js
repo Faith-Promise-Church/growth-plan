@@ -16,6 +16,7 @@ const UNIQUE = {
   checkins: [['id'], ['user_id', 'period']],
   checkin_content: [['period']],
   checkin_sends: [['id'], ['period', 'user_id']],
+  plan_shares: [['id']],
 };
 
 const PK = { email_preferences: 'user_id', checkin_content: 'period' };
@@ -169,6 +170,8 @@ export function createDemoClient() {
     async run() {
       await wait(latency());
       if (offline()) return { data: null, error: { message: 'Failed to fetch', code: 'NETWORK' } };
+      // A demo database saved before a table existed gets that table now.
+      db[this.table] ??= [];
       const rows = db[this.table];
       if (!rows) return { data: null, error: { message: `relation "${this.table}" does not exist` } };
       const match = (r) => this.filters.every((f) => f(r));

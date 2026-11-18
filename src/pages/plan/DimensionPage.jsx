@@ -10,9 +10,9 @@ import HelperPanel from '../../components/app/HelperPanel.jsx';
 import { DIMENSIONS, dimensionIcon, isDimension, DIMENSION_ORDER } from '../../content/dimensions.js';
 import { scoresFromRow, getRead, formatScore } from '../../lib/scoring.js';
 import { visibleGoals, isNotStartedLegacy, goalPracticeKey, starterToDraft } from '../../lib/habits.js';
-import { isValidPlanYear } from '../../lib/time.js';
+import { isValidPlanYear, currentPlanYear } from '../../lib/time.js';
 
-function HabitRow({ goal, editing, onEdit, onClose, onSaved, onToggle, onRemove }) {
+function HabitRow({ goal, editing, readOnly, onEdit, onClose, onSaved, onToggle, onRemove }) {
   const paused = goal.status === 'paused';
   const done = goal.status === 'done';
   if (editing) {
@@ -29,17 +29,19 @@ function HabitRow({ goal, editing, onEdit, onClose, onSaved, onToggle, onRemove 
         {paused ? <span className="tag">Paused</span> : null}
         {done ? <span className="tag">Done</span> : null}
       </p>
-      <div className="button-row">
-        <Button size="sm" variant="secondary" onClick={onEdit}>
-          Edit
-        </Button>
-        <Button size="sm" variant="ghost" onClick={onToggle}>
-          {paused || done ? 'Make active' : 'Pause'}
-        </Button>
-        <Button size="sm" variant="ghost" onClick={onRemove}>
-          Remove
-        </Button>
-      </div>
+      {readOnly ? null : (
+        <div className="button-row">
+          <Button size="sm" variant="secondary" onClick={onEdit}>
+            Edit
+          </Button>
+          <Button size="sm" variant="ghost" onClick={onToggle}>
+            {paused || done ? 'Make active' : 'Pause'}
+          </Button>
+          <Button size="sm" variant="ghost" onClick={onRemove}>
+            Remove
+          </Button>
+        </div>
+      )}
     </li>
   );
 }
@@ -54,6 +56,8 @@ export default function DimensionPage() {
   const [editingId, setEditingId] = useState(null);
   const [newDraft, setNewDraft] = useState(null);
   const [actionError, setActionError] = useState('');
+  // A plan from an earlier year opens as a record. The person can choose to change it.
+  const [reopened, setReopened] = useState(false);
 
   if (!isValidPlanYear(year) || !isDimension(dimension)) return <Navigate to="/home" replace />;
   if (loading && !data) return <div className="page"><LoadingBlock /></div>;
@@ -74,6 +78,8 @@ export default function DimensionPage() {
   const shown = visibleGoals(goals);
   const isFocus = Boolean(data.plan?.focus_dimensions?.includes(dimension));
   const idx = DIMENSION_ORDER.indexOf(dimension);
+  const isPast = year < currentPlanYear();
+  const readOnly = isPast && !reopened;
 
   function upsertLocal(row) {
     setData((d) => {
@@ -165,6 +171,21 @@ export default function DimensionPage() {
           {read ? <p className="read">{read.label}</p> : null}
         </div>
 
+        {isPast ? (
+          <Banner
+            tone="info"
+            action={
+              readOnly ? (
+                <Button size="sm" variant="secondary" onClick={() => setReopened(true)}>
+                  Make changes
+                </Button>
+              ) : null
+            }
+          >
+            {readOnly ? `This plan is from ${year}. It is kept as a record.` : `You are changing your ${year} plan.`}
+          </Banner>
+        ) : null}
+
         <Card>
           <h2 className="card__title">My habits</h2>
           {actionError ? <Banner tone="error">{actionError}</Banner> : null}
@@ -174,7 +195,8 @@ export default function DimensionPage() {
                 <HabitRow
                   key={g.id}
                   goal={g}
-                  editing={editingId === g.id}
+                  editing={!readOnly && editingId === g.id}
+                  readOnly={readOnly}
                   onEdit={() => { setNewDraft(null); setEditingId(g.id); }}
                   onClose={() => setEditingId(null)}
                   onSaved={upsertLocal}
@@ -183,10 +205,12 @@ export default function DimensionPage() {
                 />
               ))}
             </ul>
+          ) : readOnly ? (
+            <p className="muted">There were no habits in this area.</p>
           ) : !newDraft ? (
             <p className="muted">No habits here yet. The Helper below can suggest a place to start, or you can write your own.</p>
           ) : null}
-          {newDraft ? (
+          {newDraft && !readOnly ? (
             <HabitEditor
               key={newDraft.goal.id ?? 'new'}
               goal={newDraft.goal}
@@ -198,17 +222,19 @@ export default function DimensionPage() {
           ) : null}
         </Card>
 
-        <HelperPanel
-          userId={user.id}
-          dimension={dimension}
-          scores={scores}
-          habitResponses={data.latest?.version === 2 ? data.latest.habit_responses : null}
-          goals={goals}
-          isFocus={isFocus}
-          focusCount={data.plan?.focus_dimensions?.length ?? 0}
-          onAdd={startAdd}
-          onWriteOwn={() => startAdd(null)}
-        />
+        {readOnly ? null : (
+          <HelperPanel
+            userId={user.id}
+            dimension={dimension}
+            scores={scores}
+            habitResponses={data.latest?.version === 2 ? data.latest.habit_responses : null}
+            goals={goals}
+            isFocus={isFocus}
+            focusCount={data.plan?.focus_dimensions?.length ?? 0}
+            onAdd={startAdd}
+            onWriteOwn={() => startAdd(null)}
+          />
+        )}
 
         <details className="about card">
           <summary>About this area</summary>

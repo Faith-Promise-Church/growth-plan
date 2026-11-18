@@ -54,6 +54,7 @@ for (const width of WIDTHS) {
 
       // Check in.
       await page.goto('/check-in');
+      await expect(page.locator('fieldset.freq').first()).toBeVisible();
       for (const fs of await page.locator('fieldset.freq').all()) await fs.getByText('About half the time').click();
       await page.getByRole('button', { name: 'Save my check-in' }).click();
       await expect(page.getByRole('heading', { name: 'Thank you for checking in' })).toBeVisible();
@@ -251,6 +252,9 @@ test.describe('rough conditions', () => {
     await page.goto('/assessment/take/1');
     for (let s = 1; s <= 7; s += 1) {
       await expect(page.getByText(`${s} of 7`)).toBeVisible();
+      // The page moves focus to the top after each step loads. Wait for that, so it cannot
+      // land in the middle of the key presses below.
+      await expect(page.locator('#main')).toBeFocused();
       const groups = await page.locator('fieldset.scale, fieldset.freq').count();
       for (let g = 0; g < groups; g += 1) {
         const first = page.locator('fieldset.scale, fieldset.freq').nth(g).locator('input').first();
@@ -338,6 +342,7 @@ test.describe('rough conditions', () => {
     await page.goto('/check-in?token=demo:00000000-0000-4000-8000-000000000003:2026-12-01');
     await expect(page).toHaveURL(/\/check-in$/);
     await expect(page.getByRole('heading', { name: 'December 2026 check-in' })).toBeVisible();
+    await expect(page.locator('fieldset.freq').first()).toBeVisible();
     for (const fs of await page.locator('fieldset.freq').all()) await fs.getByText('Not right now').click();
     await page.getByRole('button', { name: 'Save my check-in' }).click();
     await expect(page.getByRole('heading', { name: 'Thank you for checking in' })).toBeVisible();
@@ -390,3 +395,72 @@ test.describe('rough conditions', () => {
     await expect(page.locator('.banner--error')).toHaveText(a);
   });
 });
+
+test.describe('plan history and sharing', () => {
+  test('a plan from an earlier year opens as a record and can be reopened', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2027-03-01T15:00:00Z'));
+    await login(page, 'grace');
+
+    // The current year has no plan yet, and the earlier year is one tap away.
+    await page.goto('/plan/2027');
+    await page.getByRole('navigation', { name: 'Plans by year' }).getByRole('link', { name: '2026' }).click();
+    await expect(page.getByText('This is your 2026 plan. It is kept as a record.')).toBeVisible();
+    await expect(page.getByRole('link', { name: /^(Edit|Add a habit in) / })).toHaveCount(0);
+
+    await page.getByRole('link', { name: 'View Health' }).click();
+    await expect(page.getByText('This plan is from 2026. It is kept as a record.')).toBeVisible();
+    await expect(page.locator('.habit__text').first()).toBeVisible();
+    await expect(page.locator('.habit').getByRole('button')).toHaveCount(0);
+    await expect(page.getByRole('heading', { name: 'Helper' })).toHaveCount(0);
+
+    await page.getByRole('button', { name: 'Make changes' }).click();
+    await expect(page.getByText('You are changing your 2026 plan.')).toBeVisible();
+    await expect(page.locator('.habit').first().getByRole('button', { name: 'Edit' })).toBeVisible();
+
+    await page.goto('/plans');
+    await expect(page.getByRole('heading', { name: 'Plan history' })).toBeVisible();
+    await expect(page.getByRole('link', { name: /2026 plan/ })).toBeVisible();
+  });
+
+  test('sharing: choose areas, make a private link, read it signed out, then stop it', async ({ page }) => {
+    await login(page, 'grace');
+    await page.goto('/plan/2026');
+    await page.getByRole('button', { name: 'Share', exact: true }).click();
+    const dialog = page.getByRole('dialog');
+    const preview = dialog.locator('pre');
+    await expect(preview).toContainText('My 2026 growth plan');
+    await expect(preview).toContainText('Spend ten minutes in prayer');
+    await expect(preview).not.toContainText('flourishing');
+
+    // Leave Faith out. The preview follows.
+    await dialog.getByText('Faith', { exact: true }).click();
+    await expect(preview).not.toContainText('Spend ten minutes in prayer');
+
+    const before = (await demoDb(page)).plan_shares.length;
+    await dialog.getByRole('button', { name: 'Create a link' }).click();
+    await expect.poll(async () => (await demoDb(page)).plan_shares.length).toBe(before + 1);
+    const share = (await demoDb(page)).plan_shares.at(-1);
+    expect(share.dimensions).not.toContain('faith');
+
+    // Signed out, the link shows the chosen habits and nothing about scores.
+    await page.evaluate(() => localStorage.removeItem('gp-demo-session-v1'));
+    await page.goto(`/shared/${share.id}`);
+    await expect(page.getByRole('heading', { name: "Grace's 2026 growth plan" })).toBeVisible();
+    await expect(page.getByText('Put my phone away thirty minutes before bed on weekdays.')).toBeVisible();
+    await expect(page.getByText('Spend ten minutes in prayer')).toHaveCount(0);
+    await expect(page.getByText(/Flourishing|Habits \d/)).toHaveCount(0);
+    await expectNoHorizontalOverflow(page);
+
+    // Stopped, it no longer works.
+    await login(page, 'grace');
+    await page.goto('/plan/2026');
+    await page.getByRole('button', { name: 'Share', exact: true }).click();
+    const row = page.getByRole('dialog').locator('.share__list li').first();
+    await row.getByRole('button', { name: 'Stop sharing' }).click();
+    await expect.poll(async () => (await demoDb(page)).plan_shares.find((s) => s.id === share.id)?.revoked_at ?? null).not.toBeNull();
+    await page.evaluate(() => localStorage.removeItem('gp-demo-session-v1'));
+    await page.goto(`/shared/${share.id}`);
+    await expect(page.getByRole('heading', { name: 'This link is no longer active' })).toBeVisible();
+  });
+});
+

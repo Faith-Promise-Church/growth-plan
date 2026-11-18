@@ -200,3 +200,26 @@ decided and why, so it can be reversed on purpose.
   the grants were wider than intended. The lockdown revokes them and checks that they are gone.
   This statement was added after the local rehearsal and has not been through it.
 
+## 2026-11-17: plan history and sharing
+
+- **Earlier years are reachable and kept as a record.** The Plan page shows a year switcher when
+  there is more than one plan, and the account menu has "Plan history" (`/plans`). A plan from an
+  earlier year opens read-only: habits, print and share, with no Helper and no edit buttons.
+  "Make changes" on an area page reopens it for that visit. Nothing in the database marks a plan
+  as closed, so this can be reversed by removing the `isPast` checks.
+- **Sharing is the person's choice, area by area.** "Share" on the Plan page builds a plain-text
+  summary and hands it to the phone's share sheet (or copies it where there is none). Habits
+  only. Scores are added only when the person ticks "Include my scores".
+- **A private link is a row in `plan_shares`, read through a server function.** The link carries
+  the row id, which the database generates. Signed-out visitors never read a table directly:
+  `/api/share/plan` uses the service role and returns first name, year and the habit sentences
+  for the chosen areas. It never returns scores, the email, ids or paused habits. A link lasts 30
+  days (the table allows at most 90) and the owner can stop it. An unknown, stopped or expired
+  link all get the same answer.
+- **The client cannot extend or redirect a link.** Column grants allow inserting only
+  `user_id`, `growth_plan_id`, `dimensions` and `expires_at`, and updating only `revoked_at`.
+- **No sharing between accounts inside the app.** That would need a way to look other people up,
+  which the lockdown removed on purpose.
+- **The link section hides itself if the table is missing**, so the app can be deployed before
+  `20261118000100_plan_shares.sql` is applied.
+
