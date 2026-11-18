@@ -83,47 +83,50 @@ alter table public.assessments enable row level security;
 alter table public.growth_plans enable row level security;
 alter table public.goals enable row level security;
 
--- user_profiles: the two open holes, plus owner read and owner update
+-- Policies copied from the live project's pg_policies output (2026-11-17).
 create policy "Allow phone lookup for login" on public.user_profiles
-  for select to anon using (true);
-create policy "Allow profile creation during signup" on public.user_profiles
-  for insert to anon with check (true);
-create policy "Users can view own profile" on public.user_profiles
-  for select to authenticated using (auth.uid() = id);
+  for select to anon, authenticated using (true);
+create policy "Users can insert own profile" on public.user_profiles
+  for insert to anon, authenticated with check (true);
 create policy "Users can update own profile" on public.user_profiles
-  for update using (auth.uid() = id);
+  for update to authenticated using (auth.uid() = id) with check (auth.uid() = id);
+create policy "Admins can view all user profiles" on public.user_profiles
+  for select using ((id = auth.uid()) or public.is_current_user_admin());
 
--- owners
 create policy "Users can view own assessments" on public.assessments
-  for select using (auth.uid() = user_id);
+  for select to authenticated using (auth.uid() = user_id);
 create policy "Users can insert own assessments" on public.assessments
-  for insert with check (auth.uid() = user_id);
-create policy "Users can view own plans" on public.growth_plans
-  for select using (auth.uid() = user_id);
-create policy "Users can insert own plans" on public.growth_plans
-  for insert with check (auth.uid() = user_id);
-create policy "Users can update own plans" on public.growth_plans
-  for update using (auth.uid() = user_id);
-create policy "Users can delete own plans" on public.growth_plans
-  for delete using (auth.uid() = user_id);
--- Written in the combined owner-or-admin form on purpose, so the rehearsal proves the lockdown
--- does not drop an owner policy that also mentions the admin check.
-create policy "Users can view own goals" on public.goals
-  for select using (exists (select 1 from public.growth_plans p where p.id = growth_plan_id and p.user_id = auth.uid()) or public.is_current_user_admin());
-create policy "Users can insert own goals" on public.goals
-  for insert with check (exists (select 1 from public.growth_plans p where p.id = growth_plan_id and p.user_id = auth.uid()));
-create policy "Users can update own goals" on public.goals
-  for update using (exists (select 1 from public.growth_plans p where p.id = growth_plan_id and p.user_id = auth.uid()));
-create policy "Users can delete own goals" on public.goals
-  for delete using (exists (select 1 from public.growth_plans p where p.id = growth_plan_id and p.user_id = auth.uid()));
-
--- admins (no TO clause, so they also apply to anon)
+  for insert to authenticated with check (auth.uid() = user_id);
+create policy "Users can update own assessments" on public.assessments
+  for update to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "Users can delete own assessments" on public.assessments
+  for delete to authenticated using (auth.uid() = user_id);
 create policy "Admins can view all assessments" on public.assessments
-  for select using (public.is_current_user_admin());
+  for select using ((user_id = auth.uid()) or public.is_current_user_admin());
+
+create policy "Users can insert own growth plans" on public.growth_plans
+  for insert to authenticated with check (auth.uid() = user_id);
+create policy "Users can view own growth plans" on public.growth_plans
+  for select to authenticated using (auth.uid() = user_id);
+create policy "Users can update own growth plans" on public.growth_plans
+  for update to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "Users can delete own growth plans" on public.growth_plans
+  for delete to authenticated using (auth.uid() = user_id);
 create policy "Admins can view all growth plans" on public.growth_plans
-  for select using (public.is_current_user_admin());
+  for select using ((user_id = auth.uid()) or public.is_current_user_admin());
+
+create policy "Users can view own goals" on public.goals
+  for select to authenticated using (exists (select 1 from public.growth_plans where growth_plans.id = goals.growth_plan_id and growth_plans.user_id = auth.uid()));
+create policy "Users can insert own goals" on public.goals
+  for insert to authenticated with check (exists (select 1 from public.growth_plans where growth_plans.id = goals.growth_plan_id and growth_plans.user_id = auth.uid()));
+create policy "Users can update own goals" on public.goals
+  for update to authenticated
+  using (exists (select 1 from public.growth_plans where growth_plans.id = goals.growth_plan_id and growth_plans.user_id = auth.uid()))
+  with check (exists (select 1 from public.growth_plans where growth_plans.id = goals.growth_plan_id and growth_plans.user_id = auth.uid()));
+create policy "Users can delete own goals" on public.goals
+  for delete to authenticated using (exists (select 1 from public.growth_plans where growth_plans.id = goals.growth_plan_id and growth_plans.user_id = auth.uid()));
 create policy "Admins can view all goals" on public.goals
-  for select using (public.is_current_user_admin());
+  for select using ((exists (select 1 from public.growth_plans where growth_plans.id = goals.growth_plan_id and growth_plans.user_id = auth.uid())) or public.is_current_user_admin());
 
 grant all on public.user_profiles, public.assessments, public.growth_plans, public.goals to anon, authenticated, service_role;
 grant execute on function public.is_current_user_admin() to anon, authenticated, service_role;

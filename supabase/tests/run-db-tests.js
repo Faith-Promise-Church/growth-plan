@@ -227,7 +227,8 @@ async function main() {
   // Rows added by the rehearsal's own v1 flows are the only difference from the original checksum.
   record('rehearsal', 'assessments and plans byte-identical from seed to lockdown', before.assessments === afterLockdown.assessments && before.growth_plans === afterLockdown.growth_plans);
 
-  record('after lockdown', 'an owner policy written as "owner OR admin" is kept', psql(`select count(*) from pg_policies where tablename = 'goals' and policyname = 'Users can view own goals'`) === '1');
+  record('after lockdown', 'every live owner policy is still in place', psql(`select count(*) from pg_policies where schemaname = 'public' and policyname like 'Users can % own %' and policyname not like '%(v2)'`) === '14');
+  record('after lockdown', 'admin read policies are signed-in only', psql(`select count(*) from pg_policies where schemaname = 'public' and policyname like 'Admins can view all %' and not ('public' = any(roles) or 'anon' = any(roles)) and tablename <> 'user_profiles'`) === '3');
   {
     const a = anon();
     const { data, error } = await a.from('user_profiles').select('email').eq('phone', '865-111-0001');

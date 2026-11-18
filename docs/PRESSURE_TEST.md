@@ -7,7 +7,7 @@ SendGrid.
 
 | Area | How to rerun | Result |
 |---|---|---|
-| Database attack suite and migration rehearsal | `npx supabase start`, then `npm run test:db` | 95 checks, all passed (`supabase/tests/last-run.json`) |
+| Database attack suite and migration rehearsal | `npx supabase start`, then `npm run test:db` | 96 checks, all passed against the live project's real policies (`supabase/tests/last-run.json`) |
 | Unit, engine, endpoint and email tests | `npm test` | 189 tests, all passed, plus the copy check |
 | App in rough conditions, screens, accessibility | `npm run test:e2e` | 77 tests, all passed |
 | Rendered emails | `npm run emails` | 28 renders in `docs/emails/` |
@@ -50,8 +50,9 @@ assessments, and 16 auth users with no profile row.
   opt-out (times set by the server), check-ins (one per month, answers limited to 0 to 4),
   self-heal of a missing profile (never as admin, never overwriting), `admin_stats()` counting past
   the 1,000-row cap, and admin editing of check-in content.
-- Passed: an owner policy written as "owner OR admin" survives the lockdown (added after the review,
-  see section 8).
+- Passed: rerun on 2026-11-17 with the live project's actual policies (from Justin's `pg_policies`
+  output): all 14 owner policies survive the lockdown, the three "Admins can view all" policies on
+  assessments, plans and goals become signed-in only, and the open lookup and open insert are gone.
 
 ## 3. Email engine under stress: passed
 
@@ -92,28 +93,18 @@ function):
   Pages render all text through React, which escapes it.
 - Passed: oversized payloads are refused with 413, including when `Content-Length` lies.
 
-## 5. Every rendered email: passed, with six article links not confirmed
+## 5. Every rendered email: passed
 
 All 13 editions plus the evergreen edition, each with no plan, a plan with 0 habits, 1, 5 and 12
 habits, and a long accented name (84 renders): each has a plain-text part, a working unsubscribe
 link, only absolute `https` links, no `{{`, `undefined`, `null` or `NaN`, and HTML under 100 KB
 (about 9 KB). Pastor Zac's notes are all 35 to 60 words.
 
-Article links, requested once each from the build workspace (`node scripts/render-emails.js --check-links`):
-
-| Edition | Result |
-|---|---|
-| February, June, July, August, September, November | answered |
-| December (Desiring God) | 403 |
-| January (Baptist Press) | 403 |
-| March (The Gospel Coalition) | 403 |
-| April (Jesus Film Project) | **404** |
-| May (Desiring God) | 403 |
-| October (The Gospel Coalition) | 403 |
-
-The 403s are most likely those sites refusing automated requests from a data center; open them in a
-browser to confirm. The April link returned 404 and probably needs a new URL. These do not fail the
-build, as the brief asked.
+Article links: all twelve are live. Six answered the build workspace directly. The other six refused
+it (five 403s and one 404) and were then confirmed another way on 2026-11-17: four loaded through a
+web fetch (Baptist Press January, Gospel Coalition March and October, Jesus Film Project April) and
+the two Desiring God articles (December and May) are confirmed live in the search index, since
+Desiring God refuses automated fetches. The earlier 404 for April was a false alarm.
 
 ## 6. The app in rough conditions: passed
 
@@ -172,8 +163,5 @@ holes, data loss and broken ground rules. Its findings and what happened to each
 
 ## Not run
 
-- **Article links from a real browser.** The build workspace could only make server-side requests,
-  which six sites refused. See section 5.
-- **A production schema dump.** The rehearsal uses the schema described in the brief. The live
-  policy names could differ; the lockdown finds policies by what they do and checks itself, and the
-  PR asks for a `pg_policies` dump before applying it.
+- **A full production schema dump.** Table definitions come from the brief. Policies now match the
+  live project exactly (from the `pg_policies` output).

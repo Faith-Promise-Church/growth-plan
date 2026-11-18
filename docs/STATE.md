@@ -29,7 +29,7 @@ its own result and rolls back if anything is still open.
   signed links, email renderer, check-in page, preferences page, admin editor and counts.
 - Phase 7: 189 unit and server tests, copy checker, demo mode, Playwright screens (50) and journeys
   (27), rendered emails in `docs/emails/`.
-- Phase 8: database rehearsal and attack suite (95 checks on a local Supabase stack), engine stress
+- Phase 8: database rehearsal and attack suite (96 checks on a local Supabase stack, using the live policies), engine stress
   tests, token and endpoint abuse tests, an independent review with its findings fixed or listed.
   See `docs/PRESSURE_TEST.md`.
 
@@ -41,11 +41,10 @@ its own result and rolls back if anything is still open.
 - SendGrid: authenticate the sending domain, choose from and reply-to addresses.
 - Vercel: set the server environment variables in `.env.example`; confirm the plan (Hobby fires
   crons any time within the hour).
-- Six article links could not be confirmed from the build workspace (403 or 404; April is a 404).
 - Decide on check-in addresses: turn on Supabase email confirmation, or remove "Use a different
   address" (an unverified address could be used to send the email to someone else).
-- Before the lockdown: run `select tablename, policyname, cmd, roles, qual, with_check from pg_policies
-  where schemaname = 'public';` on the live project and compare with `supabase/schema-baseline.md`.
+- Live policies checked on 2026-11-17 and the rehearsal rerun against them (96 checks pass). Rerun
+  the policy query only if anyone changes policies before the lockdown is applied.
 
 ## Next
 

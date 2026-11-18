@@ -1,7 +1,7 @@
 {
   "ran": true,
-  "at": "2026-11-18T00:08:22.388Z",
-  "passed": 95,
+  "at": "2026-11-18T01:23:36.049Z",
+  "passed": 96,
   "failed": 0,
   "results": [
     {
@@ -50,25 +50,25 @@
       "section": "rehearsal",
       "name": "user_profiles: every pre-existing column unchanged after the additive migrations",
       "ok": true,
-      "detail": "1200:38a3109b4cfecef26c2e0dd3b5ca3e03 vs 1200:38a3109b4cfecef26c2e0dd3b5ca3e03"
+      "detail": "1200:cffbcc71fd778e1257b4d1be04db3640 vs 1200:cffbcc71fd778e1257b4d1be04db3640"
     },
     {
       "section": "rehearsal",
       "name": "assessments: every pre-existing column unchanged after the additive migrations",
       "ok": true,
-      "detail": "930:ac59c500ac6c0f209af769513a3cebf0 vs 930:ac59c500ac6c0f209af769513a3cebf0"
+      "detail": "930:206013f6d71a14f00133cf4130b445bb vs 930:206013f6d71a14f00133cf4130b445bb"
     },
     {
       "section": "rehearsal",
       "name": "growth_plans: every pre-existing column unchanged after the additive migrations",
       "ok": true,
-      "detail": "730:680c0d1f02125ae374805bb84cfa74f1 vs 730:680c0d1f02125ae374805bb84cfa74f1"
+      "detail": "730:61014570ab16b37f082eceef7a87ed82 vs 730:61014570ab16b37f082eceef7a87ed82"
     },
     {
       "section": "rehearsal",
       "name": "goals: every pre-existing column unchanged after the additive migrations",
       "ok": true,
-      "detail": "11200:396e543427cd8ae542cc895d63fe6f71 vs 11200:396e543427cd8ae542cc895d63fe6f71"
+      "detail": "11200:8436ab5358c27606b5d69c4f9f4384d9 vs 11200:8436ab5358c27606b5d69c4f9f4384d9"
     },
     {
       "section": "rehearsal",
@@ -156,7 +156,13 @@
     },
     {
       "section": "after lockdown",
-      "name": "an owner policy written as \"owner OR admin\" is kept",
+      "name": "every live owner policy is still in place",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "after lockdown",
+      "name": "admin read policies are signed-in only",
       "ok": true,
       "detail": ""
     },
@@ -212,7 +218,7 @@
       "section": "v2 frontend",
       "name": "opt-in saves, and the opt-in time is set by the server",
       "ok": true,
-      "detail": "2026-11-18T00:08:20.142504+00:00"
+      "detail": "2026-11-18T01:23:33.481015+00:00"
     },
     {
       "section": "v2 frontend",
@@ -368,7 +374,7 @@
       "section": "attack: anon",
       "name": "reads nothing from goals",
       "ok": true,
-      "detail": "permission denied for function is_current_user_admin"
+      "detail": "0"
     },
     {
       "section": "attack: anon",

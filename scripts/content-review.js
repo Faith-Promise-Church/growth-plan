@@ -31,7 +31,7 @@ w();
 w('## Things to decide');
 w();
 w('- **Links.** Every link in `src/content/links.js` is empty, so the app hides them. The care link matters most: it appears on the results page when someone answers 3 or below on basic needs, emotional resilience or happiness, and in the Helper for "Faithful in a hard season".');
-w("- **Article links.** From the build workspace, six article pages answered and six did not (403 or 404). The 403s are most likely the sites blocking automated requests; the Jesus Film Project link returned 404 and should be checked by hand. See `docs/PRESSURE_TEST.md`.");
+w('- **Article links.** All twelve are confirmed live (see `docs/PRESSURE_TEST.md`, section 5).');
 w('- **October note** mentions "the Winning Team". The copy rules ask for no church jargon; it is seeded as written because the brief said not to rewrite the notes.');
 w('- **Evergreen edition.** Used only when a month has no content. Its Pastor Zac note is new and needs his review.');
 w();

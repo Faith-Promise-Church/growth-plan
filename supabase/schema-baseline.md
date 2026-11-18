@@ -57,18 +57,22 @@ Dimensions: `faith`, `relationships`, `finances`, `health`, `purpose`, `characte
 - `is_current_user_admin()`: `SECURITY DEFINER`, reads `user_profiles.is_admin` for `auth.uid()`.
   No `search_path` set. Admin read policies on `assessments`, `growth_plans` and `goals` depend on it.
 
-## Row level security
+## Row level security (from the live pg_policies output, 2026-11-17)
 
-- Owners can read and write their own `assessments`, `growth_plans` and `goals`
-  (goals through the plan's `user_id`) **(policy names assumed)**.
-- `user_profiles`:
-  - `SELECT` policy "Allow phone lookup for login", `USING (true)`, for `anon`. **This exposes every
-    name, phone and email to anyone with the public anon key.**
-  - `INSERT` policy with `WITH CHECK (true)` for `anon`.
-  - Owner `UPDATE` policy with no column restriction. **Any user can set their own `is_admin`.**
-  - An owner `SELECT` policy for signed-in users **(assumed; the live app reads its own profile)**.
-- "Admins can view all" `SELECT` policies on `assessments`, `growth_plans`, `goals`, using
-  `is_current_user_admin()`.
+| Table | Policy | Command | Roles | Rule |
+|---|---|---|---|---|
+| user_profiles | Allow phone lookup for login | SELECT | anon, authenticated | `true` (**everyone reads every row**) |
+| user_profiles | Users can insert own profile | INSERT | anon, authenticated | check `true` (**anyone inserts any row**) |
+| user_profiles | Users can update own profile | UPDATE | authenticated | `auth.uid() = id` (**any column, including is_admin**) |
+| user_profiles | Admins can view all user profiles | SELECT | public | `id = auth.uid() OR is_current_user_admin()` |
+| assessments | Users can view / insert / update / delete own assessments | each | authenticated | `auth.uid() = user_id` |
+| assessments | Admins can view all assessments | SELECT | public | `user_id = auth.uid() OR is_current_user_admin()` |
+| growth_plans | Users can view / insert / update / delete own growth plans | each | authenticated | `auth.uid() = user_id` |
+| growth_plans | Admins can view all growth plans | SELECT | public | `user_id = auth.uid() OR is_current_user_admin()` |
+| goals | Users can view / insert / update / delete own goals | each | authenticated | the goal's plan belongs to `auth.uid()` |
+| goals | Admins can view all goals | SELECT | public | owner check `OR is_current_user_admin()` |
+
+`supabase/tests/baseline.sql` recreates exactly these policies for the rehearsal.
 
 ## Data volume (November 2026)
 
