@@ -188,3 +188,15 @@ decided and why, so it can be reversed on purpose.
 - **`APP_URL` is `https://growth-plan-sigma.vercel.app`.** `growthplan.faithpromise.org` has no DNS
   record. If that address is added later, change `APP_URL` in Vercel at the same time.
 
+## 2026-11-17: launch
+
+- **The first two migrations were applied through the Supabase connection**, not the SQL editor,
+  with Justin's go-ahead. Each ran as one transaction that refused to start unless the SQL sent
+  matched the checksum of the file in the repo.
+- **The lockdown now also removes the extra default grants on the check-in tables.** After the
+  check-ins migration, `authenticated` still held DELETE, TRUNCATE, REFERENCES and TRIGGER on
+  `email_preferences`, `checkins` and `checkin_content` from Supabase's default privileges. Row
+  level security blocks deletes, and the API has no way to truncate, so nothing was exposed, but
+  the grants were wider than intended. The lockdown revokes them and checks that they are gone.
+  This statement was added after the local rehearsal and has not been through it.
+

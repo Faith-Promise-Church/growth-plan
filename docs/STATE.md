@@ -1,16 +1,23 @@
 # State of the build
 
-Updated 2026-11-17, end of the v2 build session. Branch `v2`.
+Updated 2026-11-17, after the visual pass and the first two migrations. Branch `v2`.
 
 ## Apply order (do these by hand, in this order)
 
-1. `supabase/migrations/20261117000100_additive.sql` (safe with the old frontend live)
-2. `supabase/migrations/20261117000150_checkins.sql` (safe with the old frontend live)
+1. `supabase/migrations/20261117000100_additive.sql` (safe with the old frontend live).
+   **Applied to production 2026-11-17.**
+2. `supabase/migrations/20261117000150_checkins.sql` (safe with the old frontend live).
+   **Applied to production 2026-11-17.** 13 editions seeded.
 3. Deploy the v2 frontend to Vercel and confirm login works
 4. `supabase/migrations/20261117000200_lockdown.sql` (closes the two holes; breaks the old frontend's login, so only after step 3)
 
 Run them in the Supabase SQL editor, one file at a time, each as a whole. The lockdown file checks
 its own result and rolls back if anything is still open.
+
+Steps 1 and 2 were applied through the Supabase connection with Justin's go-ahead. Each file was
+sent whole inside one transaction that first compared its checksum with the file in the repo.
+Row counts before and after: 1,213 profiles, 933 assessments, 728 plans, 11,202 goals, with the
+same fingerprints for assessments and goals. Steps 3 and 4 are still to do.
 
 ## Shipped
 
@@ -43,9 +50,12 @@ its own result and rolls back if anything is still open.
   evergreen note).
 - Links: care, groups, serving and giving are filled. Counseling and financial coaching are
   still empty (no page on faithpromise.org for either).
-- SendGrid: authenticate the sending domain, choose from and reply-to addresses.
-- Vercel: set the server environment variables in `.env.example`; confirm the plan (Hobby fires
-  crons any time within the hour).
+- SendGrid: from address is `noreply@faithpromise.org`. Reply-to is optional and not chosen yet.
+- Vercel: set the nine server settings. The Vercel connection cannot read or write this
+  project's settings, so Justin pastes them from `.env.vercel.local` (git-ignored, with the two
+  generated secrets filled in). The plan is Hobby, so the email lands between 8:00 and 8:59.
+- `APP_URL` is `https://growth-plan-sigma.vercel.app`. `growthplan.faithpromise.org` has no DNS
+  record.
 - Decide on check-in addresses: turn on Supabase email confirmation, or remove "Use a different
   address" (an unverified address could be used to send the email to someone else).
 - Live policies checked on 2026-11-17 and the rehearsal rerun against them (96 checks pass). Rerun

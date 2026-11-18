@@ -116,6 +116,18 @@ revoke execute on function public.is_current_user_admin() from anon, public;
 grant execute on function public.is_current_user_admin() to authenticated;
 
 -- ---------------------------------------------------------------------------
+-- 3b. The check-in tables: the client may read, add and change rows, nothing else.
+-- Supabase grants every privilege on a new table to `authenticated` by default, and the
+-- check-ins migration only added to that. Row level security already stops deletes (there is
+-- no delete policy), but TRUNCATE is not covered by row level security, so the extra grants go.
+-- The v2 app never deletes from these tables.
+-- ---------------------------------------------------------------------------
+
+revoke delete, truncate, references, trigger
+  on public.email_preferences, public.checkins, public.checkin_content
+  from authenticated;
+
+-- ---------------------------------------------------------------------------
 -- 4. Check the result. Raising here rolls back the whole migration.
 -- ---------------------------------------------------------------------------
 
@@ -143,6 +155,13 @@ begin
 
   if has_table_privilege('anon', 'public.user_profiles', 'SELECT') then
     raise exception 'lockdown: anon can still select user_profiles';
+  end if;
+
+  if has_table_privilege('authenticated', 'public.checkins', 'TRUNCATE')
+     or has_table_privilege('authenticated', 'public.email_preferences', 'TRUNCATE')
+     or has_table_privilege('authenticated', 'public.checkin_content', 'TRUNCATE')
+     or has_table_privilege('authenticated', 'public.checkin_sends', 'SELECT') then
+    raise exception 'lockdown: a check-in table still has a grant the client should not have';
   end if;
 
   -- Owners must still be able to write their own plans and goals.
