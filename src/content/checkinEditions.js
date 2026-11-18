@@ -129,7 +129,7 @@ export const CHECKIN_EDITIONS = [
     period: '2027-10-01',
     theme: 'Purpose: serving',
     subject: 'Your October check-in: use your gifts',
-    preheader: 'God gave you gifts that our church and our city need.',
+    preheader: 'Take one new step in serving this month and watch how God uses you.',
     zac_note:
       'God gave you gifts that our church and our city need. Most people discover those gifts by serving, so the best next step is to start. Join the Winning Team this month, or take one new step where you already serve, and watch how God uses you.',
     article_title: 'How do I discover my spiritual gift?',
@@ -141,7 +141,7 @@ export const CHECKIN_EDITIONS = [
     period: '2027-11-01',
     theme: 'Contentment: gratitude',
     subject: 'Your November check-in: three things each day',
-    preheader: 'Gratitude changes how you see what God has already given you.',
+    preheader: 'Before this month gets busy, start each day with thanks.',
     zac_note:
       'Gratitude changes how you see everything God has already given you. Before this month gets busy, begin each day by thanking God for three specific things. I am thankful for you and for the way you keep growing.',
     article_title: 'Gratitude enhances health, brings happiness, and may even lengthen lives',

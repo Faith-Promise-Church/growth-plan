@@ -614,7 +614,7 @@ Pastor Zac's notes are seeded exactly as written in the brief. The December edit
 
 - Theme: Purpose: serving
 - Subject: Your October check-in: use your gifts
-- Preheader: God gave you gifts that our church and our city need.
+- Preheader: Take one new step in serving this month and watch how God uses you.
 - Article: [How do I discover my spiritual gift?](https://thegospelcoalition.org/article/how-do-i-discover-my-spiritual-gift), Juan Sanchez, The Gospel Coalition
 - Blurb: The best way to find your gifts is to start serving where you are needed.
 - From Pastor Zac (47 words): God gave you gifts that our church and our city need. Most people discover those gifts by serving, so the best next step is to start. Join the Winning Team this month, or take one new step where you already serve, and watch how God uses you.
@@ -623,7 +623,7 @@ Pastor Zac's notes are seeded exactly as written in the brief. The December edit
 
 - Theme: Contentment: gratitude
 - Subject: Your November check-in: three things each day
-- Preheader: Gratitude changes how you see what God has already given you.
+- Preheader: Before this month gets busy, start each day with thanks.
 - Article: [Gratitude enhances health, brings happiness, and may even lengthen lives](https://www.health.harvard.edu/blog/gratitude-enhances-health-brings-happiness-and-may-even-lengthen-lives-202409113071), Harvard Health Publishing
 - Blurb: Research on what a habit of giving thanks does for a person, with six questions to try.
 - From Pastor Zac (38 words): Gratitude changes how you see everything God has already given you. Before this month gets busy, begin each day by thanking God for three specific things. I am thankful for you and for the way you keep growing.

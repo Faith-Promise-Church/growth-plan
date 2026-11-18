@@ -13,7 +13,7 @@ Your habits:
 - Character: Learn one verse once a week.
 - Faith: Spend ten minutes in prayer with a short list of people and needs every day.
 
-Check in on my plan: https://growth-plan-sigma.vercel.app/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMDMtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5OTIwMDN9.Ntp3EKyIW5Wz_s-Hsfqlh3OgAgj23XddcID3NgqmOTo
+Check in on my plan: https://growth-plan-sigma.vercel.app/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMDMtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5OTIyNjh9.D4qd0KstoVLJXGemveK_XqbFF4FwXK1OtcAlD0YR8tU
 Adjust my plan: https://growth-plan-sigma.vercel.app/plan/2026
 
 From Pastor Zac

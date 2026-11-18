@@ -1,5 +1,5 @@
 Subject: Your October check-in: use your gifts
-Preheader: God gave you gifts that our church and our city need.
+Preheader: Take one new step in serving this month and watch how God uses you.
 
 Hi Grace,
 
@@ -13,7 +13,7 @@ Your habits:
 - Character: Learn one verse once a week.
 - Faith: Spend ten minutes in prayer with a short list of people and needs every day.
 
-Check in on my plan: https://growth-plan-sigma.vercel.app/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTAtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5OTIwMDN9.ujx8kzu7Ouvzga8IcvthWkMGKJJni4Kv35bzGu_AmAA
+Check in on my plan: https://growth-plan-sigma.vercel.app/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTAtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5OTIyNjh9.q4F6_dlKfOSRmZ6iynscIONXIZmrvetGxw73zMaDu4Q
 Adjust my plan: https://growth-plan-sigma.vercel.app/plan/2026
 
 From Pastor Zac

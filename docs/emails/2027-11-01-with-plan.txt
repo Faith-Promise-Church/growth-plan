@@ -1,5 +1,5 @@
 Subject: Your November check-in: three things each day
-Preheader: Gratitude changes how you see what God has already given you.
+Preheader: Before this month gets busy, start each day with thanks.
 
 Hi Grace,
 
@@ -13,7 +13,7 @@ Your habits:
 - Character: Learn one verse once a week.
 - Faith: Spend ten minutes in prayer with a short list of people and needs every day.
 
-Check in on my plan: https://growth-plan-sigma.vercel.app/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTEtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5OTIwMDN9.TbualqvgvIDTu7YD5cTlHV1Y0EZfA-A0YdGHwLIq-0Y
+Check in on my plan: https://growth-plan-sigma.vercel.app/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTEtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5OTIyNjh9.-xyWEdug5FILlJnk9QBqkj14potpCENtYXuV9hNH3kg
 Adjust my plan: https://growth-plan-sigma.vercel.app/plan/2026
 
 From Pastor Zac
