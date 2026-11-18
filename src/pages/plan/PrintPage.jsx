@@ -5,6 +5,7 @@ import { Button, LoadingBlock, Banner } from '../../components/ui/index.jsx';
 import { DIMENSIONS } from '../../content/dimensions.js';
 import { visibleGoals, groupByDimension, orderedDimensions } from '../../lib/habits.js';
 import { isValidPlanYear } from '../../lib/time.js';
+import { planWordVerse } from '../../lib/share.js';
 import './print.css';
 
 export default function PrintPage() {
@@ -27,6 +28,7 @@ export default function PrintPage() {
   const focus = data.plan?.focus_dimensions ?? [];
   const byDim = groupByDimension(visibleGoals(data.goals).filter((g) => g.status !== 'done'));
   const name = [profile?.first_name, profile?.last_name].filter(Boolean).join(' ');
+  const wordVerse = planWordVerse(data.plan);
 
   return (
     <div className="print-page">
@@ -44,6 +46,16 @@ export default function PrintPage() {
             {name ? <p className="print-sheet__name">{name}</p> : null}
           </div>
         </header>
+        {wordVerse.word ? (
+          <p className="print-sheet__focus">
+            <strong>Word of the year:</strong> {wordVerse.word}
+          </p>
+        ) : null}
+        {wordVerse.verse ? (
+          <p className="print-sheet__focus">
+            <strong>Verse of the year:</strong> {wordVerse.verse}
+          </p>
+        ) : null}
         {focus.length ? (
           <p className="print-sheet__focus">
             <strong>Focus areas:</strong> {focus.map((d) => DIMENSIONS[d]?.name).join(', ')}

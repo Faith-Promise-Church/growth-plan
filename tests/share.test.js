@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { createHandlers } from '../server/handlers.js';
 import { createFakeServerDb, createFakeMailer, TEST_ENV } from './helpers/fakeServerDb.js';
-import { buildShareText, buildSharedPlan, cleanDimensions, isShareId, shareIsActive, shareableDimensions, shareExpiry, SHARE_DAYS } from '../src/lib/share.js';
+import { buildShareText, buildSharedPlan, cleanDimensions, isShareId, planWordVerse, shareIsActive, shareableDimensions, shareExpiry, SHARE_DAYS } from '../src/lib/share.js';
 
 const plan = { id: 'p1', year: 2026, focus_dimensions: ['health'] };
 const goal = (dimension, text, extra = {}) => ({ id: `${dimension}-${text}`, growth_plan_id: 'p1', dimension, goal_text: text, sort_order: 0, status: 'active', ...extra });
@@ -60,6 +60,34 @@ describe('sharing a plan: what is included', () => {
   });
 });
 
+describe('sharing a plan: word and verse of the year', () => {
+  const themed = { ...plan, word_of_year: '  Steady ', verse_of_year: 'Galatians 6:9' };
+
+  it('reads them from the plan, trimmed, and null when not set', () => {
+    expect(planWordVerse(themed)).toEqual({ word: 'Steady', verse: 'Galatians 6:9' });
+    expect(planWordVerse(plan)).toEqual({ word: null, verse: null });
+    expect(planWordVerse({ word_of_year: '   ', verse_of_year: 'Psalm\n63:1-2' })).toEqual({ word: null, verse: 'Psalm 63:1-2' });
+  });
+
+  it('puts them at the top of the text summary', () => {
+    const text = buildShareText({ plan: themed, goals, dimensions: ['faith'] });
+    expect(text.split('\n').slice(0, 5)).toEqual(['My 2026 growth plan', '', 'Word of the year: Steady', 'Verse of the year: Galatians 6:9', '']);
+  });
+
+  it('leaves them out when the person unticks the box', () => {
+    const text = buildShareText({ plan: themed, goals, dimensions: ['faith'], includeWordVerse: false });
+    expect(text).not.toContain('Steady');
+    expect(text).not.toContain('Galatians');
+    expect(buildSharedPlan({ plan: themed, goals, dimensions: ['faith'], includeWordVerse: false })).toMatchObject({ word: null, verse: null });
+  });
+
+  it('shows only the one that is set', () => {
+    const text = buildShareText({ plan: { ...plan, word_of_year: 'Steady' }, goals, dimensions: ['faith'] });
+    expect(text).toContain('Word of the year: Steady');
+    expect(text).not.toContain('Verse of the year');
+  });
+});
+
 describe('sharing a plan: links', () => {
   const NOW = Date.parse('2026-12-01T12:00:00Z');
 
@@ -113,7 +141,9 @@ describe('the shared plan endpoint', () => {
     expect(res.status).toBe(200);
     expect(res.headers.get('cache-control')).toBe('no-store');
     const body = await res.json();
-    expect(Object.keys(body).sort()).toEqual(['expiresAt', 'firstName', 'groups', 'year']);
+    expect(Object.keys(body).sort()).toEqual(['expiresAt', 'firstName', 'groups', 'verse', 'word', 'year']);
+    expect(body.word).toBeNull();
+    expect(body.verse).toBeNull();
     expect(body.firstName).toBe('Alice');
     expect(body.year).toBe(2026);
     // faith is the focus area and comes first; the paused health habit and the unshared
@@ -132,6 +162,16 @@ describe('the shared plan endpoint', () => {
       expect(res.status).toBe(404);
       expect(await res.json()).toEqual({ error: 'This link is no longer active.', code: 'gone' });
     }
+  });
+
+  it('includes the word and verse of the year unless the link was made without them', async () => {
+    const withThem = setup();
+    Object.assign(withThem.db.tables.plans[0], { word_of_year: 'Steady', verse_of_year: 'Galatians 6:9' });
+    expect(await (await withThem.get(ID)).json()).toMatchObject({ word: 'Steady', verse: 'Galatians 6:9' });
+
+    const without = setup({ include_word_verse: false });
+    Object.assign(without.db.tables.plans[0], { word_of_year: 'Steady', verse_of_year: 'Galatians 6:9' });
+    expect(await (await without.get(ID)).json()).toMatchObject({ word: null, verse: null });
   });
 
   it('refuses anything but GET', async () => {

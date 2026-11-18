@@ -319,13 +319,13 @@ export async function listPlanShares(planId) {
   return rows.filter((r) => shareIsActive(r));
 }
 
-export async function createPlanShare({ userId, planId, dimensions }) {
+export async function createPlanShare({ userId, planId, dimensions, includeWordVerse = true }) {
   const chosen = cleanDimensions(dimensions);
   if (!chosen.length) throw new ApiError('Choose at least one area to share.');
   return unwrap(
     await supabase
       .from('plan_shares')
-      .insert({ user_id: userId, growth_plan_id: planId, dimensions: chosen, expires_at: shareExpiry() })
+      .insert({ user_id: userId, growth_plan_id: planId, dimensions: chosen, expires_at: shareExpiry(), include_word_verse: Boolean(includeWordVerse) })
       .select()
       .single(),
     'The link was not created. Try again.',
@@ -347,7 +347,8 @@ export async function fetchSharedPlan(id) {
     if (!plan || !shareIsActive(share)) throw gone();
     const goals = db.goals.filter((g) => g.growth_plan_id === plan.id);
     const profile = db.user_profiles.find((p) => p.id === share.user_id);
-    return { firstName: profile?.first_name ?? '', ...buildSharedPlan({ plan, goals, dimensions: share.dimensions }), expiresAt: share.expires_at };
+    const shared = buildSharedPlan({ plan, goals, dimensions: share.dimensions, includeWordVerse: share.include_word_verse !== false });
+    return { firstName: profile?.first_name ?? '', ...shared, expiresAt: share.expires_at };
   }
   return callApi(`/api/share/plan?id=${encodeURIComponent(id)}`, { auth: false });
 }

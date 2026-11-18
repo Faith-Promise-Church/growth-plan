@@ -14,8 +14,10 @@ Updated 2026-11-17, after the visual pass and the first two migrations. Branch `
    frontend's login, so only after step 3). **Applied to production 2026-11-17.** Checked from
    outside: signed-out reads, lookups and inserts on `user_profiles` are refused, and the login
    lookup still answers.
-5. `supabase/migrations/20261118000100_plan_shares.sql` (private plan links). **Not applied yet.**
-   Additive. The app works without it; only "Create a link" needs it.
+5. `supabase/migrations/20261118000100_plan_shares.sql` (private plan links).
+   **Applied to production 2026-11-17.**
+6. `supabase/migrations/20261118000200_word_and_verse.sql` (word and verse of the year).
+   **Not applied yet.** Additive. The card stays hidden until it is.
 
 Run them in the Supabase SQL editor, one file at a time, each as a whole. The lockdown file checks
 its own result and rolls back if anything is still open.
@@ -50,13 +52,16 @@ same fingerprints for assessments and goals. The lockdown was applied the same w
   rhythm, joined five-point scale on phones, results page reordered, checkbox and header fixes.
   Content pass: 17 starter sentences and 2 habit items reworded. See `DECISIONS.md`.
 
-- Plan history and sharing (branch `plan-history-and-sharing`): year switcher, `/plans`, earlier
-  years as a record, "Share" with the share sheet, and private read-only links.
+- Plan history and sharing (PR 2, merged and live): year switcher, `/plans`, earlier years as a
+  record, "Share" with the share sheet, and private read-only links.
+- Word and verse of the year (branch `word-and-verse`): a small card on the Plan page, printed
+  with the plan, and shared unless the person leaves it out.
 
 ## Blocked on Justin
 
-- "Send me a test" in Admin, Check-ins, to confirm SendGrid and the server settings.
-- Go-ahead to apply `20261118000100_plan_shares.sql`.
+- Confirm the test email reached the inbox. SendGrid accepted it on 2026-11-17 ("Send me a test"
+  on the December edition).
+- Go-ahead to apply `20261118000200_word_and_verse.sql`.
 
 - Content review: `docs/CONTENT_REVIEW.md` (practice library, habit items, About text, preheaders,
   evergreen note).

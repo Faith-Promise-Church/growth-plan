@@ -10,6 +10,20 @@ import { formatScore } from './scoring.js';
 // How long a private link works.
 export const SHARE_DAYS = 30;
 
+// Longest word of the year and verse reference (the database enforces the same limits).
+export const WORD_MAX = 40;
+export const VERSE_MAX = 80;
+
+const oneLine = (value, max) => {
+  const text = String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
+  return text || null;
+};
+
+// The plan's word of the year and verse reference, or null for each one not set.
+export function planWordVerse(plan) {
+  return { word: oneLine(plan?.word_of_year, WORD_MAX), verse: oneLine(plan?.verse_of_year, VERSE_MAX) };
+}
+
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export function isShareId(value) {
@@ -28,8 +42,9 @@ export function shareableDimensions(plan, goals) {
   return orderedDimensions(plan?.focus_dimensions ?? []).filter((d) => byDim[d].length > 0);
 }
 
-// What a shared plan contains: the year and, for each chosen area, its active habit sentences.
-export function buildSharedPlan({ plan, goals, dimensions }) {
+// What a shared plan contains: the year, the word and verse of the year when included, and for
+// each chosen area its active habit sentences.
+export function buildSharedPlan({ plan, goals, dimensions, includeWordVerse = true }) {
   const chosen = new Set(cleanDimensions(dimensions));
   const byDim = groupByDimension(activeHabits(goals));
   const groups = orderedDimensions(plan?.focus_dimensions ?? [])
@@ -39,14 +54,18 @@ export function buildSharedPlan({ plan, goals, dimensions }) {
       habits: byDim[d].map((g) => String(g.goal_text ?? '').trim()).filter(Boolean),
     }))
     .filter((g) => g.habits.length > 0);
-  return { year: plan?.year ?? null, groups };
+  const { word, verse } = includeWordVerse ? planWordVerse(plan) : { word: null, verse: null };
+  return { year: plan?.year ?? null, word, verse, groups };
 }
 
 // The text handed to the share sheet.
-export function buildShareText({ plan, goals, dimensions, scores = null }) {
-  const { year, groups } = buildSharedPlan({ plan, goals, dimensions });
+export function buildShareText({ plan, goals, dimensions, scores = null, includeWordVerse = true }) {
+  const { year, word, verse, groups } = buildSharedPlan({ plan, goals, dimensions, includeWordVerse });
   if (!groups.length) return '';
   const lines = [`My ${year} growth plan`, ''];
+  if (word) lines.push(`Word of the year: ${word}`);
+  if (verse) lines.push(`Verse of the year: ${verse}`);
+  if (word || verse) lines.push('');
   for (const group of groups) {
     const s = scores?.[group.dimension];
     const parts = [];

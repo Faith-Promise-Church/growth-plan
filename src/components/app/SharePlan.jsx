@@ -3,7 +3,7 @@ import { useAuth } from '../../auth/AuthContext.jsx';
 import { Button, Dialog, Banner } from '../ui/index.jsx';
 import { useToast } from '../ui/Toast.jsx';
 import { DIMENSIONS } from '../../content/dimensions.js';
-import { buildShareText, shareableDimensions, SHARE_DAYS } from '../../lib/share.js';
+import { buildShareText, shareableDimensions, planWordVerse, SHARE_DAYS } from '../../lib/share.js';
 import { listPlanShares, createPlanShare, revokePlanShare } from '../../data/api.js';
 import { formatDate } from '../../lib/time.js';
 
@@ -44,6 +44,7 @@ export default function SharePlan({ plan, goals, scores }) {
   const [open, setOpen] = useState(false);
   const [chosen, setChosen] = useState([]);
   const [withScores, setWithScores] = useState(false);
+  const [withWordVerse, setWithWordVerse] = useState(true);
   // undefined: not loaded. null: links are not available. Array: this plan's active links.
   const [links, setLinks] = useState(undefined);
   const [error, setError] = useState('');
@@ -51,12 +52,15 @@ export default function SharePlan({ plan, goals, scores }) {
   if (!plan || !available.length) return null;
 
   const canUseShareSheet = typeof navigator !== 'undefined' && typeof navigator.share === 'function';
-  const text = buildShareText({ plan, goals, dimensions: chosen, scores: withScores ? scores : null });
+  const wordVerse = planWordVerse(plan);
+  const hasWordVerse = Boolean(wordVerse.word || wordVerse.verse);
+  const text = buildShareText({ plan, goals, dimensions: chosen, scores: withScores ? scores : null, includeWordVerse: withWordVerse });
   const linkFor = (share) => `${window.location.origin}/shared/${share.id}`;
 
   function openDialog() {
     setChosen(available);
     setWithScores(false);
+    setWithWordVerse(true);
     setError('');
     setOpen(true);
     listPlanShares(plan.id)
@@ -93,7 +97,7 @@ export default function SharePlan({ plan, goals, scores }) {
     }
     setError('');
     try {
-      const row = await createPlanShare({ userId: user.id, planId: plan.id, dimensions: chosen });
+      const row = await createPlanShare({ userId: user.id, planId: plan.id, dimensions: chosen, includeWordVerse: withWordVerse });
       setLinks((l) => [row, ...(l ?? [])]);
       if (await copyText(linkFor(row))) toast.show('Link created and copied.', { tone: 'success' });
     } catch (err) {
@@ -142,6 +146,12 @@ export default function SharePlan({ plan, goals, scores }) {
               </label>
             ))}
           </div>
+          {hasWordVerse ? (
+            <label className="checkbox">
+              <input type="checkbox" checked={withWordVerse} onChange={(e) => setWithWordVerse(e.target.checked)} />
+              <span>Include my word and verse of the year</span>
+            </label>
+          ) : null}
           {scores ? (
             <label className="checkbox">
               <input type="checkbox" checked={withScores} onChange={(e) => setWithScores(e.target.checked)} />
@@ -161,7 +171,7 @@ export default function SharePlan({ plan, goals, scores }) {
             <section className="share__links" aria-labelledby="share-link-title">
               <h3 id="share-link-title">Or share a private link</h3>
               <p className="muted">
-                {`Anyone with the link can read the habits in the areas you chose, with your first name. It never shows scores, and it stops working after ${SHARE_DAYS} days.`}
+                {`Anyone with the link can read the habits in the areas you chose, with your first name${hasWordVerse && withWordVerse ? ' and your word and verse of the year' : ''}. It never shows scores, and it stops working after ${SHARE_DAYS} days.`}
               </p>
               {links?.length ? (
                 <ul className="share__list">

@@ -161,11 +161,11 @@ export function createServerDb(supabase) {
     // Everything a shared link shows, or null when the link does not exist.
     async getSharedPlan(id) {
       const share = must(
-        await supabase.from('plan_shares').select('id, user_id, growth_plan_id, dimensions, expires_at, revoked_at').eq('id', id).maybeSingle(),
+        await supabase.from('plan_shares').select('*').eq('id', id).maybeSingle(),
       );
       if (!share) return null;
       const [plan, goals, profile] = await Promise.all([
-        supabase.from('growth_plans').select('id, user_id, year, focus_dimensions').eq('id', share.growth_plan_id).maybeSingle().then(must),
+        supabase.from('growth_plans').select('*').eq('id', share.growth_plan_id).maybeSingle().then(must),
         supabase.from('goals').select('id, growth_plan_id, dimension, goal_text, is_mandatory, sort_order, status').eq('growth_plan_id', share.growth_plan_id).then(must),
         supabase.from('user_profiles').select('first_name').eq('id', share.user_id).maybeSingle().then(must),
       ]);

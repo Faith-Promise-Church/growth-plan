@@ -1218,3 +1218,42 @@
   line-height: var(--line-small);
 }
 
+/* ---------- Word and verse of the year ---------- */
+.word-verse__fields {
+  width: 100%;
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 560px) {
+  .word-verse__fields {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.word-verse__values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-8);
+}
+
+.row-card > .word-verse__values {
+  flex: 1 1 220px;
+}
+
+.word-verse__values dt {
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+  color: var(--ink-muted);
+}
+
+.word-verse__values dd {
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
+  font-size: var(--text-24);
+  line-height: 1.2;
+  letter-spacing: var(--track-title);
+  overflow-wrap: anywhere;
+}
+

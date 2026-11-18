@@ -429,6 +429,8 @@ test.describe('plan history and sharing', () => {
     const dialog = page.getByRole('dialog');
     const preview = dialog.locator('pre');
     await expect(preview).toContainText('My 2026 growth plan');
+    await expect(preview).toContainText('Word of the year: Steady');
+    await expect(preview).toContainText('Verse of the year: Galatians 6:9');
     await expect(preview).toContainText('Spend ten minutes in prayer');
     await expect(preview).not.toContainText('flourishing');
 
@@ -446,6 +448,8 @@ test.describe('plan history and sharing', () => {
     await page.evaluate(() => localStorage.removeItem('gp-demo-session-v1'));
     await page.goto(`/shared/${share.id}`);
     await expect(page.getByRole('heading', { name: "Grace's 2026 growth plan" })).toBeVisible();
+    await expect(page.getByText('Steady', { exact: true })).toBeVisible();
+    await expect(page.getByText('Galatians 6:9', { exact: true })).toBeVisible();
     await expect(page.getByText('Put my phone away thirty minutes before bed on weekdays.')).toBeVisible();
     await expect(page.getByText('Spend ten minutes in prayer')).toHaveCount(0);
     await expect(page.getByText(/Flourishing|Habits \d/)).toHaveCount(0);
@@ -462,5 +466,32 @@ test.describe('plan history and sharing', () => {
     await page.goto(`/shared/${share.id}`);
     await expect(page.getByRole('heading', { name: 'This link is no longer active' })).toBeVisible();
   });
-});
 
+  test('a word and verse of the year can be added, changed and left out of a share', async ({ page }) => {
+    await login(page, 'lee');
+    await page.goto('/plan/2026');
+    await page.getByRole('button', { name: 'Add a word and verse of the year' }).click();
+    await page.getByLabel('Word of the year').fill('Rooted');
+    await page.getByLabel('Verse of the year').fill('Colossians 2:6-7');
+    await page.getByRole('button', { name: 'Save', exact: true }).first().click();
+    await expect(page.locator('.word-verse__word')).toHaveText('Rooted');
+    await expect(page.locator('.word-verse__verse')).toHaveText('Colossians 2:6-7');
+    const plan = (await demoDb(page)).growth_plans.find((p) => p.user_id === '00000000-0000-4000-8000-000000000002');
+    expect(plan).toMatchObject({ word_of_year: 'Rooted', verse_of_year: 'Colossians 2:6-7' });
+    await expectNoHorizontalOverflow(page);
+
+    // It prints with the plan.
+    await page.goto('/plan/2026/print');
+    await expect(page.getByText('Word of the year:')).toBeVisible();
+    await expect(page.getByText('Colossians 2:6-7')).toBeVisible();
+
+    // It is shared by default, and one tick leaves it out.
+    await page.goto('/plan/2026');
+    await page.getByRole('button', { name: 'Share', exact: true }).click();
+    const preview = page.getByRole('dialog').locator('pre');
+    await expect(preview).toContainText('Word of the year: Rooted');
+    await page.getByRole('dialog').getByText('Include my word and verse of the year').click();
+    await expect(preview).not.toContainText('Rooted');
+    await expect(preview).not.toContainText('Colossians');
+  });
+});

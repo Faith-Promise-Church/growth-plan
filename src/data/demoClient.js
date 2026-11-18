@@ -21,6 +21,9 @@ const UNIQUE = {
 
 const PK = { email_preferences: 'user_id', checkin_content: 'period' };
 
+// Columns the real database fills in when a row is created without them.
+const DEFAULTS = { growth_plans: { word_of_year: null, verse_of_year: null } };
+
 function hasStorage() {
   try {
     return typeof localStorage !== 'undefined';
@@ -180,7 +183,7 @@ export function createDemoClient() {
         result = rows.filter(match);
       } else if (this.op === 'insert') {
         for (const v of this.values) {
-          const row = { ...v };
+          const row = { ...DEFAULTS[this.table], ...v };
           if (!PK[this.table] && !row.id) row.id = uuid();
           row.created_at ??= new Date().toISOString();
           const dup = violatesUnique(this.table, row);
@@ -199,7 +202,7 @@ export function createDemoClient() {
             rows[idx] = merged;
             result.push(merged);
           } else {
-            const row = { ...v };
+            const row = { ...DEFAULTS[this.table], ...v };
             if (!PK[this.table] && !row.id) row.id = uuid();
             row.created_at ??= new Date().toISOString();
             const dup = violatesUnique(this.table, row);
