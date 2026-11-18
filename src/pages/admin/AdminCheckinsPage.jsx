@@ -104,7 +104,7 @@ export default function AdminCheckinsPage() {
           {stats.error ? <Banner tone="error">{stats.error.message}</Banner> : null}
           <Card>
             <div className="table-scroll">
-            <table className="data-table">
+            <table className="data-table data-table--wide">
               <thead>
                 <tr>
                   <th scope="col">Month</th>

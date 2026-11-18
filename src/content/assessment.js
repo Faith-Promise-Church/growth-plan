@@ -159,7 +159,7 @@ export const FREQUENCY_OPTIONS = [
 export const HABIT_ITEMS = {
   faith: [
     { key: 'faith_scripture', text: 'Reading or listening to Scripture', practice: 'scripture-reading' },
-    { key: 'faith_prayer', text: 'Unhurried time in prayer', practice: 'prayer' },
+    { key: 'faith_prayer', text: 'Spending unhurried time in prayer', practice: 'prayer' },
     { key: 'faith_worship', text: 'Worshiping with my church on the weekend', practice: 'church-attendance' },
   ],
   relationships: [
@@ -180,7 +180,7 @@ export const HABIT_ITEMS = {
   ],
   health: [
     { key: 'health_sleep', text: 'Getting enough sleep to feel rested', practice: 'sleep' },
-    { key: 'health_movement', text: 'Moving my body for 30 minutes or more', practice: 'exercise' },
+    { key: 'health_movement', text: 'Moving my body for thirty minutes or more', practice: 'exercise' },
     { key: 'health_eating', text: 'Eating in a way that gives me energy', practice: 'nutrition' },
   ],
   purpose: [

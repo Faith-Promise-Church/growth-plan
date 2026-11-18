@@ -97,10 +97,12 @@ export function PageHeader({ title, lead, back, actions, children }) {
         </Link>
       ) : null}
       <div className="page-header__row">
-        <h1 className="page-header__title">{title}</h1>
+        <div className="page-header__text">
+          <h1 className="page-header__title">{title}</h1>
+          {lead ? <p className="page-header__lead">{lead}</p> : null}
+        </div>
         {actions ? <div className="page-header__actions">{actions}</div> : null}
       </div>
-      {lead ? <p className="page-header__lead">{lead}</p> : null}
       {children}
     </header>
   );

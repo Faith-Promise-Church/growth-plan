@@ -33,11 +33,16 @@ its own result and rolls back if anything is still open.
   tests, token and endpoint abuse tests, an independent review with its findings fixed or listed.
   See `docs/PRESSURE_TEST.md`.
 
+- Visual pass (after phase 8): Text and Display cuts split by size, one type scale and spacing
+  rhythm, joined five-point scale on phones, results page reordered, checkbox and header fixes.
+  Content pass: 17 starter sentences and 2 habit items reworded. See `DECISIONS.md`.
+
 ## Blocked on Justin
 
 - Content review: `docs/CONTENT_REVIEW.md` (practice library, habit items, About text, preheaders,
   evergreen note).
-- Links in `src/content/links.js` (all empty, so hidden).
+- Links: care, groups, serving and giving are filled. Counseling and financial coaching are
+  still empty (no page on faithpromise.org for either).
 - SendGrid: authenticate the sending domain, choose from and reply-to addresses.
 - Vercel: set the server environment variables in `.env.example`; confirm the plan (Hobby fires
   crons any time within the hour).

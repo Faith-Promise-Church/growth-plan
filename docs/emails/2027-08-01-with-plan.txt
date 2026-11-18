@@ -13,8 +13,8 @@ Your habits:
 - Character: Learn one verse once a week.
 - Faith: Spend ten minutes in prayer with a short list of people and needs every day.
 
-Check in on my plan: https://growthplan.faithpromise.org/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMDgtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5ODQ1MDR9.RU_3xNmtjc4lNRNPdMzLH2J4rDdXKN_r4j7iTKaasZE
-Adjust my plan: https://growthplan.faithpromise.org/plan/2026
+Check in on my plan: https://growth-plan-sigma.vercel.app/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMDgtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5OTIwMDN9.2yxz1SYYFFd9MYto2nMFIY2qFVDz5j6tnoOAUJz7jB8
+Adjust my plan: https://growth-plan-sigma.vercel.app/plan/2026
 
 From Pastor Zac
 God wants to speak to you through his Word every day. You will grow more from ten minutes in Scripture each morning than from an hour once in a while. Open your Bible before you open your phone this month, and ask God to show you one thing to put into practice.
@@ -27,6 +27,6 @@ https://finds.life.church/beginners-guide-to-studying-the-bible/
 
 --
 You are getting this because you signed up for monthly check-ins in the Growth Plan Builder.
-Unsubscribe: https://growthplan.faithpromise.org/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMDgtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.yGj2HWeQX0ItA_FbuVS3gEzTvlNWamr0PYkcSzK1KoI
-Email preferences: https://growthplan.faithpromise.org/email/preferences
+Unsubscribe: https://growth-plan-sigma.vercel.app/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMDgtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.yGj2HWeQX0ItA_FbuVS3gEzTvlNWamr0PYkcSzK1KoI
+Email preferences: https://growth-plan-sigma.vercel.app/email/preferences
 Faith Promise Church, 10740 Faith Promise Lane, Knoxville, TN 37931

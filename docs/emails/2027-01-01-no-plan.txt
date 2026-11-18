@@ -1,11 +1,11 @@
 Subject: Your January check-in: five minutes of prayer
-Preheader: Start the year with a few minutes of prayer each day.
+Preheader: You begin this year as a loved son or daughter of God.
 
 Hi Nora,
 
 Here is your January check-in. When you are ready, building a plan takes about ten minutes.
 
-Start my plan: https://growthplan.faithpromise.org/plan/2027/start
+Start my plan: https://growth-plan-sigma.vercel.app/plan/2027/start
 
 From Pastor Zac
 You start this year as a loved son or daughter of God, and nothing you do this month will change that. So I want to challenge you to pray every day, even if you start with five minutes. We are praying together as a church this month, and I believe God will meet you there.
@@ -18,6 +18,6 @@ https://www.baptistpress.com/resource-library/bptoolbox/how-to-make-prayer-a-hab
 
 --
 You are getting this because you signed up for monthly check-ins in the Growth Plan Builder.
-Unsubscribe: https://growthplan.faithpromise.org/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMDEtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.dSZvIXdgaTYf_Rfv0B9k51hZxD99eqHzSInLcRpIF18
-Email preferences: https://growthplan.faithpromise.org/email/preferences
+Unsubscribe: https://growth-plan-sigma.vercel.app/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMDEtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.dSZvIXdgaTYf_Rfv0B9k51hZxD99eqHzSInLcRpIF18
+Email preferences: https://growth-plan-sigma.vercel.app/email/preferences
 Faith Promise Church, 10740 Faith Promise Lane, Knoxville, TN 37931

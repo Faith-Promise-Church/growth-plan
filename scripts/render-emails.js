@@ -10,7 +10,7 @@ import { CHECKIN_EDITIONS, EVERGREEN_EDITION } from '../src/content/checkinEditi
 
 const OUT = fileURLToPath(new URL('../docs/emails/', import.meta.url));
 const env = {
-  APP_URL: 'https://growthplan.faithpromise.org',
+  APP_URL: 'https://growth-plan-sigma.vercel.app',
   CHECKIN_TOKEN_SECRET: 'dry-run-secret-dry-run-secret-dry-run',
   CHECKIN_FROM_EMAIL: 'checkins@faithpromise.org',
   CHECKIN_FROM_NAME: 'Faith Promise Church',

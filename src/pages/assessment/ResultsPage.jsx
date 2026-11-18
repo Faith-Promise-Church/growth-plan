@@ -146,6 +146,11 @@ export default function ResultsPage() {
           <Banner tone="info">This assessment was taken before the habits questions were added, so it shows flourishing scores only.</Banner>
         ) : null}
 
+        <Card className="results-wheel results-wheel--inline">
+          <h2 className="card__title">Your wheel</h2>
+          <Wheel scores={flourishing} previous={prevFlourishing} size={300} />
+        </Card>
+
         <div className="results-grid">
           {DIMENSION_ORDER.map((d) => {
             const s = scores[d];
@@ -174,7 +179,12 @@ export default function ResultsPage() {
                     </div>
                   ) : null}
                 </dl>
-                {read ? <p className="read">{read.label}</p> : null}
+                {read ? (
+                  <div className="result-card__read">
+                    <p className="read">{read.label}</p>
+                    <p className="read-note">{read.meaning}</p>
+                  </div>
+                ) : null}
               </Card>
             );
           })}
@@ -197,27 +207,14 @@ export default function ResultsPage() {
             These are earlier results. <Link to={`/assessment/results/${assessments[0].id}`}>See your latest results</Link>
           </p>
         )}
-        <Attribution />
       </div>
       <aside className="page-rail">
-        <Card>
+        <Card className="results-wheel results-wheel--rail">
           <h2 className="card__title">Your wheel</h2>
           <Wheel scores={flourishing} previous={prevFlourishing} size={280} />
         </Card>
-        <Card>
-          <h2 className="card__title">What the reads mean</h2>
-          <dl className="reads-key">
-            <dt>A good place to start</dt>
-            <dd>This area could use attention, and one small habit is a good first step.</dd>
-            <dt>Faithful in a hard season</dt>
-            <dd>You keep showing up even though life is hard here. Support may help more than adding more.</dd>
-            <dt>Strong now, worth protecting</dt>
-            <dd>This area is going well. A steady habit will help keep it that way.</dd>
-            <dt>A steady strength</dt>
-            <dd>This area is going well and your habits are steady.</dd>
-          </dl>
-        </Card>
       </aside>
+      <Attribution />
     </div>
   );
 }

@@ -3,13 +3,13 @@
 
 export const links = {
   // Pastoral care: where someone goes when they are in a hard place.
-  care: '',
+  care: 'https://www.faithpromise.org/care',
   // Finding and joining a group.
-  groups: '',
+  groups: 'https://www.faithpromise.org/groups',
   // Serving teams (the Winning Team).
-  serving: '',
+  serving: 'https://www.faithpromise.org/serve',
   // Online giving.
-  giving: '',
+  giving: 'https://www.faithpromise.org/give',
   // Counseling referrals or the counseling ministry.
   counseling: '',
   // Financial coaching.

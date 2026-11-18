@@ -30,7 +30,7 @@ export const PRACTICES = [
     legacyNames: ['Scripture Reading'],
     why: "Time in God's Word shapes how you think and what you love.",
     small: s('Read one Psalm before I pick up my phone', 'weekdays'),
-    steady: s('Read one chapter of the Bible each morning', 'daily'),
+    steady: s('Read one chapter of the Bible in the morning', 'daily'),
     stretch: s('Read two chapters and write down one thing to put into practice', 'daily'),
   }),
   practice('prayer', 'faith', 'Prayer', {
@@ -40,7 +40,7 @@ export const PRACTICES = [
     why: 'Prayer is how your friendship with God grows.',
     small: s('Pray for five minutes before I start my day', 'weekdays'),
     steady: s('Spend ten minutes in prayer with a short list of people and needs', 'daily'),
-    stretch: s('Spend twenty unhurried minutes in prayer, with time to listen', 'daily'),
+    stretch: s('Spend twenty unhurried minutes praying and listening', 'daily'),
   }),
   practice('church-attendance', 'faith', 'Weekend worship', {
     core: true,
@@ -53,7 +53,7 @@ export const PRACTICES = [
   }),
   practice('fasting', 'faith', 'Fasting', {
     legacyNames: ['Fasting'],
-    why: 'Going without food for a time helps you depend on God.',
+    why: 'Going without food for a time helps you depend on God. Check with your doctor first if you have a health concern.',
     small: s('Skip one meal and use that time to pray', 'monthly'),
     steady: s('Skip one meal and use that time to pray', 'weekly'),
     stretch: s('Fast for a full day and spend meal times in prayer', 'monthly'),
@@ -77,7 +77,7 @@ export const PRACTICES = [
     why: 'A plan helps you keep going on the days you do not feel like it.',
     small: s('Follow a short Bible reading plan', 'weekdays'),
     steady: s('Follow a one-year Bible reading plan', 'daily'),
-    stretch: s('Follow a one-year plan and talk about it with a friend each week', 'daily'),
+    stretch: s('Follow a one-year Bible reading plan and talk it over with a friend', 'weekly'),
   }),
   practice('listening-prayer', 'faith', 'Listening prayer', {
     legacyNames: ['Listening Prayer'],
@@ -118,7 +118,7 @@ export const PRACTICES = [
     why: 'Shared time builds strong families and friendships.',
     small: s('Plan one night with family or friends', 'monthly'),
     steady: s('Plan one night with family or friends', 'weekly'),
-    stretch: s('Plan a night with family or friends and take turns choosing what we do', 'weekly'),
+    stretch: s('Take turns choosing what we do for a night with family or friends', 'weekly'),
   }),
   practice('date-nights', 'relationships', 'Date nights', {
     legacyNames: ['Scheduled Date Nights'],
@@ -132,7 +132,7 @@ export const PRACTICES = [
     why: 'Learning from someone further along helps you grow.',
     small: s('Ask someone I respect to meet for coffee', 'other', 'this month'),
     steady: s('Meet with a mentor', 'monthly'),
-    stretch: s('Meet with a mentor and meet with someone I can encourage', 'monthly'),
+    stretch: s('Meet with a mentor and with someone I can encourage', 'monthly'),
   }),
   practice('missional-relationships', 'relationships', 'Friends far from God', {
     legacyNames: ['Missional Relationship Building'],
@@ -146,7 +146,7 @@ export const PRACTICES = [
     why: 'Conflict that is left alone weighs on you and the people you love.',
     small: s('Pray for one person I am in conflict with', 'daily'),
     steady: s('Reach out to one person to start making things right', 'other', 'this month'),
-    stretch: s('Have an honest conversation to make things right, with help from a pastor if I need it', 'other', 'this month'),
+    stretch: s('Ask a pastor for help if I need it, and have an honest conversation to make things right', 'other', 'this month'),
   }),
   practice('relationship-counseling', 'relationships', 'Counseling for a relationship', {
     support: true,
@@ -171,7 +171,7 @@ export const PRACTICES = [
     habitItem: 'finances_plan',
     legacyNames: ['Budgeting'],
     why: 'A written plan tells your money where to go, so you worry less.',
-    small: s('Write a simple spending plan before the month begins', 'monthly'),
+    small: s('Write a simple spending plan', 'other', 'before each month begins'),
     steady: s('Check my spending against my plan', 'weekly'),
     stretch: s('Review my spending plan with my spouse or a friend', 'weekly'),
   }),
@@ -180,7 +180,7 @@ export const PRACTICES = [
     why: 'Savings turn emergencies into inconveniences.',
     small: s('Set aside a small amount in savings', 'other', 'each payday'),
     steady: s('Set aside a set amount in savings', 'other', 'each payday'),
-    stretch: s('Add to savings until I have one month of expenses set aside', 'other', 'each payday'),
+    stretch: s('Add to my savings toward one month of expenses', 'other', 'each payday'),
   }),
   practice('financial-coaching', 'finances', 'Financial coaching', {
     support: true,
@@ -195,7 +195,7 @@ export const PRACTICES = [
     why: 'Paying down debt gives you freedom to say yes to God.',
     small: s('Pay a little extra on my smallest debt', 'monthly'),
     steady: s('Put extra money toward one debt at a time', 'monthly'),
-    stretch: s('Track my payoff plan and put every extra dollar toward debt', 'weekly'),
+    stretch: s('Review my payoff plan and put extra money toward debt', 'weekly'),
   }),
   practice('charitable-giving', 'finances', 'Giving beyond church', {
     legacyNames: ['Charitable Giving (outside church)'],
@@ -209,7 +209,7 @@ export const PRACTICES = [
     why: 'Owning less can bring more peace.',
     small: s('Give away one bag of things I do not use', 'monthly'),
     steady: s('Clear out one space and donate what I do not need', 'weekly'),
-    stretch: s('Buy nothing I do not need for a month', 'other', 'this month'),
+    stretch: s('Buy nothing I do not need', 'other', 'for one month'),
   }),
 
   // Health
@@ -219,7 +219,7 @@ export const PRACTICES = [
     legacyNames: ['Sleep'],
     why: 'Rest is how God made your body to recover.',
     small: s('Put my phone away thirty minutes before bed', 'weekdays'),
-    steady: s('Go to bed at the same time each night', 'daily'),
+    steady: s('Go to bed at the same time', 'daily'),
     stretch: s('Keep a set bedtime and wake time so I get seven to eight hours of sleep', 'daily'),
   }),
   practice('exercise', 'health', 'Movement', {
@@ -259,7 +259,7 @@ export const PRACTICES = [
     legacyNames: ['Screen Time Reduction'],
     why: 'Less time on screens leaves room for rest and people.',
     small: s('Keep my phone out of my bedroom', 'daily'),
-    steady: s('Keep to a daily screen time limit', 'daily'),
+    steady: s('Keep to a screen time limit', 'daily'),
     stretch: s('Take one evening off screens', 'weekly'),
   }),
   practice('healthy-hobbies', 'health', 'Healthy hobbies', {
@@ -356,7 +356,7 @@ export const PRACTICES = [
     why: 'Being honest with God and a friend loosens the hold of sin.',
     small: s('End my day by telling God where I fell short', 'daily'),
     steady: s('Check in with one trusted friend about where I fell short', 'weekly'),
-    stretch: s('Meet with an accountability partner and confess to God each day', 'weekly'),
+    stretch: s('Confess to God each day and meet with an accountability partner', 'weekly'),
   }),
   practice('accountability', 'character', 'Accountability partner', {
     support: true,
@@ -384,7 +384,7 @@ export const PRACTICES = [
     legacyNames: ['Social Media Boundaries'],
     why: 'Time on social media can feed comparison and distraction.',
     small: s('Wait until after my morning routine to open social media', 'daily'),
-    steady: s('Keep social media to thirty minutes a day', 'daily'),
+    steady: s('Keep social media to thirty minutes', 'daily'),
     stretch: s('Take one day off social media', 'weekly'),
   }),
 
@@ -395,7 +395,7 @@ export const PRACTICES = [
     legacyNames: ['Gratitude'],
     why: 'Giving thanks changes how you see what God has already given you.',
     small: s('Write down one thing I am thankful for', 'daily'),
-    steady: s('Thank God for three specific things each morning', 'daily'),
+    steady: s('Thank God for three specific things in the morning', 'daily'),
     stretch: s('Thank God for three things and tell one person I am thankful for them', 'daily'),
   }),
   practice('sabbath', 'contentment', 'Weekly rest', {
@@ -405,7 +405,7 @@ export const PRACTICES = [
     why: 'A weekly day of rest reminds you that God is in charge.',
     small: s('Take a half day off to rest and worship', 'weekly'),
     steady: s('Keep one full day for rest and worship', 'weekly'),
-    stretch: s('Keep one full day for rest, worship and people I love, with no work email', 'weekly'),
+    stretch: s('Keep one full day free of work email for rest, worship and people I love', 'weekly'),
   }),
   practice('silence-solitude', 'contentment', 'Silence and solitude', {
     legacyNames: ['Silence and Solitude'],
@@ -419,14 +419,14 @@ export const PRACTICES = [
     why: 'Slowing down with one verse lets it sink in.',
     small: s('Read one verse slowly three times and pray it', 'weekly'),
     steady: s('Read one verse slowly three times and pray it', 'few-weekly'),
-    stretch: s('Choose a verse for the week and pray it each morning', 'daily'),
+    stretch: s('Choose a verse for the week and pray it in the morning', 'daily'),
   }),
   practice('living-simply', 'contentment', 'Living with less', {
     legacyNames: ['Decluttering/Living Simply'],
     why: 'Less clutter leaves more room for what matters.',
     small: s('Clear one drawer or shelf', 'weekly'),
     steady: s('Clear one space and give away what I do not need', 'weekly'),
-    stretch: s('Wait thirty days before buying anything I do not need', 'other', 'this month'),
+    stretch: s('Keep a list of things I want and wait thirty days before buying any of them', 'other', 'this season'),
   }),
   practice('community-service', 'contentment', 'Community service', {
     legacyNames: ['Community Service'],

@@ -14,8 +14,8 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font-family);
-  font-weight: var(--font-medium);
+  font-family: var(--font-text);
+  font-weight: var(--font-regular);
   font-size: var(--text-17);
   line-height: var(--line-body);
   color: var(--ink);
@@ -48,12 +48,57 @@ label {
   overflow-wrap: break-word;
 }
 
+/* Headings. h1 and h2 use the Display cut; h3 sits at body size, so it stays in the Text cut. */
 h1,
 h2,
 h3 {
   font-weight: var(--font-bold);
-  line-height: var(--line-tight);
-  letter-spacing: var(--letter-spacing-condensed);
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-32);
+  line-height: 1.1;
+  letter-spacing: var(--track-display);
+  word-spacing: var(--word-display);
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-20);
+  line-height: var(--line-title);
+  letter-spacing: 0;
+  word-spacing: var(--word-display);
+}
+
+h3 {
+  font-size: var(--text-17);
+  line-height: 1.35;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: var(--text-40);
+  }
+}
+
+strong,
+b {
+  font-weight: var(--font-bold);
+}
+
+/* Type helpers */
+.text-small {
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+}
+
+.numeral {
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
+  letter-spacing: var(--track-display);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
 }
 
 img,
@@ -155,6 +200,10 @@ select {
   gap: var(--space-2);
 }
 
+.plain-list li::marker {
+  color: var(--ink-muted);
+}
+
 .text-link {
   display: inline-flex;
   align-items: center;
@@ -181,6 +230,8 @@ select {
   background: #fbf6e8;
   border-left: 4px solid var(--finances-ink);
   border-radius: var(--radius-sm);
+  font-size: var(--text-15);
+  line-height: var(--line-small);
 }
 
 @media (prefers-reduced-motion: reduce) {

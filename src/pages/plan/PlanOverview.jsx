@@ -91,11 +91,11 @@ export default function PlanOverview() {
                         {g.goal_text}
                       </li>
                     ))}
-                    {list.length > 2 ? <li className="muted">{`and ${list.length - 2} more`}</li> : null}
+                    {list.length > 2 ? <li className="plan-card__more">{`and ${list.length - 2} more`}</li> : null}
                   </ul>
                 ) : null}
-                <Button variant="secondary" size="sm" to={`/plan/${year}/${d}`} aria-label={`Edit ${DIMENSIONS[d].name}`}>
-                  Edit
+                <Button variant="secondary" size="sm" to={`/plan/${year}/${d}`} aria-label={list.length ? `Edit ${DIMENSIONS[d].name}` : `Add a habit in ${DIMENSIONS[d].name}`}>
+                  {list.length ? 'Edit' : 'Add a habit'}
                 </Button>
               </Card>
             );

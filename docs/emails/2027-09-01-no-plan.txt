@@ -5,7 +5,7 @@ Hi Nora,
 
 Here is your September check-in. When you are ready, building a plan takes about ten minutes.
 
-Start my plan: https://growthplan.faithpromise.org/plan/2027/start
+Start my plan: https://growth-plan-sigma.vercel.app/plan/2027/start
 
 From Pastor Zac
 Money shapes what we care about, which is why Jesus talked about it so often. A plan for your money gives you room to breathe and room to be generous. I invite you to sit down this month, put giving first, and make a plan for the rest.
@@ -18,6 +18,6 @@ https://www.ramseysolutions.com/budgeting/how-to-make-a-budget
 
 --
 You are getting this because you signed up for monthly check-ins in the Growth Plan Builder.
-Unsubscribe: https://growthplan.faithpromise.org/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMDktMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.bJVXpncgTUjqyR6_TB_4i5x_dDCVbHlTz9Kbb6cPfOQ
-Email preferences: https://growthplan.faithpromise.org/email/preferences
+Unsubscribe: https://growth-plan-sigma.vercel.app/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMDktMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.bJVXpncgTUjqyR6_TB_4i5x_dDCVbHlTz9Kbb6cPfOQ
+Email preferences: https://growth-plan-sigma.vercel.app/email/preferences
 Faith Promise Church, 10740 Faith Promise Lane, Knoxville, TN 37931

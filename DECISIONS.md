@@ -140,3 +140,51 @@ decided and why, so it can be reversed on purpose.
 - **The check-in token response is trimmed** to first name, focus areas and each habit's id, area and
   sentence. Signed-in sessions also get the plan year and their saved answers.
 - **Habit autosaves run one at a time, in order**, and flush only when the editor closes or unmounts.
+
+## 2026-11-17: visual pass
+
+- **Two cuts of the typeface, by size.** The Typekit kit already carries Neue Haas Grotesk Text as
+  well as Display. Display was being used for everything, and at 13 to 17px its letters and words
+  run together. Body copy, labels and buttons now use Text (`--font-text`, weight 400 for reading,
+  700 for emphasis). Page titles, card titles and large numbers stay in Display (`--font-display`).
+  The Typekit link is unchanged. Reverse by pointing `--font-text` at the Display family.
+- **Tracking only on large type.** The blanket `-0.02em` on every heading is gone. 32px and up gets
+  `-0.015em`, 24px gets `-0.01em`, 20px and under is left as drawn. Display titles also get a
+  little word space (`--word-display`) because the bold cut has a narrow space.
+- **One type scale with named roles** (in `variables.css`): 13 caption, 15 secondary, 17 body,
+  20 card title, 24 lead title, 32 page title (40 from 768px). Each size has a set line height.
+- **Card rhythm.** Cards use a 16px gap, and a title with the line under it sits 8px apart so the
+  pair reads as one unit. Padding is 20px on phones and 24px from 768px.
+- **The five-point "how steady" scale is one joined list on phones**, with a radio mark and
+  left-aligned labels, instead of five separate full-width buttons. It reads as one choice and
+  each habit takes less room. From 560px it is one row of five segments.
+- **Question legends are floated** so the space under a legend is the same in every fieldset
+  (a legend ignores grid and flex gaps).
+- **Results page order on phones:** the wheel now comes first, each card explains its own read in
+  one line, and the attribution moved to the end. The separate "What the reads mean" card was
+  removed because the cards now say it. The meanings live in `READS` in `src/lib/scoring.js`.
+- **Checkbox labels hang beside the box**, so a wrapped line stays lined up, and the real input
+  sits on top of the drawn box.
+- **Plan cards with no habits say "Add a habit"** instead of "Edit".
+- **Page header actions sit after the title and lead**, so a button no longer lands between them
+  on a phone.
+
+## 2026-11-17: content pass
+
+- **Starter sentences no longer repeat their own cadence.** Seventeen starters read badly once the
+  cadence phrase was added ("each morning every day", "before the month begins once a month",
+  "each week every day"). The `what` text was reworded so the built sentence reads cleanly. One
+  cadence changed with it: the Bible reading plan stretch is now weekly (the talk with a friend).
+- **Two habit items were reworded for consistency:** "Spending unhurried time in prayer" (the others
+  all start with a verb) and "thirty minutes" (numbers are spelled out everywhere else).
+- **Fasting carries a health line** ("Check with your doctor first if you have a health concern").
+- **Support practices use their own size labels** in the Helper ("A first step", "A steady rhythm",
+  "A next step"), so more counseling is never called "A stretch".
+- **Three preheaders were replaced** (January, October, November) because each repeated its own
+  subject line or article blurb. The check-in seed in the migration was regenerated.
+- **Links filled from the live site navigation:** care, groups, serving and giving. Counseling and
+  financial coaching stay empty: faithpromise.org has no page for either, and the care page says
+  Stephen Ministers are not licensed counselors.
+- **`APP_URL` is `https://growth-plan-sigma.vercel.app`.** `growthplan.faithpromise.org` has no DNS
+  record. If that address is added later, change `APP_URL` in Vercel at the same time.
+

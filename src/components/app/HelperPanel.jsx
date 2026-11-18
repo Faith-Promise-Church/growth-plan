@@ -17,6 +17,9 @@ function loadDismissed(userId, dimension) {
 }
 
 const SIZE_LABEL = { small: 'A small start', steady: 'A steady step', stretch: 'A stretch' };
+// Support practices (counseling, coaching, talking with a pastor) are help, not a challenge, so
+// more of it is never called a stretch.
+const SUPPORT_SIZE_LABEL = { small: 'A first step', steady: 'A steady rhythm', stretch: 'A next step' };
 
 /**
  * The Helper for one dimension. It only offers. "Add to my plan" calls onAdd(practice, size),
@@ -90,7 +93,7 @@ export default function HelperPanel({ userId, dimension, scores, habitResponses,
             </div>
             <p className="muted">{sg.practice.why}</p>
             <p className="suggestion__starter">
-              <span className="suggestion__size">{SIZE_LABEL[sg.size]}:</span> {starterSentence(sg.practice, sg.size)}
+              <span className="suggestion__size">{(sg.practice.support ? SUPPORT_SIZE_LABEL : SIZE_LABEL)[sg.size]}:</span> {starterSentence(sg.practice, sg.size)}
             </p>
             <div className="button-row">
               <Button size="sm" variant="secondary" onClick={() => onAdd(sg.practice, sg.size)}>

@@ -13,8 +13,8 @@ Your habits:
 - Character: Learn one verse once a week.
 - Faith: Spend ten minutes in prayer with a short list of people and needs every day.
 
-Check in on my plan: https://growthplan.faithpromise.org/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjgtMDEtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5ODQ1MDR9.19M-n3z95_oShZyY8IKUTjShPLUZKXvH2KOnRX2Woxo
-Adjust my plan: https://growthplan.faithpromise.org/plan/2026
+Check in on my plan: https://growth-plan-sigma.vercel.app/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjgtMDEtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5OTIwMDN9.jSSQsvC2Sh0H-Q2uKmPnMDzQCz2Ae_CBA38kbsEODKQ
+Adjust my plan: https://growth-plan-sigma.vercel.app/plan/2026
 
 From Pastor Zac
 You belong to God, and he is patient with you as you grow. Take a few minutes this month to look at your plan and be honest about how it is going. Choose one habit to keep, and if one feels too big, make it smaller and keep going. I am cheering for you.
@@ -27,6 +27,6 @@ https://jamesclear.com/second-mistake
 
 --
 You are getting this because you signed up for monthly check-ins in the Growth Plan Builder.
-Unsubscribe: https://growthplan.faithpromise.org/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjgtMDEtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.dLTHsYbfOT-cmN0xTwGCWlc1gXP6TmS7eFO2aSduRm8
-Email preferences: https://growthplan.faithpromise.org/email/preferences
+Unsubscribe: https://growth-plan-sigma.vercel.app/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjgtMDEtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.dLTHsYbfOT-cmN0xTwGCWlc1gXP6TmS7eFO2aSduRm8
+Email preferences: https://growth-plan-sigma.vercel.app/email/preferences
 Faith Promise Church, 10740 Faith Promise Lane, Knoxville, TN 37931

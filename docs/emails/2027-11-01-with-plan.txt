@@ -1,5 +1,5 @@
 Subject: Your November check-in: three things each day
-Preheader: Begin each day by thanking God for three specific things.
+Preheader: Gratitude changes how you see what God has already given you.
 
 Hi Grace,
 
@@ -13,8 +13,8 @@ Your habits:
 - Character: Learn one verse once a week.
 - Faith: Spend ten minutes in prayer with a short list of people and needs every day.
 
-Check in on my plan: https://growthplan.faithpromise.org/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTEtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5ODQ1MDR9.L9dsjAIRomrHKwHJi219zqyWyVM1J77Gfugs8xMl9PI
-Adjust my plan: https://growthplan.faithpromise.org/plan/2026
+Check in on my plan: https://growth-plan-sigma.vercel.app/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTEtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5OTIwMDN9.TbualqvgvIDTu7YD5cTlHV1Y0EZfA-A0YdGHwLIq-0Y
+Adjust my plan: https://growth-plan-sigma.vercel.app/plan/2026
 
 From Pastor Zac
 Gratitude changes how you see everything God has already given you. Before this month gets busy, begin each day by thanking God for three specific things. I am thankful for you and for the way you keep growing.
@@ -27,6 +27,6 @@ https://www.health.harvard.edu/blog/gratitude-enhances-health-brings-happiness-a
 
 --
 You are getting this because you signed up for monthly check-ins in the Growth Plan Builder.
-Unsubscribe: https://growthplan.faithpromise.org/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTEtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.YlgH0Mx09GtqpHRGQOWRlprL9QC9TYE_q9C9tGmUPuk
-Email preferences: https://growthplan.faithpromise.org/email/preferences
+Unsubscribe: https://growth-plan-sigma.vercel.app/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTEtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.YlgH0Mx09GtqpHRGQOWRlprL9QC9TYE_q9C9tGmUPuk
+Email preferences: https://growth-plan-sigma.vercel.app/email/preferences
 Faith Promise Church, 10740 Faith Promise Lane, Knoxville, TN 37931

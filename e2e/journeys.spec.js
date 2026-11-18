@@ -36,7 +36,7 @@ for (const width of WIDTHS) {
       await page.waitForURL('**/plan/2026');
 
       // Build: open a focus area and add the first suggestion from the Helper.
-      await page.getByRole('link', { name: /^Edit / }).first().click();
+      await page.getByRole('link', { name: /^(Edit|Add a habit in) / }).first().click();
       await page.getByRole('button', { name: 'Add to my plan' }).first().click();
       const editor = page.locator('.habit-editor');
       await expect(editor).toBeVisible();

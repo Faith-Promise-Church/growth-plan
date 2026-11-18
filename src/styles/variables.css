@@ -75,16 +75,34 @@
      v2 tokens. Everything above this line is unchanged from v1.
      --------------------------------------------------------------------- */
 
-  /* Type scale */
+  /* Type families. The Typekit kit carries both cuts of Neue Haas Grotesk. Display is drawn for
+     headings (20px and up) and is too tight at reading sizes. Text is drawn for reading sizes.
+     Use --font-display for titles and large numbers, --font-text for everything else. */
+  --font-display: "neue-haas-grotesk-display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-text: "neue-haas-grotesk-text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-regular: 400;
+
+  /* Type scale. Roles:
+     13 caption and table heads, 15 secondary and labels, 17 body and buttons,
+     20 card titles, 24 lead card title, 32 page titles and big numbers (40 on wide screens). */
   --text-13: 13px;
   --text-15: 15px;
   --text-17: 17px;
   --text-20: 20px;
   --text-24: 24px;
   --text-32: 32px;
+  --text-40: 40px;
   --text-44: 44px;
   --line-tight: 1.15;
+  --line-title: 1.25;
+  --line-small: 1.45;
   --line-body: 1.5;
+
+  /* Tracking. Only large display type is tightened; 20px and under is left as drawn. */
+  --track-display: -0.015em;
+  --track-title: -0.01em;
+  /* The Display cut has a narrow word space. Bold titles need a little more to keep words apart. */
+  --word-display: 0.06em;
 
   /* 4px spacing scale */
   --space-1: 4px;

@@ -5,7 +5,7 @@ Hi Nora,
 
 Here is your January check-in. When you are ready, building a plan takes about ten minutes.
 
-Start my plan: https://growthplan.faithpromise.org/plan/2028/start
+Start my plan: https://growth-plan-sigma.vercel.app/plan/2028/start
 
 From Pastor Zac
 You belong to God, and he is patient with you as you grow. Take a few minutes this month to look at your plan and be honest about how it is going. Choose one habit to keep, and if one feels too big, make it smaller and keep going. I am cheering for you.
@@ -18,6 +18,6 @@ https://jamesclear.com/second-mistake
 
 --
 You are getting this because you signed up for monthly check-ins in the Growth Plan Builder.
-Unsubscribe: https://growthplan.faithpromise.org/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjgtMDEtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.dLTHsYbfOT-cmN0xTwGCWlc1gXP6TmS7eFO2aSduRm8
-Email preferences: https://growthplan.faithpromise.org/email/preferences
+Unsubscribe: https://growth-plan-sigma.vercel.app/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjgtMDEtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.dLTHsYbfOT-cmN0xTwGCWlc1gXP6TmS7eFO2aSduRm8
+Email preferences: https://growth-plan-sigma.vercel.app/email/preferences
 Faith Promise Church, 10740 Faith Promise Lane, Knoxville, TN 37931

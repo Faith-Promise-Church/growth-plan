@@ -1,5 +1,5 @@
 Subject: Your October check-in: use your gifts
-Preheader: The best way to find your gifts is to start serving.
+Preheader: God gave you gifts that our church and our city need.
 
 Hi Grace,
 
@@ -13,8 +13,8 @@ Your habits:
 - Character: Learn one verse once a week.
 - Faith: Spend ten minutes in prayer with a short list of people and needs every day.
 
-Check in on my plan: https://growthplan.faithpromise.org/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTAtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5ODQ1MDR9.34UcH8MYegd0RcWwDHoFn8YZYOqHRPrcrAE10wI3L2c
-Adjust my plan: https://growthplan.faithpromise.org/plan/2026
+Check in on my plan: https://growth-plan-sigma.vercel.app/check-in?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTAtMDEiLCJrIjoiY2hlY2tpbiIsImUiOjE3OTc5OTIwMDN9.ujx8kzu7Ouvzga8IcvthWkMGKJJni4Kv35bzGu_AmAA
+Adjust my plan: https://growth-plan-sigma.vercel.app/plan/2026
 
 From Pastor Zac
 God gave you gifts that our church and our city need. Most people discover those gifts by serving, so the best next step is to start. Join the Winning Team this month, or take one new step where you already serve, and watch how God uses you.
@@ -27,6 +27,6 @@ https://thegospelcoalition.org/article/how-do-i-discover-my-spiritual-gift
 
 --
 You are getting this because you signed up for monthly check-ins in the Growth Plan Builder.
-Unsubscribe: https://growthplan.faithpromise.org/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTAtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.-rIf-n1URxDRKea3xKN43bCCsGiax99zMIZvoLc-JB4
-Email preferences: https://growthplan.faithpromise.org/email/preferences
+Unsubscribe: https://growth-plan-sigma.vercel.app/email/preferences?token=eyJ1IjoiNmYxYzJhNTQtMGQ4Yi00YzFlLTlhMWItMmMzZDRlNWY2YTdiIiwicCI6IjIwMjctMTAtMDEiLCJrIjoidW5zdWJzY3JpYmUiLCJlIjowfQ.-rIf-n1URxDRKea3xKN43bCCsGiax99zMIZvoLc-JB4
+Email preferences: https://growth-plan-sigma.vercel.app/email/preferences
 Faith Promise Church, 10740 Faith Promise Lane, Knoxville, TN 37931

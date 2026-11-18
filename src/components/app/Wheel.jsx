@@ -5,7 +5,8 @@
 import { DIMENSION_ORDER, DIMENSIONS } from '../../content/dimensions.js';
 import { formatScore } from '../../lib/scoring.js';
 
-const SIZE = 320;
+// The view box leaves room outside the wheel for the score labels.
+const SIZE = 352;
 const C = SIZE / 2;
 const INNER = 22;
 const OUTER = 128;
@@ -51,7 +52,7 @@ export default function Wheel({ scores, previous, size = SIZE, showLabels = true
         {showLabels
           ? DIMENSION_ORDER.map((d, i) => {
               const mid = start + (i + 0.5) * step;
-              const [x, y] = polar(OUTER + 18, mid);
+              const [x, y] = polar(OUTER + 16, mid);
               const anchor = Math.abs(Math.cos(mid)) < 0.2 ? 'middle' : Math.cos(mid) > 0 ? 'start' : 'end';
               return (
                 <text key={d} x={x} y={y} textAnchor={anchor} dominantBaseline="middle" className="wheel__label">

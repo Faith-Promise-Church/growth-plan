@@ -8,10 +8,14 @@ export const THRESHOLDS = {
 };
 
 export const READS = {
-  start: { key: 'start', label: 'A good place to start' },
-  'hard-season': { key: 'hard-season', label: 'Faithful in a hard season' },
-  protect: { key: 'protect', label: 'Strong now, worth protecting' },
-  steady: { key: 'steady', label: 'A steady strength' },
+  start: { key: 'start', label: 'A good place to start', meaning: 'This area could use attention, and one small habit is a good first step.' },
+  'hard-season': {
+    key: 'hard-season',
+    label: 'Faithful in a hard season',
+    meaning: 'You keep showing up even though life is hard here. Support may help more than adding more.',
+  },
+  protect: { key: 'protect', label: 'Strong now, worth protecting', meaning: 'This area is going well. A steady habit will help keep it that way.' },
+  steady: { key: 'steady', label: 'A steady strength', meaning: 'This area is going well and your habits are steady.' },
 };
 
 export function round1(x) {

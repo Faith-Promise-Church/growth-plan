@@ -60,14 +60,14 @@ Answers (stored 0 to 4): 0 Not right now, 1 Once in a while, 2 About half the ti
 | Dimension | Item | Related practice |
 |---|---|---|
 | Faith | Reading or listening to Scripture | `scripture-reading` |
-| Faith | Unhurried time in prayer | `prayer` |
+| Faith | Spending unhurried time in prayer | `prayer` |
 | Faith | Worshiping with my church on the weekend | `church-attendance` |
 | Relationships | Meeting with a group or a few friends who know what is going on in my life | `group-attendance` |
 | Relationships | Giving the people closest to me my full attention, with my phone put away | `phone-free-times` |
 | Finances | Giving to God first, before other spending | `tithing-giving` |
 | Finances | Following a written plan for my spending | `budgeting` |
 | Health | Getting enough sleep to feel rested | `sleep` |
-| Health | Moving my body for 30 minutes or more | `exercise` |
+| Health | Moving my body for thirty minutes or more | `exercise` |
 | Health | Eating in a way that gives me energy | `nutrition` |
 | Purpose | Serving someone with my time or skills | `serving` |
 | Purpose | Praying for someone far from God, or taking a step toward a spiritual conversation | `evangelism` |
@@ -130,7 +130,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 
 - Why: Time in God's Word shapes how you think and what you love.
 - Small: Read one Psalm before I pick up my phone on weekdays.
-- Steady: Read one chapter of the Bible each morning every day.
+- Steady: Read one chapter of the Bible in the morning every day.
 - Stretch: Read two chapters and write down one thing to put into practice every day.
 
 **Prayer** (`prayer`; core, habit item `faith_prayer`)
@@ -138,7 +138,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 - Why: Prayer is how your friendship with God grows.
 - Small: Pray for five minutes before I start my day on weekdays.
 - Steady: Spend ten minutes in prayer with a short list of people and needs every day.
-- Stretch: Spend twenty unhurried minutes in prayer, with time to listen every day.
+- Stretch: Spend twenty unhurried minutes praying and listening every day.
 
 **Weekend worship** (`church-attendance`; core, habit item `faith_worship`)
 
@@ -149,7 +149,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 
 **Fasting** (`fasting`)
 
-- Why: Going without food for a time helps you depend on God.
+- Why: Going without food for a time helps you depend on God. Check with your doctor first if you have a health concern.
 - Small: Skip one meal and use that time to pray once a month.
 - Steady: Skip one meal and use that time to pray once a week.
 - Stretch: Fast for a full day and spend meal times in prayer once a month.
@@ -173,7 +173,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 - Why: A plan helps you keep going on the days you do not feel like it.
 - Small: Follow a short Bible reading plan on weekdays.
 - Steady: Follow a one-year Bible reading plan every day.
-- Stretch: Follow a one-year plan and talk about it with a friend each week every day.
+- Stretch: Follow a one-year Bible reading plan and talk it over with a friend once a week.
 
 **Listening prayer** (`listening-prayer`)
 
@@ -210,7 +210,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 - Why: Shared time builds strong families and friendships.
 - Small: Plan one night with family or friends once a month.
 - Steady: Plan one night with family or friends once a week.
-- Stretch: Plan a night with family or friends and take turns choosing what we do once a week.
+- Stretch: Take turns choosing what we do for a night with family or friends once a week.
 
 **Date nights** (`date-nights`)
 
@@ -224,7 +224,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 - Why: Learning from someone further along helps you grow.
 - Small: Ask someone I respect to meet for coffee this month.
 - Steady: Meet with a mentor once a month.
-- Stretch: Meet with a mentor and meet with someone I can encourage once a month.
+- Stretch: Meet with a mentor and with someone I can encourage once a month.
 
 **Friends far from God** (`missional-relationships`)
 
@@ -238,7 +238,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 - Why: Conflict that is left alone weighs on you and the people you love.
 - Small: Pray for one person I am in conflict with every day.
 - Steady: Reach out to one person to start making things right this month.
-- Stretch: Have an honest conversation to make things right, with help from a pastor if I need it this month.
+- Stretch: Ask a pastor for help if I need it, and have an honest conversation to make things right this month.
 
 **Counseling for a relationship** (`relationship-counseling`; support)
 
@@ -259,7 +259,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 **Spending plan** (`budgeting`; core, habit item `finances_plan`)
 
 - Why: A written plan tells your money where to go, so you worry less.
-- Small: Write a simple spending plan before the month begins once a month.
+- Small: Write a simple spending plan before each month begins.
 - Steady: Check my spending against my plan once a week.
 - Stretch: Review my spending plan with my spouse or a friend once a week.
 
@@ -268,7 +268,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 - Why: Savings turn emergencies into inconveniences.
 - Small: Set aside a small amount in savings each payday.
 - Steady: Set aside a set amount in savings each payday.
-- Stretch: Add to savings until I have one month of expenses set aside each payday.
+- Stretch: Add to my savings toward one month of expenses each payday.
 
 **Financial coaching** (`financial-coaching`; support)
 
@@ -282,7 +282,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 - Why: Paying down debt gives you freedom to say yes to God.
 - Small: Pay a little extra on my smallest debt once a month.
 - Steady: Put extra money toward one debt at a time once a month.
-- Stretch: Track my payoff plan and put every extra dollar toward debt once a week.
+- Stretch: Review my payoff plan and put extra money toward debt once a week.
 
 **Giving beyond church** (`charitable-giving`)
 
@@ -296,7 +296,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 - Why: Owning less can bring more peace.
 - Small: Give away one bag of things I do not use once a month.
 - Steady: Clear out one space and donate what I do not need once a week.
-- Stretch: Buy nothing I do not need for a month this month.
+- Stretch: Buy nothing I do not need for one month.
 
 ### Health
 
@@ -304,7 +304,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 
 - Why: Rest is how God made your body to recover.
 - Small: Put my phone away thirty minutes before bed on weekdays.
-- Steady: Go to bed at the same time each night every day.
+- Steady: Go to bed at the same time every day.
 - Stretch: Keep a set bedtime and wake time so I get seven to eight hours of sleep every day.
 
 **Movement** (`exercise`; core, habit item `health_movement`)
@@ -339,7 +339,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 
 - Why: Less time on screens leaves room for rest and people.
 - Small: Keep my phone out of my bedroom every day.
-- Steady: Keep to a daily screen time limit every day.
+- Steady: Keep to a screen time limit every day.
 - Stretch: Take one evening off screens once a week.
 
 **Healthy hobbies** (`healthy-hobbies`)
@@ -428,7 +428,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 - Why: Being honest with God and a friend loosens the hold of sin.
 - Small: End my day by telling God where I fell short every day.
 - Steady: Check in with one trusted friend about where I fell short once a week.
-- Stretch: Meet with an accountability partner and confess to God each day once a week.
+- Stretch: Confess to God each day and meet with an accountability partner once a week.
 
 **Accountability partner** (`accountability`; support)
 
@@ -455,7 +455,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 
 - Why: Time on social media can feed comparison and distraction.
 - Small: Wait until after my morning routine to open social media every day.
-- Steady: Keep social media to thirty minutes a day every day.
+- Steady: Keep social media to thirty minutes every day.
 - Stretch: Take one day off social media once a week.
 
 ### Contentment
@@ -464,7 +464,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 
 - Why: Giving thanks changes how you see what God has already given you.
 - Small: Write down one thing I am thankful for every day.
-- Steady: Thank God for three specific things each morning every day.
+- Steady: Thank God for three specific things in the morning every day.
 - Stretch: Thank God for three things and tell one person I am thankful for them every day.
 
 **Weekly rest** (`sabbath`; core, habit item `contentment_rest`)
@@ -472,7 +472,7 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 - Why: A weekly day of rest reminds you that God is in charge.
 - Small: Take a half day off to rest and worship once a week.
 - Steady: Keep one full day for rest and worship once a week.
-- Stretch: Keep one full day for rest, worship and people I love, with no work email once a week.
+- Stretch: Keep one full day free of work email for rest, worship and people I love once a week.
 
 **Silence and solitude** (`silence-solitude`)
 
@@ -486,14 +486,14 @@ Core practices (the 15 v1 required goals) show first in the Helper with "Recomme
 - Why: Slowing down with one verse lets it sink in.
 - Small: Read one verse slowly three times and pray it once a week.
 - Steady: Read one verse slowly three times and pray it a few times a week.
-- Stretch: Choose a verse for the week and pray it each morning every day.
+- Stretch: Choose a verse for the week and pray it in the morning every day.
 
 **Living with less** (`living-simply`)
 
 - Why: Less clutter leaves more room for what matters.
 - Small: Clear one drawer or shelf once a week.
 - Steady: Clear one space and give away what I do not need once a week.
-- Stretch: Wait thirty days before buying anything I do not need this month.
+- Stretch: Keep a list of things I want and wait thirty days before buying any of them this season.
 
 **Community service** (`community-service`)
 
@@ -533,7 +533,7 @@ Pastor Zac's notes are seeded exactly as written in the brief. The December edit
 
 - Theme: Faith: prayer
 - Subject: Your January check-in: five minutes of prayer
-- Preheader: Start the year with a few minutes of prayer each day.
+- Preheader: You begin this year as a loved son or daughter of God.
 - Article: [How to Make Prayer a Habit You Can't Break](https://www.baptistpress.com/resource-library/bptoolbox/how-to-make-prayer-a-habit-you-cant-break), Baptist Press
 - Blurb: A practical case for a small daily prayer habit that you keep.
 - From Pastor Zac (55 words): You start this year as a loved son or daughter of God, and nothing you do this month will change that. So I want to challenge you to pray every day, even if you start with five minutes. We are praying together as a church this month, and I believe God will meet you there.
@@ -614,7 +614,7 @@ Pastor Zac's notes are seeded exactly as written in the brief. The December edit
 
 - Theme: Purpose: serving
 - Subject: Your October check-in: use your gifts
-- Preheader: The best way to find your gifts is to start serving.
+- Preheader: God gave you gifts that our church and our city need.
 - Article: [How do I discover my spiritual gift?](https://thegospelcoalition.org/article/how-do-i-discover-my-spiritual-gift), Juan Sanchez, The Gospel Coalition
 - Blurb: The best way to find your gifts is to start serving where you are needed.
 - From Pastor Zac (47 words): God gave you gifts that our church and our city need. Most people discover those gifts by serving, so the best next step is to start. Join the Winning Team this month, or take one new step where you already serve, and watch how God uses you.
@@ -623,7 +623,7 @@ Pastor Zac's notes are seeded exactly as written in the brief. The December edit
 
 - Theme: Contentment: gratitude
 - Subject: Your November check-in: three things each day
-- Preheader: Begin each day by thanking God for three specific things.
+- Preheader: Gratitude changes how you see what God has already given you.
 - Article: [Gratitude enhances health, brings happiness, and may even lengthen lives](https://www.health.harvard.edu/blog/gratitude-enhances-health-brings-happiness-and-may-even-lengthen-lives-202409113071), Harvard Health Publishing
 - Blurb: Research on what a habit of giving thanks does for a person, with six questions to try.
 - From Pastor Zac (38 words): Gratitude changes how you see everything God has already given you. Before this month gets busy, begin each day by thanking God for three specific things. I am thankful for you and for the way you keep growing.

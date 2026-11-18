@@ -90,7 +90,7 @@ export default function HomePage() {
         <h1 className="home__greeting">{greeting(profile?.first_name)}</h1>
 
         <Card className="next-step">
-          <h2 className="next-step__title">{step.title}</h2>
+          <h2 className="card__title next-step__title">{step.title}</h2>
           <p>{step.body}</p>
           <Button to={step.to}>{step.label}</Button>
         </Card>
@@ -155,22 +155,20 @@ export default function HomePage() {
       <aside className="page-rail">
         <Card>
           <h2 className="card__title">Monthly check-in</h2>
+          {!data.prefs?.monthly_checkin ? (
+            <p className="muted">A short email on the first Monday of each month brings you back to your plan.</p>
+          ) : (
+            <p className="muted">
+              Check-ins are on. <Link to="/email/preferences">Change this</Link>
+            </p>
+          )}
           {data.checkins?.length ? <CheckinHistory checkins={data.checkins} goals={data.goals} /> : null}
           {data.plan && activeHabits(data.goals).length ? (
             <Button variant="secondary" to="/check-in">
               Check in now
             </Button>
           ) : null}
-          {!data.prefs?.monthly_checkin ? (
-            <>
-              <p className="muted">A short email on the first Monday of each month brings you back to your plan.</p>
-              <CheckinOptIn compact onSaved={reload} />
-            </>
-          ) : (
-            <p className="muted">
-              Check-ins are on. <Link to="/email/preferences">Change this</Link>
-            </p>
-          )}
+          {!data.prefs?.monthly_checkin ? <CheckinOptIn compact onSaved={reload} /> : null}
         </Card>
       </aside>
     </div>

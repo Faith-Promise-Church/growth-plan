@@ -21,7 +21,7 @@ export const CHECKIN_EDITIONS = [
     period: '2027-01-01',
     theme: 'Faith: prayer',
     subject: 'Your January check-in: five minutes of prayer',
-    preheader: 'Start the year with a few minutes of prayer each day.',
+    preheader: 'You begin this year as a loved son or daughter of God.',
     zac_note:
       'You start this year as a loved son or daughter of God, and nothing you do this month will change that. So I want to challenge you to pray every day, even if you start with five minutes. We are praying together as a church this month, and I believe God will meet you there.',
     article_title: "How to Make Prayer a Habit You Can't Break",
@@ -129,7 +129,7 @@ export const CHECKIN_EDITIONS = [
     period: '2027-10-01',
     theme: 'Purpose: serving',
     subject: 'Your October check-in: use your gifts',
-    preheader: 'The best way to find your gifts is to start serving.',
+    preheader: 'God gave you gifts that our church and our city need.',
     zac_note:
       'God gave you gifts that our church and our city need. Most people discover those gifts by serving, so the best next step is to start. Join the Winning Team this month, or take one new step where you already serve, and watch how God uses you.',
     article_title: 'How do I discover my spiritual gift?',
@@ -141,7 +141,7 @@ export const CHECKIN_EDITIONS = [
     period: '2027-11-01',
     theme: 'Contentment: gratitude',
     subject: 'Your November check-in: three things each day',
-    preheader: 'Begin each day by thanking God for three specific things.',
+    preheader: 'Gratitude changes how you see what God has already given you.',
     zac_note:
       'Gratitude changes how you see everything God has already given you. Before this month gets busy, begin each day by thanking God for three specific things. I am thankful for you and for the way you keep growing.',
     article_title: 'Gratitude enhances health, brings happiness, and may even lengthen lives',
