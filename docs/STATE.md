@@ -1,6 +1,6 @@
 # State of the build
 
-Updated 2026-11-17, after the visual pass and the first two migrations. Branch `v2`.
+Updated 2026-11-17, after launch. Everything is on `main`.
 
 ## Apply order (do these by hand, in this order)
 
@@ -17,7 +17,10 @@ Updated 2026-11-17, after the visual pass and the first two migrations. Branch `
 5. `supabase/migrations/20261118000100_plan_shares.sql` (private plan links).
    **Applied to production 2026-11-17.**
 6. `supabase/migrations/20261118000200_word_and_verse.sql` (word and verse of the year).
-   **Not applied yet.** Additive. The card stays hidden until it is.
+   **Applied to production 2026-11-17.**
+
+Every migration in `supabase/migrations/` is now applied. Row counts after the last one: 1,213
+profiles, 933 assessments, 728 plans, 11,202 goals, with the same fingerprints as before the first.
 
 Run them in the Supabase SQL editor, one file at a time, each as a whole. The lockdown file checks
 its own result and rolls back if anything is still open.
@@ -54,14 +57,13 @@ same fingerprints for assessments and goals. The lockdown was applied the same w
 
 - Plan history and sharing (PR 2, merged and live): year switcher, `/plans`, earlier years as a
   record, "Share" with the share sheet, and private read-only links.
-- Word and verse of the year (branch `word-and-verse`): a small card on the Plan page, printed
+- Word and verse of the year (PR 3, merged and live): a small card on the Plan page, printed
   with the plan, and shared unless the person leaves it out.
 
 ## Blocked on Justin
 
 - Confirm the test email reached the inbox. SendGrid accepted it on 2026-11-17 ("Send me a test"
   on the December edition).
-- Go-ahead to apply `20261118000200_word_and_verse.sql`.
 
 - Content review: `docs/CONTENT_REVIEW.md` (practice library, habit items, About text, preheaders,
   evergreen note).
