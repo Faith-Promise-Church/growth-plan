@@ -1,0 +1,135 @@
+/* Print view for /plan/:year/print. US Letter, brand type, logo. */
+
+.print-page {
+  max-width: 8.5in;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) var(--space-12);
+}
+
+.print-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.print-sheet {
+  background: #fff;
+  padding: 0.6in;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  font-size: 12pt;
+  line-height: 1.45;
+  color: #272624;
+}
+
+.print-sheet__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.3in;
+  border-bottom: 2px solid #272624;
+  padding-bottom: 0.2in;
+  margin-bottom: 0.25in;
+}
+
+.print-sheet__header img {
+  width: 2in;
+  height: auto;
+}
+
+.print-sheet__title {
+  font-size: 22pt;
+  text-align: right;
+}
+
+.print-sheet__name {
+  text-align: right;
+  font-size: 13pt;
+}
+
+.print-sheet__focus {
+  margin-bottom: 0.2in;
+}
+
+.print-section {
+  break-inside: avoid-page;
+  margin-bottom: 0.22in;
+  padding-top: 0.08in;
+  border-top: 3px solid var(--dim);
+}
+
+.print-section__title {
+  display: flex;
+  align-items: center;
+  gap: 0.1in;
+  font-size: 14pt;
+  margin-bottom: 0.06in;
+}
+
+.print-section ul {
+  padding-left: 0.25in;
+  display: grid;
+  gap: 0.04in;
+}
+
+.print-section li {
+  overflow-wrap: anywhere;
+  break-inside: avoid;
+}
+
+@media screen and (max-width: 640px) {
+  .print-sheet {
+    padding: var(--space-5);
+  }
+  .print-sheet__header {
+    flex-direction: column;
+  }
+  .print-sheet__title,
+  .print-sheet__name {
+    text-align: left;
+  }
+  .print-sheet__header img {
+    width: 160px;
+  }
+}
+
+.print-sheet__title,
+.print-sheet__name {
+  overflow-wrap: anywhere;
+}
+
+.print-sheet__footer {
+  margin-top: 0.3in;
+  font-size: 9pt;
+  color: #5f5c57;
+}
+
+@page {
+  size: letter;
+  margin: 0.5in;
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-page {
+    padding: 0;
+    max-width: none;
+  }
+  .print-sheet {
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0;
+  }
+  .print-section {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

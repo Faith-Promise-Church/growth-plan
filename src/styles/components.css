@@ -1,0 +1,848 @@
+/* Shared components */
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--tap);
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  font-size: var(--text-17);
+  font-weight: var(--font-bold);
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--timing-function), border-color var(--duration-fast) var(--timing-function);
+  text-align: center;
+}
+
+.btn--primary {
+  background: var(--brand);
+  color: var(--brand-on);
+}
+
+.btn--primary:hover {
+  background: var(--character-dark);
+}
+
+.btn--secondary {
+  background: var(--surface);
+  color: var(--brand);
+  border-color: var(--brand);
+}
+
+.btn--secondary:hover {
+  background: #eef4f4;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--brand);
+  padding: 0 var(--space-3);
+}
+
+.btn--ghost:hover {
+  background: rgba(50, 101, 101, 0.08);
+}
+
+.btn--danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn--sm {
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  font-size: var(--text-15);
+}
+
+.btn--ghost.btn--sm {
+  padding: 0 var(--space-3);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn__spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Cards ---------- */
+.card {
+  position: relative;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: var(--space-6);
+  }
+}
+
+.card > * {
+  max-width: 100%;
+}
+
+/* A title and the line under it read as one unit: 8px apart, then 16px to what follows. */
+.card > .card__title + p,
+.card > .card__title + .card__sub {
+  margin-top: calc(var(--space-2) - var(--space-4));
+}
+
+.card--accent {
+  border-top: 6px solid var(--accent);
+}
+
+.card__title {
+  font-size: var(--text-20);
+}
+
+.row-card {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.row-card > div:first-child {
+  flex: 1 1 220px;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.tag {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 2px var(--space-2);
+  border-radius: 999px;
+  background: #ebe7df;
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--text-13);
+  font-weight: var(--font-bold);
+  line-height: 1.5;
+  letter-spacing: 0;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.tag--brand {
+  background: #e3eeee;
+  color: var(--character-ink);
+  margin-left: 0;
+}
+
+/* ---------- Page header ---------- */
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.page-header__back,
+.page-main > .page-header__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  color: var(--brand);
+  font-weight: var(--font-bold);
+  text-decoration: none;
+  align-self: flex-start;
+}
+
+.page-header__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3) var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* Title and lead stay together; actions sit beside them when there is room, below when not. */
+.page-header__text {
+  flex: 1 1 280px;
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.page-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.page-header__lead {
+  color: var(--ink-muted);
+  max-width: 60ch;
+}
+
+/* ---------- Empty, skeleton, loading ---------- */
+.empty-state {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-6) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.empty-state__title + .empty-state__body {
+  margin-top: calc(var(--space-2) - var(--space-4));
+}
+
+/* Inside a card the card title leads, so the empty state steps down to body size. */
+.card .empty-state {
+  padding: 0;
+  box-shadow: none;
+  gap: var(--space-1);
+  color: var(--ink-muted);
+}
+
+.card .empty-state__title {
+  font-family: var(--font-text);
+  font-size: var(--text-17);
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.card .empty-state__title + .empty-state__body {
+  margin-top: 0;
+}
+
+.skeleton {
+  height: 16px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, #ebe7df 0%, #f4f2ee 50%, #ebe7df 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.skeleton-group {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.skeleton--title {
+  width: 60%;
+}
+
+.loading-block {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* ---------- Stepper ---------- */
+.stepper {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.stepper__text {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+  font-weight: var(--font-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.stepper__label {
+  color: var(--ink-muted);
+  font-weight: var(--font-medium);
+}
+
+.stepper__bar {
+  height: 6px;
+  border-radius: 999px;
+  background: #e2ded6;
+  overflow: hidden;
+}
+
+.stepper__fill {
+  height: 100%;
+  background: var(--brand);
+  transition: width var(--duration-normal) var(--timing-function);
+}
+
+/* ---------- Scale (1 to 10) and frequency (five-point) ---------- */
+/* One question = one fieldset. The legend is floated so it lays out like a normal block
+   (a legend ignores grid and flex gaps), which keeps the space under it the same everywhere. */
+.scale,
+.freq {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  margin: 0;
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.scale:last-child,
+.freq:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.card > .freq:first-of-type,
+.card > .scale:first-of-type {
+  padding-top: 0;
+}
+
+/* Inside a card the card's own gap would double the space between questions. */
+.card > .freq + .freq,
+.card > .scale + .scale {
+  margin-top: calc(-1 * var(--space-4));
+}
+
+.scale__legend,
+.freq__legend {
+  float: left;
+  width: 100%;
+  display: flex;
+  gap: var(--space-2);
+  padding: 0;
+  margin: 0 0 var(--space-3);
+  font-weight: var(--font-bold);
+  font-size: var(--text-17);
+  line-height: 1.4;
+}
+
+.scale__options,
+.freq__options {
+  clear: both;
+}
+
+.scale__number {
+  flex: none;
+  min-width: 1.25em;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.scale__options {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+@media (min-width: 560px) {
+  .scale__options {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
+}
+
+.scale__option,
+.freq__option,
+.chip {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.scale__option input,
+.freq__option input,
+.chip input,
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.scale__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--line);
+  background: var(--surface);
+  font-weight: var(--font-bold);
+  font-size: var(--text-17);
+  font-variant-numeric: tabular-nums;
+}
+
+.scale__option input:checked + .scale__box,
+.freq__option input:checked + .freq__box,
+.chip input:checked + span {
+  background: var(--sel, var(--brand));
+  border-color: var(--sel, var(--brand));
+  color: #fff;
+}
+
+.scale__option input:focus-visible + .scale__box,
+.freq__option input:focus-visible + .freq__box,
+.chip input:focus-visible + span,
+.checkbox input:focus-visible + span::before {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.scale__option:hover .scale__box,
+.chip:hover > span {
+  border-color: var(--sel, var(--brand));
+}
+
+.scale__ends {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+  color: var(--ink-muted);
+}
+
+/* Frequency: on a phone, one joined list of five rows with a radio mark, so it reads as a single
+   choice. From 560px it becomes one row of five segments. */
+.freq__options {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.freq__box {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--tap);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-17);
+  line-height: 1.25;
+}
+
+.freq__option + .freq__option .freq__box {
+  border-top: 1px solid var(--line);
+}
+
+.freq__box::before {
+  content: '';
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--ink-muted);
+  background: var(--surface);
+}
+
+.freq__option:hover .freq__box {
+  background: #f7f5f1;
+}
+
+.freq__option input:checked + .freq__box {
+  font-weight: var(--font-bold);
+  background: var(--sel, var(--brand));
+}
+
+.freq__option input:checked + .freq__box::before {
+  border-color: #fff;
+  background: radial-gradient(circle, #fff 0 4px, transparent 5px);
+}
+
+.freq__option input:focus-visible + .freq__box {
+  outline-offset: -3px;
+}
+
+@media (min-width: 560px) {
+  .freq__options {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .freq__box {
+    justify-content: center;
+    padding: var(--space-2);
+    font-size: var(--text-15);
+    text-align: center;
+  }
+  .freq__box::before {
+    display: none;
+  }
+  .freq__option + .freq__option .freq__box {
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+}
+
+/* ---------- Chips ---------- */
+.chips,
+.chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip > span {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--space-4);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-weight: var(--font-bold);
+  line-height: 1.2;
+}
+
+.chip--small > span {
+  min-height: 44px;
+  font-size: var(--text-15);
+}
+
+.chip__note {
+  font-weight: var(--font-regular);
+  margin-left: var(--space-1);
+}
+
+.chips-field {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* ---------- Checkbox ---------- */
+/* The box hangs in its own column, so a label that wraps stays lined up with its first line. */
+.checkbox {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  min-height: var(--tap);
+  padding: var(--space-3) 0;
+}
+
+.checkbox > span {
+  display: block;
+  position: relative;
+  padding-left: calc(24px + var(--space-3));
+  line-height: 1.4;
+}
+
+/* The real input sits on top of the drawn box, so a tap or click on the box lands on it. */
+.checkbox input {
+  left: 0;
+  top: var(--space-3);
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.checkbox > span::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--ink-muted);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.checkbox input:checked + span::before {
+  background: var(--brand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12l4 4 8-8' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E") center / 18px no-repeat;
+  border-color: var(--brand);
+}
+
+/* ---------- Fields ---------- */
+.field {
+  display: grid;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.field__label {
+  font-weight: var(--font-bold);
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+}
+
+.field__hint {
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+  color: var(--ink-muted);
+}
+
+.field__error {
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+  color: var(--danger);
+  font-weight: var(--font-bold);
+}
+
+.input {
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid #cfcac0;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-size: var(--text-17);
+}
+
+.input:focus {
+  border-color: var(--brand);
+}
+
+.field--error .input {
+  border-color: var(--danger);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 88px;
+  line-height: 1.45;
+}
+
+/* ---------- Banners and toasts ---------- */
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--brand);
+  background: #e3eeee;
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+}
+
+.banner--error {
+  background: #fbeae6;
+  border-left-color: var(--danger);
+}
+
+.banner--success {
+  background: #e3efe9;
+  border-left-color: var(--success);
+}
+
+.banner__text {
+  flex: 1 1 220px;
+}
+
+.toasts {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--tabbar-height) + var(--space-4) + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 60;
+  display: grid;
+  gap: var(--space-2);
+  width: min(560px, calc(100% - 32px));
+}
+
+@media (min-width: 768px) {
+  .toasts {
+    bottom: var(--space-6);
+  }
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  background: var(--dark-neutral);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  font-size: var(--text-15);
+}
+
+.toast--error {
+  background: var(--danger);
+}
+
+.toast__close {
+  background: none;
+  border: 0;
+  color: inherit;
+  font-size: var(--text-24);
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* ---------- Dialog ---------- */
+.dialog {
+  border: 0;
+  padding: 0;
+  border-radius: var(--radius-lg);
+  width: min(480px, calc(100% - 32px));
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  color: var(--ink);
+}
+
+.dialog::backdrop {
+  background: rgba(39, 38, 36, 0.5);
+}
+
+.dialog__body {
+  padding: var(--space-6);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.dialog__title {
+  font-size: var(--text-20);
+}
+
+.dialog__content {
+  overflow-wrap: anywhere;
+}
+
+.dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ---------- Dimension tile and meter ---------- */
+.dim-tile {
+  display: inline-flex;
+  flex: none;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dim-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.meter {
+  width: 100%;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.meter__top {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-15);
+  line-height: var(--line-small);
+  font-variant-numeric: tabular-nums;
+}
+
+.meter__value {
+  font-weight: var(--font-bold);
+}
+
+.meter__track {
+  height: 10px;
+  border-radius: 999px;
+  background: #ebe7df;
+  overflow: hidden;
+}
+
+.meter__fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+/* ---------- Wheel ---------- */
+.wheel {
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.wheel svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wheel__label {
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--ink);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.wheel__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  font-size: var(--text-13);
+  line-height: var(--line-small);
+  justify-content: center;
+}
+
+.wheel__key {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.wheel__swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.wheel__swatch--prev {
+  border: 1.5px dashed var(--ink);
+}

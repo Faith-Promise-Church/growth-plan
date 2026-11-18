@@ -70,4 +70,93 @@
   /* Gradients */
   --gradient-home: linear-gradient(180deg, #2A9D8F 0%, #264653 100%);
   --gradient-growth-plan-header: linear-gradient(180deg, #409083 0%, #326565 100%);
+
+  /* ---------------------------------------------------------------------
+     v2 tokens. Everything above this line is unchanged from v1.
+     --------------------------------------------------------------------- */
+
+  /* Type families. The Typekit kit carries both cuts of Neue Haas Grotesk. Display is drawn for
+     headings (20px and up) and is too tight at reading sizes. Text is drawn for reading sizes.
+     Use --font-display for titles and large numbers, --font-text for everything else. */
+  --font-display: "neue-haas-grotesk-display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-text: "neue-haas-grotesk-text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-regular: 400;
+
+  /* Type scale. Roles:
+     13 caption and table heads, 15 secondary and labels, 17 body and buttons,
+     20 card titles, 24 lead card title, 32 page titles and big numbers (40 on wide screens). */
+  --text-13: 13px;
+  --text-15: 15px;
+  --text-17: 17px;
+  --text-20: 20px;
+  --text-24: 24px;
+  --text-32: 32px;
+  --text-40: 40px;
+  --text-44: 44px;
+  --line-tight: 1.15;
+  --line-title: 1.25;
+  --line-small: 1.45;
+  --line-body: 1.5;
+
+  /* Tracking. Only large display type is tightened; 20px and under is left as drawn. */
+  --track-display: -0.015em;
+  --track-title: -0.01em;
+  /* The Display cut has a narrow word space. Bold titles need a little more to keep words apart. */
+  --word-display: 0.06em;
+
+  /* 4px spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Two radii and one shadow */
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --shadow-soft: 0 1px 2px rgba(39, 38, 36, 0.06), 0 4px 16px rgba(39, 38, 36, 0.06);
+
+  /* Surfaces and text */
+  --surface: #ffffff;
+  --page: var(--light-neutral);
+  --ink: var(--dark-neutral);
+  --ink-muted: #5f5c57;
+  --line: #e2ded6;
+  --brand: var(--character);
+  --brand-on: #ffffff;
+  --danger: #a3341f;
+  --success: #35776d;
+  --focus-ring: #1f5fbf;
+
+  /* Dimension ink: same hue, darkened until it reaches 4.5:1 on --light-neutral.
+     Use for dimension-colored text and selected fills (with white text). */
+  --faith-ink: #b74b29;
+  --relationships-ink: #a35a19;
+  --finances-ink: #86691b;
+  --health-ink: #58754a;
+  --purpose-ink: #35776d;
+  --character-ink: #326565;
+  --contentment-ink: #283d49;
+
+  /* Text to set on top of the full dimension color. Large display type only
+     (the brief limits full-bleed dimension color to large type and icons). */
+  --faith-on: #272624;
+  --relationships-on: #272624;
+  --finances-on: #272624;
+  --health-on: #272624;
+  --purpose-on: #272624;
+  --character-on: #ffffff;
+  --contentment-on: #ffffff;
+
+  /* Layout */
+  --content-width: 640px;
+  --wide-width: 1040px;
+  --header-height: 56px;
+  --tabbar-height: 64px;
+  --tap: 48px;
 }

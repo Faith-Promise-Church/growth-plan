@@ -1,0 +1,584 @@
+{
+  "ran": true,
+  "at": "2026-11-18T01:23:36.049Z",
+  "passed": 96,
+  "failed": 0,
+  "results": [
+    {
+      "section": "rehearsal",
+      "name": "seeded 1200 profiles, 930 assessments, 730 plans, 11200 goals, 16 auth users with no profile",
+      "ok": true,
+      "detail": "1200,930,730,11200,16"
+    },
+    {
+      "section": "rehearsal",
+      "name": "seed includes 5,000-character text, blank required goals, plans with no goals, people with six assessments",
+      "ok": true,
+      "detail": "5,6369,20,20"
+    },
+    {
+      "section": "before migrations",
+      "name": "v1 phone lookup (anon select) returns the email",
+      "ok": true,
+      "detail": "{\"email\":\"alice@example.com\"}"
+    },
+    {
+      "section": "before migrations",
+      "name": "v1 load plan returns the plan and its goals",
+      "ok": true,
+      "detail": "10"
+    },
+    {
+      "section": "before migrations",
+      "name": "v1 save goals (delete then insert) works",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "before migrations",
+      "name": "v1 admin page can read assessments",
+      "ok": true,
+      "detail": "930 rows (PostgREST caps at 1,000)"
+    },
+    {
+      "section": "rehearsal",
+      "name": "additive migrations apply cleanly",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "rehearsal",
+      "name": "user_profiles: every pre-existing column unchanged after the additive migrations",
+      "ok": true,
+      "detail": "1200:cffbcc71fd778e1257b4d1be04db3640 vs 1200:cffbcc71fd778e1257b4d1be04db3640"
+    },
+    {
+      "section": "rehearsal",
+      "name": "assessments: every pre-existing column unchanged after the additive migrations",
+      "ok": true,
+      "detail": "930:206013f6d71a14f00133cf4130b445bb vs 930:206013f6d71a14f00133cf4130b445bb"
+    },
+    {
+      "section": "rehearsal",
+      "name": "growth_plans: every pre-existing column unchanged after the additive migrations",
+      "ok": true,
+      "detail": "730:61014570ab16b37f082eceef7a87ed82 vs 730:61014570ab16b37f082eceef7a87ed82"
+    },
+    {
+      "section": "rehearsal",
+      "name": "goals: every pre-existing column unchanged after the additive migrations",
+      "ok": true,
+      "detail": "11200:8436ab5358c27606b5d69c4f9f4384d9 vs 11200:8436ab5358c27606b5d69c4f9f4384d9"
+    },
+    {
+      "section": "rehearsal",
+      "name": "existing rows read as version 1 and status active",
+      "ok": true,
+      "detail": "0,0"
+    },
+    {
+      "section": "after additive",
+      "name": "v1 phone lookup (anon select) returns the email",
+      "ok": true,
+      "detail": "{\"email\":\"alice@example.com\"}"
+    },
+    {
+      "section": "after additive",
+      "name": "v1 load plan returns the plan and its goals",
+      "ok": true,
+      "detail": "10"
+    },
+    {
+      "section": "after additive",
+      "name": "v1 save goals (delete then insert) works",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "after additive",
+      "name": "v1 admin page can read assessments",
+      "ok": true,
+      "detail": "930 rows (PostgREST caps at 1,000)"
+    },
+    {
+      "section": "after additive",
+      "name": "v1 signup still creates a full profile (trigger)",
+      "ok": true,
+      "detail": "Vee|865-111-0005|v1signup@example.com"
+    },
+    {
+      "section": "after additive",
+      "name": "v1 login lookup finds the new signup",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "after additive",
+      "name": "signup with a phone already in use still succeeds, without the phone",
+      "ok": true,
+      "detail": "null"
+    },
+    {
+      "section": "rehearsal",
+      "name": "lockdown migration applies cleanly (its own checks passed)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "rehearsal",
+      "name": "user_profiles: every pre-existing column unchanged by the lockdown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "rehearsal",
+      "name": "assessments: every pre-existing column unchanged by the lockdown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "rehearsal",
+      "name": "growth_plans: every pre-existing column unchanged by the lockdown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "rehearsal",
+      "name": "goals: every pre-existing column unchanged by the lockdown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "rehearsal",
+      "name": "assessments and plans byte-identical from seed to lockdown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "after lockdown",
+      "name": "every live owner policy is still in place",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "after lockdown",
+      "name": "admin read policies are signed-in only",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "after lockdown",
+      "name": "the old open phone lookup no longer returns anything",
+      "ok": true,
+      "detail": "\"permission denied for table user_profiles\""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "login_email_for_phone returns the email",
+      "ok": true,
+      "detail": "alice@example.com"
+    },
+    {
+      "section": "v2 frontend",
+      "name": "phone_is_registered is true for a registered phone",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "a signed-in person can read their own profile",
+      "ok": true,
+      "detail": "{\"first_name\":\"Alice\",\"is_admin\":false}"
+    },
+    {
+      "section": "v2 frontend",
+      "name": "per-goal upsert inserts, then updates the same row",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "per-goal delete removes only that goal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "focus areas save",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "a version 2 assessment saves",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "opt-in saves, and the opt-in time is set by the server",
+      "ok": true,
+      "detail": "2026-11-18T01:23:33.481015+00:00"
+    },
+    {
+      "section": "v2 frontend",
+      "name": "opt-out records its time",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "an address with a line break is refused",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "a signed-in check-in saves",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "a second check-in for the same month is refused by the unique key",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "check-in answers outside 0 to 4 are refused",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "self-heal creates a missing profile, never as admin",
+      "ok": true,
+      "detail": "Nolan|false"
+    },
+    {
+      "section": "v2 frontend",
+      "name": "self-heal never overwrites an existing profile",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "admin_stats counts every row (past the 1,000-row cap)",
+      "ok": true,
+      "detail": "{\"users\":1203,\"assessments\":931,\"assessments_v1\":930,\"assessments_v2\":1,\"plans\":730,\"goals\":11200,\"habits\":4787}"
+    },
+    {
+      "section": "v2 frontend",
+      "name": "admin_checkin_stats works for an admin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "v2 frontend",
+      "name": "admins read the thirteen seeded editions",
+      "ok": true,
+      "detail": "13"
+    },
+    {
+      "section": "v2 frontend",
+      "name": "admins can edit an edition",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: anon",
+      "name": "cannot read a single row of user_profiles",
+      "ok": true,
+      "detail": "\"permission denied for table user_profiles\""
+    },
+    {
+      "section": "attack: anon",
+      "name": "cannot read a profile by id",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: anon",
+      "name": "phone lookup returns nothing for \"865-111\"",
+      "ok": true,
+      "detail": "null / false"
+    },
+    {
+      "section": "attack: anon",
+      "name": "phone lookup returns nothing for \"865-111-000\"",
+      "ok": true,
+      "detail": "null / false"
+    },
+    {
+      "section": "attack: anon",
+      "name": "phone lookup returns nothing for \"%\"",
+      "ok": true,
+      "detail": "null / false"
+    },
+    {
+      "section": "attack: anon",
+      "name": "phone lookup returns nothing for \"865%\"",
+      "ok": true,
+      "detail": "null / false"
+    },
+    {
+      "section": "attack: anon",
+      "name": "phone lookup returns nothing for \"_65-111-0001\"",
+      "ok": true,
+      "detail": "null / false"
+    },
+    {
+      "section": "attack: anon",
+      "name": "phone lookup returns nothing for \"\"",
+      "ok": true,
+      "detail": "null / false"
+    },
+    {
+      "section": "attack: anon",
+      "name": "phone lookup returns nothing for \" \"",
+      "ok": true,
+      "detail": "null / false"
+    },
+    {
+      "section": "attack: anon",
+      "name": "phone lookup returns nothing for \"865-111-0001 \"",
+      "ok": true,
+      "detail": "null / false"
+    },
+    {
+      "section": "attack: anon",
+      "name": "phone lookup returns nothing for \"865-111-0001' or '1'='1\"",
+      "ok": true,
+      "detail": "null / false"
+    },
+    {
+      "section": "attack: anon",
+      "name": "phone lookup returns nothing for null",
+      "ok": true,
+      "detail": "null / false"
+    },
+    {
+      "section": "attack: anon",
+      "name": "reads nothing from assessments",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "section": "attack: anon",
+      "name": "reads nothing from growth_plans",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "section": "attack: anon",
+      "name": "reads nothing from goals",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "section": "attack: anon",
+      "name": "reads nothing from checkins",
+      "ok": true,
+      "detail": "permission denied for table checkins"
+    },
+    {
+      "section": "attack: anon",
+      "name": "reads nothing from email_preferences",
+      "ok": true,
+      "detail": "permission denied for table email_preferences"
+    },
+    {
+      "section": "attack: anon",
+      "name": "reads nothing from checkin_content",
+      "ok": true,
+      "detail": "permission denied for table checkin_content"
+    },
+    {
+      "section": "attack: anon",
+      "name": "reads nothing from checkin_sends",
+      "ok": true,
+      "detail": "permission denied for table checkin_sends"
+    },
+    {
+      "section": "attack: anon",
+      "name": "cannot insert a profile",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: anon",
+      "name": "cannot call admin_stats()",
+      "ok": true,
+      "detail": "permission denied for function admin_stats"
+    },
+    {
+      "section": "attack: anon",
+      "name": "cannot call admin_checkin_stats()",
+      "ok": true,
+      "detail": "permission denied for function admin_checkin_stats"
+    },
+    {
+      "section": "attack: anon",
+      "name": "cannot call is_current_user_admin()",
+      "ok": true,
+      "detail": "permission denied for function is_current_user_admin"
+    },
+    {
+      "section": "attack: anon",
+      "name": "cannot call the send claim function",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot read another person's assessments",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot read another person's growth_plans",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot read another person's checkins",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot read another person's email_preferences",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot read another person's goal by guessing its id",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot read another person's goals by plan id",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot read anyone else's profile",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot change, delete, take over or add to another person's goals",
+      "ok": true,
+      "detail": "new row violates row-level security policy (USING expression) for table \"goals\" / new row violates row-level security policy for table \"goals\""
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot change, delete or forge another person's assessments",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot change or delete another person's plan",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot write another person's check-ins or point one at their plan",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot change another person's email preferences",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot set is_admin by update or upsert",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "can still edit their own name",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot edit another person's profile",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "cannot insert a profile with is_admin, or for someone else",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "a non-admin cannot call admin_stats()",
+      "ok": true,
+      "detail": "Not authorized"
+    },
+    {
+      "section": "attack: user",
+      "name": "a non-admin cannot call admin_checkin_stats()",
+      "ok": true,
+      "detail": "Not authorized"
+    },
+    {
+      "section": "attack: user",
+      "name": "a non-admin cannot read or edit checkin_content",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "a non-admin cannot read checkin_sends",
+      "ok": true,
+      "detail": "permission denied for table checkin_sends"
+    },
+    {
+      "section": "attack: user",
+      "name": "a signed-in user cannot run the send queue",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "attack: user",
+      "name": "reads only their own assessments",
+      "ok": true,
+      "detail": "2"
+    },
+    {
+      "section": "engine (real database)",
+      "name": "three runs at the same moment send 301 emails, one each",
+      "ok": true,
+      "detail": "301 sent, 301 unique, runs: 100+90+111"
+    },
+    {
+      "section": "engine (real database)",
+      "name": "a fourth run sends nothing",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "section": "engine (real database)",
+      "name": "every queued row is marked sent",
+      "ok": true,
+      "detail": "301,301"
+    }
+  ]
+}
