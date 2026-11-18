@@ -165,7 +165,8 @@ export function createHandlers({ env, db, mailer, now = () => new Date(), log = 
     },
 
     // A private read-only link to a plan. Anyone with the link may read it, so it returns as
-    // little as possible: first name, the year, and the habit sentences for the chosen areas.
+    // little as possible: first name, the year, the word and verse of the year when the person
+    // included them, and the habit sentences for the chosen areas.
     // A link that is unknown, stopped or expired gets the same answer.
     async sharedPlan(request) {
       if (request.method !== 'GET') return methodNotAllowed(['GET']);
@@ -175,8 +176,13 @@ export function createHandlers({ env, db, mailer, now = () => new Date(), log = 
         if (!isShareId(id)) return gone();
         const found = await db.getSharedPlan(id);
         if (!found?.plan || !shareIsActive(found.share, now().getTime())) return gone();
-        const { year, groups } = buildSharedPlan({ plan: found.plan, goals: found.goals, dimensions: found.share.dimensions });
-        return json(200, { firstName: found.firstName ?? '', year, groups, expiresAt: found.share.expires_at }, { 'Cache-Control': 'no-store' });
+        const { year, word, verse, groups } = buildSharedPlan({
+          plan: found.plan,
+          goals: found.goals,
+          dimensions: found.share.dimensions,
+          includeWordVerse: found.share.include_word_verse !== false,
+        });
+        return json(200, { firstName: found.firstName ?? '', year, word, verse, groups, expiresAt: found.share.expires_at }, { 'Cache-Control': 'no-store' });
       } catch (err) {
         return errorResponse(err);
       }

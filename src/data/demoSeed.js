@@ -133,9 +133,9 @@ export function buildDemoDb() {
   ];
 
   const growth_plans = [
-    { id: LEE_PLAN, user_id: LEE, year: 2026, created_at: '2026-01-20T15:00:00Z', updated_at: '2026-01-20T15:00:00Z', focus_dimensions: null, copied_from_plan_id: null },
-    { id: GRACE_PLAN, user_id: GRACE, year: 2026, created_at: '2026-10-02T15:00:00Z', updated_at: '2026-10-02T15:00:00Z', focus_dimensions: ['health', 'character'], copied_from_plan_id: null },
-    { id: ADAM_PLAN, user_id: ADAM, year: 2026, created_at: '2026-09-20T15:00:00Z', updated_at: '2026-09-20T15:00:00Z', focus_dimensions: ['health'], copied_from_plan_id: null },
+    { id: LEE_PLAN, user_id: LEE, year: 2026, created_at: '2026-01-20T15:00:00Z', updated_at: '2026-01-20T15:00:00Z', focus_dimensions: null, copied_from_plan_id: null, word_of_year: null, verse_of_year: null },
+    { id: GRACE_PLAN, user_id: GRACE, year: 2026, created_at: '2026-10-02T15:00:00Z', updated_at: '2026-10-02T15:00:00Z', focus_dimensions: ['health', 'character'], copied_from_plan_id: null, word_of_year: 'Steady', verse_of_year: 'Galatians 6:9' },
+    { id: ADAM_PLAN, user_id: ADAM, year: 2026, created_at: '2026-09-20T15:00:00Z', updated_at: '2026-09-20T15:00:00Z', focus_dimensions: ['health'], copied_from_plan_id: null, word_of_year: null, verse_of_year: null },
   ];
 
   const goals = [];
@@ -214,6 +214,7 @@ export function buildDemoDb() {
       created_at: new Date().toISOString(),
       expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
       revoked_at: null,
+      include_word_verse: true,
     },
   ];
 

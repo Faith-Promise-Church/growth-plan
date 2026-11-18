@@ -28,6 +28,24 @@ export default function SharedPlanPage() {
         title={`${owner} ${data.year} growth plan`}
         lead={`Shared with you from the Growth Plan Builder. This link works until ${formatDate(data.expiresAt)}.`}
       />
+      {data.word || data.verse ? (
+        <Card className="word-verse">
+          <dl className="word-verse__values">
+            {data.word ? (
+              <div>
+                <dt>Word of the year</dt>
+                <dd className="word-verse__word">{data.word}</dd>
+              </div>
+            ) : null}
+            {data.verse ? (
+              <div>
+                <dt>Verse of the year</dt>
+                <dd className="word-verse__verse">{data.verse}</dd>
+              </div>
+            ) : null}
+          </dl>
+        </Card>
+      ) : null}
       {data.groups.map((group) => (
         <Card key={group.dimension} accent={group.dimension}>
           <div className="plan-card__head">

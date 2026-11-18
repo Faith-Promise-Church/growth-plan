@@ -222,4 +222,12 @@ decided and why, so it can be reversed on purpose.
   which the lockdown removed on purpose.
 - **The link section hides itself if the table is missing**, so the app can be deployed before
   `20261118000100_plan_shares.sql` is applied.
+- **Word and verse of the year live on the plan row** (`growth_plans.word_of_year`,
+  `verse_of_year`), so each year has its own and next year's plan starts blank. The verse is the
+  reference only, not the text. Both are optional, one line, and capped at 40 and 80 characters.
+- **They are shared by default and one tick leaves them out.** The text summary and a private
+  link both follow "Include my word and verse of the year". For a link the choice is stored on
+  the share row (`plan_shares.include_word_verse`).
+- **The word and verse card hides itself if the columns are missing**, so the app can be deployed
+  before `20261118000200_word_and_verse.sql` is applied.
 

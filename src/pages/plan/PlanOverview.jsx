@@ -3,6 +3,7 @@ import { usePlanData } from '../../hooks/useUserData.js';
 import { Button, Card, PageHeader, LoadingBlock, Banner, EmptyState, DimensionTile } from '../../components/ui/index.jsx';
 import CheckinOptIn from '../../components/app/CheckinOptIn.jsx';
 import SharePlan from '../../components/app/SharePlan.jsx';
+import PlanWordVerse from '../../components/app/PlanWordVerse.jsx';
 import { DIMENSIONS } from '../../content/dimensions.js';
 import { scoresFromRow, formatScore } from '../../lib/scoring.js';
 import { visibleGoals, activeHabits, groupByDimension, orderedDimensions } from '../../lib/habits.js';
@@ -98,6 +99,7 @@ export default function PlanOverview() {
             {`This is your ${year} plan. It is kept as a record.`}
           </Banner>
         ) : null}
+        <PlanWordVerse plan={plan} readOnly={isPast} onSaved={reload} />
         {focus.length ? (
           <p className="focus-line">
             <span className="muted">Focus areas: </span>
