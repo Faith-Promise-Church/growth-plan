@@ -1,7 +1,8 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { usePlanData } from '../../hooks/useUserData.js';
 import { Button, Card, PageHeader, LoadingBlock, Banner, EmptyState, DimensionTile } from '../../components/ui/index.jsx';
 import CheckinOptIn from '../../components/app/CheckinOptIn.jsx';
+import SharePlan from '../../components/app/SharePlan.jsx';
 import { DIMENSIONS } from '../../content/dimensions.js';
 import { scoresFromRow, formatScore } from '../../lib/scoring.js';
 import { visibleGoals, activeHabits, groupByDimension, orderedDimensions } from '../../lib/habits.js';
@@ -25,11 +26,36 @@ export default function PlanOverview() {
   }
 
   const { plan, goals, latest } = data;
+  const thisYear = currentPlanYear();
+  // A plan from an earlier year is kept as a record: it can be read, printed and shared.
+  const isPast = year < thisYear;
+  const years = [...new Set([...data.plans.map((p) => p.year), year])].sort((a, b) => a - b);
+  const yearSwitch =
+    years.length > 1 ? (
+      <nav className="year-switch" aria-label="Plans by year">
+        {years.map((y) => (
+          <Link key={y} to={`/plan/${y}`} className={`year-switch__link${y === year ? ' is-active' : ''}`} aria-current={y === year ? 'page' : undefined}>
+            {y}
+          </Link>
+        ))}
+      </nav>
+    ) : null;
+
+  if (!plan && isPast) {
+    return (
+      <div className="page">
+        <PageHeader title={`Your ${year} growth plan`} />
+        {yearSwitch}
+        <EmptyState title={`You did not make a ${year} plan`} action={<Button to={`/plan/${thisYear}`}>{`Go to my ${thisYear} plan`}</Button>} />
+      </div>
+    );
+  }
   if (!plan) {
     const hasEarlier = data.plans.some((p) => p.year < year);
     return (
       <div className="page">
         <PageHeader title={`Your ${year} growth plan`} />
+        {yearSwitch}
         <EmptyState
           title="You have not started this plan yet"
           action={<Button to={hasEarlier ? `/plan/${year}/start` : latest ? `/assessment/results/${latest.id}#focus` : '/assessment'}>{hasEarlier ? `Start your ${year} plan` : latest ? 'Choose focus areas' : 'Take the assessment first'}</Button>}
@@ -50,19 +76,34 @@ export default function PlanOverview() {
       <div className="page-main">
         <PageHeader
           title={`Your ${year} growth plan`}
-          lead={activeCount ? `${activeCount === 1 ? '1 active habit' : `${activeCount} active habits`} across your plan.` : 'Add a habit or two in your focus areas to get started.'}
+          lead={
+            activeCount
+              ? `${activeCount === 1 ? '1 active habit' : `${activeCount} active habits`} across your plan.`
+              : isPast
+                ? 'This plan has no active habits.'
+                : 'Add a habit or two in your focus areas to get started.'
+          }
           actions={
-            <Button variant="secondary" size="sm" to={`/plan/${year}/print`}>
-              Print
-            </Button>
+            <>
+              <Button variant="secondary" size="sm" to={`/plan/${year}/print`}>
+                Print
+              </Button>
+              <SharePlan plan={plan} goals={goals} scores={isPast ? null : scores} />
+            </>
           }
         />
+        {yearSwitch}
+        {isPast ? (
+          <Banner tone="info" action={<Button size="sm" variant="secondary" to={`/plan/${thisYear}`}>{`Go to my ${thisYear} plan`}</Button>}>
+            {`This is your ${year} plan. It is kept as a record.`}
+          </Banner>
+        ) : null}
         {focus.length ? (
           <p className="focus-line">
             <span className="muted">Focus areas: </span>
             {focus.map((d) => DIMENSIONS[d]?.name).join(', ')}
           </p>
-        ) : latest ? (
+        ) : latest && !isPast ? (
           <Banner tone="info" action={<Button size="sm" variant="secondary" to={`/assessment/results/${latest.id}#focus`}>Choose focus areas</Button>}>
             You have not chosen focus areas for this plan yet.
           </Banner>
@@ -94,16 +135,24 @@ export default function PlanOverview() {
                     {list.length > 2 ? <li className="plan-card__more">{`and ${list.length - 2} more`}</li> : null}
                   </ul>
                 ) : null}
-                <Button variant="secondary" size="sm" to={`/plan/${year}/${d}`} aria-label={list.length ? `Edit ${DIMENSIONS[d].name}` : `Add a habit in ${DIMENSIONS[d].name}`}>
-                  {list.length ? 'Edit' : 'Add a habit'}
-                </Button>
+                {isPast ? (
+                  list.length ? (
+                    <Button variant="secondary" size="sm" to={`/plan/${year}/${d}`} aria-label={`View ${DIMENSIONS[d].name}`}>
+                      View
+                    </Button>
+                  ) : null
+                ) : (
+                  <Button variant="secondary" size="sm" to={`/plan/${year}/${d}`} aria-label={list.length ? `Edit ${DIMENSIONS[d].name}` : `Add a habit in ${DIMENSIONS[d].name}`}>
+                    {list.length ? 'Edit' : 'Add a habit'}
+                  </Button>
+                )}
               </Card>
             );
           })}
         </div>
       </div>
       <aside className="page-rail">
-        {activeCount ? (
+        {activeCount && !isPast ? (
           <Card>
             <h2 className="card__title">Stay on track</h2>
             {!data.prefs?.monthly_checkin ? (

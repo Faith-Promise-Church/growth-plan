@@ -8,8 +8,14 @@ Updated 2026-11-17, after the visual pass and the first two migrations. Branch `
    **Applied to production 2026-11-17.**
 2. `supabase/migrations/20261117000150_checkins.sql` (safe with the old frontend live).
    **Applied to production 2026-11-17.** 13 editions seeded.
-3. Deploy the v2 frontend to Vercel and confirm login works
-4. `supabase/migrations/20261117000200_lockdown.sql` (closes the two holes; breaks the old frontend's login, so only after step 3)
+3. Deploy the v2 frontend to Vercel and confirm login works. **Done 2026-11-17** (PR 1 merged,
+   Justin confirmed login on the live site).
+4. `supabase/migrations/20261117000200_lockdown.sql` (closes the two holes; breaks the old
+   frontend's login, so only after step 3). **Applied to production 2026-11-17.** Checked from
+   outside: signed-out reads, lookups and inserts on `user_profiles` are refused, and the login
+   lookup still answers.
+5. `supabase/migrations/20261118000100_plan_shares.sql` (private plan links). **Not applied yet.**
+   Additive. The app works without it; only "Create a link" needs it.
 
 Run them in the Supabase SQL editor, one file at a time, each as a whole. The lockdown file checks
 its own result and rolls back if anything is still open.
@@ -17,7 +23,7 @@ its own result and rolls back if anything is still open.
 Steps 1 and 2 were applied through the Supabase connection with Justin's go-ahead. Each file was
 sent whole inside one transaction that first compared its checksum with the file in the repo.
 Row counts before and after: 1,213 profiles, 933 assessments, 728 plans, 11,202 goals, with the
-same fingerprints for assessments and goals. Steps 3 and 4 are still to do.
+same fingerprints for assessments and goals. The lockdown was applied the same way.
 
 ## Shipped
 
@@ -44,7 +50,13 @@ same fingerprints for assessments and goals. Steps 3 and 4 are still to do.
   rhythm, joined five-point scale on phones, results page reordered, checkbox and header fixes.
   Content pass: 17 starter sentences and 2 habit items reworded. See `DECISIONS.md`.
 
+- Plan history and sharing (branch `plan-history-and-sharing`): year switcher, `/plans`, earlier
+  years as a record, "Share" with the share sheet, and private read-only links.
+
 ## Blocked on Justin
+
+- "Send me a test" in Admin, Check-ins, to confirm SendGrid and the server settings.
+- Go-ahead to apply `20261118000100_plan_shares.sql`.
 
 - Content review: `docs/CONTENT_REVIEW.md` (practice library, habit items, About text, preheaders,
   evergreen note).

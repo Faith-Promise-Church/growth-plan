@@ -15,6 +15,7 @@ export function createFakeServerDb({ clock = () => Date.now() } = {}) {
     sends: [],
     checkins: [],
     content: [],
+    shares: [],
     authTokens: new Map(),
   };
 
@@ -178,6 +179,14 @@ export function createFakeServerDb({ clock = () => Date.now() } = {}) {
       const p = t.prefs.find((x) => x.user_id === userId);
       if (p) p.monthly_checkin = false;
       else t.prefs.push({ user_id: userId, monthly_checkin: false, email: null });
+    },
+    async getSharedPlan(id) {
+      const share = t.shares.find((x) => x.id === id);
+      if (!share) return null;
+      const plan = t.plans.find((p) => p.id === share.growth_plan_id) ?? null;
+      const goals = t.goals.filter((g) => g.growth_plan_id === share.growth_plan_id);
+      const profile = t.profiles.find((p) => p.id === share.user_id);
+      return { share, plan, goals, firstName: profile?.first_name ?? '' };
     },
     async userFromAccessToken(jwt) {
       const id = t.authTokens.get(jwt);

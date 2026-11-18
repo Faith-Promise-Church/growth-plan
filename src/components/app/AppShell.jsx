@@ -78,6 +78,9 @@ function AccountMenu() {
           <Link to="/assessment/history" className="account__item">
             Assessment history
           </Link>
+          <Link to="/plans" className="account__item">
+            Plan history
+          </Link>
           {isAdmin ? (
             <Link to="/admin" className="account__item">
               Admin

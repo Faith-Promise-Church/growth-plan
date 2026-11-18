@@ -20,7 +20,7 @@ opt-in monthly check-in email.
 | `src/lib/` | Pure logic with unit tests: scoring, Helper, habits, check-in adjustments, schedule gate, time |
 | `src/data/` | `client.js` (real or demo client), `api.js` (every database call), `demoClient.js` + `demoSeed.js` |
 | `src/components/ui/` | Shared components (Button, Card, PageHeader, Stepper, ScaleInput, FrequencyInput, DimensionTile, Meter, Dialog, Toast, EmptyState, Skeleton) |
-| `src/components/app/` | App pieces: AppShell, Wheel (hand-built SVG), HabitEditor, HelperPanel, CheckinOptIn |
+| `src/components/app/` | App pieces: AppShell, Wheel (hand-built SVG), HabitEditor, HelperPanel, CheckinOptIn, SharePlan |
 | `src/pages/` | Routes |
 | `server/` | Server-only code: tokens, engine, email render, SendGrid, handlers, db adapter |
 | `api/` | Thin Vercel function files that call `server/live.js` |

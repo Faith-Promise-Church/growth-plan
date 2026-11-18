@@ -32,6 +32,8 @@ const SCREENS = [
   { name: 'email-preferences', who: 'grace', path: '/email/preferences' },
   { name: 'admin', who: 'adam', path: '/admin' },
   { name: 'admin-check-ins', who: 'adam', path: '/admin/check-ins' },
+  { name: 'plan-history', who: 'grace', path: '/plans' },
+  { name: 'shared-plan', who: null, path: '/shared/60000000-0000-4000-8000-000000000003' },
   { name: 'not-found', who: 'grace', path: '/nope' },
 ];
 

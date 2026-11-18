@@ -4,6 +4,7 @@
 import { supabase, isDemo } from './client.js';
 import { periodOf, addMonths, monthYearLabel } from '../lib/time.js';
 import { choosePlanForPeriod, orderedActiveHabits, publicHabit, validateCheckinSubmission, buildAdjustments } from '../lib/checkinCore.js';
+import { cleanDimensions, isShareId, shareIsActive, shareExpiry, buildSharedPlan } from '../lib/share.js';
 
 export class ApiError extends Error {
   constructor(message, { code, cause, status } = {}) {
@@ -307,4 +308,46 @@ export async function unsubscribeWithToken(token) {
 export async function sendAdminTest(period) {
   if (isDemo) return { ok: true, to: 'adam@example.com', demo: true };
   return callApi('/api/admin/checkin-test', { method: 'POST', body: { period } });
+}
+
+// ---------------------------------------------------------------------------
+// Private read-only links to a plan
+// ---------------------------------------------------------------------------
+
+export async function listPlanShares(planId) {
+  const rows = unwrap(await supabase.from('plan_shares').select('*').eq('growth_plan_id', planId).order('created_at', { ascending: false })) ?? [];
+  return rows.filter((r) => shareIsActive(r));
+}
+
+export async function createPlanShare({ userId, planId, dimensions }) {
+  const chosen = cleanDimensions(dimensions);
+  if (!chosen.length) throw new ApiError('Choose at least one area to share.');
+  return unwrap(
+    await supabase
+      .from('plan_shares')
+      .insert({ user_id: userId, growth_plan_id: planId, dimensions: chosen, expires_at: shareExpiry() })
+      .select()
+      .single(),
+    'The link was not created. Try again.',
+  );
+}
+
+export async function revokePlanShare(id) {
+  unwrap(await supabase.from('plan_shares').update({ revoked_at: new Date().toISOString() }).eq('id', id), 'The link was not stopped. Try again.');
+}
+
+// What someone with the link sees. Works signed out.
+export async function fetchSharedPlan(id) {
+  const gone = () => new ApiError('This link is no longer active.', { status: 404, code: 'gone' });
+  if (!isShareId(id)) throw gone();
+  if (isDemo) {
+    const db = supabase._db;
+    const share = (db.plan_shares ?? []).find((s) => s.id === id);
+    const plan = share ? db.growth_plans.find((p) => p.id === share.growth_plan_id) : null;
+    if (!plan || !shareIsActive(share)) throw gone();
+    const goals = db.goals.filter((g) => g.growth_plan_id === plan.id);
+    const profile = db.user_profiles.find((p) => p.id === share.user_id);
+    return { firstName: profile?.first_name ?? '', ...buildSharedPlan({ plan, goals, dimensions: share.dimensions }), expiresAt: share.expires_at };
+  }
+  return callApi(`/api/share/plan?id=${encodeURIComponent(id)}`, { auth: false });
 }

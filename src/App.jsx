@@ -17,6 +17,8 @@ import DimensionPage from './pages/plan/DimensionPage.jsx';
 import StartFlow from './pages/plan/StartFlow.jsx';
 import CheckInPage from './pages/CheckInPage.jsx';
 import EmailPreferencesPage from './pages/EmailPreferencesPage.jsx';
+import SharedPlanPage from './pages/SharedPlanPage.jsx';
+import PlanHistoryPage from './pages/plan/PlanHistoryPage.jsx';
 import { currentPlanYear } from './lib/time.js';
 
 const AdminPage = lazy(() => import('./pages/admin/AdminPage.jsx'));
@@ -85,6 +87,7 @@ export default function App() {
                 <Route path="/reset-password" element={<ResetPasswordPage />} />
                 <Route path="/check-in" element={<FlexibleRoute><CheckInPage /></FlexibleRoute>} />
                 <Route path="/email/preferences" element={<FlexibleRoute><EmailPreferencesPage /></FlexibleRoute>} />
+                <Route path="/shared/:id" element={<FlexibleRoute><SharedPlanPage /></FlexibleRoute>} />
                 <Route
                   path="/plan/:year/print"
                   element={
@@ -105,6 +108,7 @@ export default function App() {
                   <Route path="/assessment/take/:step" element={<AssessmentTake />} />
                   <Route path="/assessment/results/:id" element={<ResultsPage />} />
                   <Route path="/assessment/history" element={<HistoryPage />} />
+                  <Route path="/plans" element={<PlanHistoryPage />} />
                   <Route path="/plan" element={<Navigate to={`/plan/${currentPlanYear()}`} replace />} />
                   <Route path="/plan/:year" element={<PlanOverview />} />
                   <Route path="/plan/:year/start" element={<StartFlow />} />

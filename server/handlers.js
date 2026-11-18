@@ -9,6 +9,7 @@ import { runMonthlyCheckin, buildMessage } from './engine.js';
 import { periodOf, addMonths, monthYearLabel } from '../src/lib/time.js';
 import { publicHabit, validateCheckinSubmission, buildAdjustments } from '../src/lib/checkinCore.js';
 import { EVERGREEN_EDITION } from '../src/content/checkinEditions.js';
+import { isShareId, shareIsActive, buildSharedPlan } from '../src/lib/share.js';
 
 const PERIOD_RE = /^\d{4}-\d{2}-01$/;
 
@@ -158,6 +159,24 @@ export function createHandlers({ env, db, mailer, now = () => new Date(), log = 
         if (!v.ok) return json(400, { error: 'This link is not valid.' });
         await db.optOut(v.userId);
         return json(200, { ok: true });
+      } catch (err) {
+        return errorResponse(err);
+      }
+    },
+
+    // A private read-only link to a plan. Anyone with the link may read it, so it returns as
+    // little as possible: first name, the year, and the habit sentences for the chosen areas.
+    // A link that is unknown, stopped or expired gets the same answer.
+    async sharedPlan(request) {
+      if (request.method !== 'GET') return methodNotAllowed(['GET']);
+      const gone = () => json(404, { error: 'This link is no longer active.', code: 'gone' }, { 'Cache-Control': 'no-store' });
+      try {
+        const id = new URL(request.url).searchParams.get('id');
+        if (!isShareId(id)) return gone();
+        const found = await db.getSharedPlan(id);
+        if (!found?.plan || !shareIsActive(found.share, now().getTime())) return gone();
+        const { year, groups } = buildSharedPlan({ plan: found.plan, goals: found.goals, dimensions: found.share.dimensions });
+        return json(200, { firstName: found.firstName ?? '', year, groups, expiresAt: found.share.expires_at }, { 'Cache-Control': 'no-store' });
       } catch (err) {
         return errorResponse(err);
       }
