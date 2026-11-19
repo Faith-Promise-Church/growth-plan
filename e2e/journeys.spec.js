@@ -494,4 +494,53 @@ test.describe('plan history and sharing', () => {
     await expect(preview).not.toContainText('Rooted');
     await expect(preview).not.toContainText('Colossians');
   });
+
+  test('a reset link from email is not spent by opening it, only by saving a new password', async ({ page, context }) => {
+    const GRACE = '00000000-0000-4000-8000-000000000003';
+    const link = `/reset-password?token_hash=demo-reset-${GRACE}&type=recovery`;
+    const save = page.getByRole('button', { name: 'Save my new password' });
+
+    // A mail scanner opens the link first, then the person opens it. Neither visit uses it up.
+    await page.goto(link);
+    await expect(page.getByRole('heading', { name: 'Choose a new password' })).toBeVisible();
+    await page.reload();
+    await expect(save).toBeEnabled();
+    expect((await demoDb(page)).used_reset_links ?? []).toEqual([]);
+
+    // A dropped connection does not spend it either.
+    await page.getByLabel('New password').fill('Steady2027');
+    await page.getByLabel('Type it again').fill('Steady2027');
+    await context.setOffline(true);
+    await save.click();
+    await expect(page.getByText('We could not reach the server.')).toBeVisible();
+    await context.setOffline(false);
+
+    // Saving spends the link, changes the password and takes the link out of the address.
+    await save.click();
+    await expect(page.getByText('Your password is changed.')).toBeVisible();
+    expect(page.url()).not.toContain('token_hash');
+    const db = await demoDb(page);
+    expect(db.auth_users.find((u) => u.id === GRACE).password).toBe('Steady2027');
+    expect(db.used_reset_links).toHaveLength(1);
+    await page.getByRole('button', { name: 'Go to my plan' }).click();
+    await page.waitForURL('**/home');
+    await expect(page.getByRole('heading', { name: /Grace/ })).toBeVisible();
+
+    // The same link does not work a second time, and the password stays as it was set.
+    await page.goto(link);
+    await page.getByLabel('New password').fill('Another2028');
+    await page.getByLabel('Type it again').fill('Another2028');
+    await save.click();
+    await expect(page.getByText('This reset link has expired or was already used.')).toBeVisible();
+    expect((await demoDb(page)).auth_users.find((u) => u.id === GRACE).password).toBe('Steady2027');
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test('a broken reset link and a visit with no link both ask for a new one', async ({ page }) => {
+    await page.goto('/reset-password?token_hash=nope&type=recovery');
+    await expect(page.getByText('This reset link has expired or was already used.')).toBeVisible();
+    await page.goto('/reset-password');
+    await expect(page.getByText('This reset link has expired or was already used.')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Back to log in' })).toBeVisible();
+  });
 });

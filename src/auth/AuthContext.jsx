@@ -55,7 +55,7 @@ export function AuthProvider({ children }) {
       setUser(u);
       setLoading(false);
       if (event === 'SIGNED_OUT' || !u) setProfile(null);
-      else if (event === 'SIGNED_IN' || event === 'USER_UPDATED') loadProfile(u);
+      else if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || event === 'PASSWORD_RECOVERY') loadProfile(u);
     });
     return () => {
       mounted = false;

@@ -26,6 +26,7 @@ opt-in monthly check-in email.
 | `api/` | Thin Vercel function files that call `server/live.js` |
 | `supabase/migrations/` | Additive and lockdown migrations. Never run against production from here |
 | `supabase/tests/` | Local rehearsal: baseline schema, seed, attack and rehearsal scripts |
+| `supabase/templates/` | Sign-in email templates, pasted into the Supabase dashboard by hand |
 | `tests/` | Vitest unit and server tests |
 | `e2e/` | Playwright (demo mode) |
 

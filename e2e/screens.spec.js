@@ -10,6 +10,7 @@ const GRACE_ID = '00000000-0000-4000-8000-000000000003';
 const SCREENS = [
   { name: 'login', who: null, path: '/login' },
   { name: 'reset-password', who: null, path: '/reset-password' },
+  { name: 'reset-password-link', who: null, path: `/reset-password?token_hash=demo-reset-${GRACE_ID}&type=recovery` },
   { name: 'check-in-from-email', who: null, path: `/check-in?token=demo:${GRACE_ID}:2026-12-01` },
   { name: 'email-unsubscribe', who: null, path: `/email/preferences?token=demo:${GRACE_ID}:2026-12-01` },
   { name: 'home-new', who: 'nora', path: '/home' },
