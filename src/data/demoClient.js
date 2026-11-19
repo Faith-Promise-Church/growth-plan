@@ -399,11 +399,27 @@ export function createDemoClient() {
         await wait(latency());
         return { data: {}, error: null };
       },
+      // Demo reset links look like demo-reset-<user id> and work once, like the real ones.
+      async verifyOtp({ token_hash: tokenHash, type }) {
+        await wait(latency());
+        if (offline()) return { data: {}, error: { name: 'AuthRetryableFetchError', message: 'Failed to fetch' } };
+        const expired = { data: { user: null, session: null }, error: { code: 'otp_expired', message: 'Email link is invalid or has expired' } };
+        const id = String(tokenHash ?? '').replace(/^demo-reset-/, '');
+        const user = db.auth_users.find((u) => u.id === id);
+        db.used_reset_links ??= [];
+        if (type !== 'recovery' || !user || !String(tokenHash).startsWith('demo-reset-') || db.used_reset_links.includes(tokenHash)) return expired;
+        db.used_reset_links.push(tokenHash);
+        session = makeSession(user);
+        persist();
+        emit('PASSWORD_RECOVERY');
+        return { data: { user: clone(session.user), session: clone(session) }, error: null };
+      },
       async updateUser({ password }) {
         const user = db.auth_users.find((u) => u.id === currentUserId());
         if (!user) return { data: {}, error: { message: 'Not signed in' } };
         if (password) user.password = password;
         persist();
+        emit('USER_UPDATED');
         return { data: { user: clone(session.user) }, error: null };
       },
     },

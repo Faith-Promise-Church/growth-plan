@@ -1,6 +1,7 @@
 # State of the build
 
-Updated 2026-11-17, after launch. Everything is on `main`.
+Updated 2026-11-19. Launched 2026-11-17. The reset link change is on the `scan-proof-reset`
+branch until its pull request is merged.
 
 ## Apply order (do these by hand, in this order)
 
@@ -60,7 +61,25 @@ same fingerprints for assessments and goals. The lockdown was applied the same w
 - Word and verse of the year (PR 3, merged and live): a small card on the Plan page, printed
   with the plan, and shared unless the person leaves it out.
 
+- Password reset (2026-11-19): the email link opens `/reset-password` on the app and is spent only
+  when a new password is saved, so mail scanners cannot use it up. Old links still work.
+  212 unit and server tests, Playwright screens (56) and journeys (32).
+
+## Supabase dashboard settings (not in migrations)
+
+- Authentication, URL Configuration: Site URL `https://growth-plan-sigma.vercel.app`, Redirect
+  URLs `https://growth-plan-sigma.vercel.app/**`. **Set by Justin 2026-11-19.** If the app moves
+  to another address, change both or reset emails will point at the old one.
+- Authentication, Emails, SMTP Settings: SendGrid (`smtp.sendgrid.net`, port 465, user `apikey`),
+  from `noreply@faithpromise.org`. Set up by Justin 2026-11-19; no send through it had shown in
+  the logs when this was written. Custom senders start at 30 sign-in emails an
+  hour (Authentication, Rate Limits).
+- Authentication, Emails, Templates, Reset password: paste `supabase/templates/reset-password.html`
+  **after** the reset link change is deployed. Not done yet.
+
 ## Blocked on Justin
+
+- Merge the reset link pull request, then paste the reset email template (see above).
 
 - Confirm the test email reached the inbox. SendGrid accepted it on 2026-11-17 ("Send me a test"
   on the December edition).

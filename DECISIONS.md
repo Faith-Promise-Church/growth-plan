@@ -231,3 +231,27 @@ decided and why, so it can be reversed on purpose.
 - **The word and verse card hides itself if the columns are missing**, so the app can be deployed
   before `20261118000200_word_and_verse.sql` is applied.
 
+## 2026-11-19: password reset
+
+- **What went wrong.** A reset link sent people to `http://localhost:3000`. The Supabase Site URL
+  was still the default and the Redirect URLs list was empty, so Supabase ignored the address the
+  app asked for. Justin set the Site URL to the live address and added it to the list. No code
+  was involved.
+- **The reset link now points at our own page, and opening it spends nothing.** Supabase links
+  are single use and the default one is used the moment anything opens it. Mail scanners open
+  links before people do (Microsoft 365 does this for faithpromise.org mailboxes), so the person
+  then saw "expired". The email now links to `/reset-password?token_hash=...`. The page shows the
+  form straight away and calls `verifyOtp` only when the person saves a new password.
+- **One step, not two.** A separate "Continue" button would also work, but the person already
+  has to press "Save my new password", so the link is spent there.
+- **A lost connection is not an expired link.** If the server cannot be reached the page says so
+  and the link stays good.
+- **Old emails keep working.** With no link in the address the page looks for the session the old
+  link created, as before. That is why the app can be deployed before the template is changed.
+- **The link leaves the address once it is used**, so a reload carries on from the session and a
+  spent link is not sitting in the browser history.
+- **The template is kept in the repo** (`supabase/templates/reset-password.html`) and pasted into
+  the Supabase dashboard by hand. It is not wired into `supabase/config.toml`, so the local
+  rehearsal is unchanged.
+- **Sign-in emails go through SendGrid** from `noreply@faithpromise.org` (custom SMTP in the
+  Supabase dashboard), not Supabase's built-in sender, which has a very low hourly cap and no delivery promise.

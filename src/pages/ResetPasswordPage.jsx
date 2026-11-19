@@ -1,30 +1,68 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from '../data/client.js';
 import { validatePassword } from '../lib/validation.js';
+import { isUnreachable, readResetLink } from '../lib/resetLink.js';
 import { Button, Field, Banner } from '../components/ui/index.jsx';
 
+const UNREACHABLE = 'We could not reach the server. Check your connection and try again.';
+
+// Two ways in. A current email carries the one-time link in the address, and the link is spent
+// only when the person saves (see src/lib/resetLink.js). An older email signs the person in on
+// the way here, so the page looks for that session instead.
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
+  const { search } = useLocation();
+  const link = readResetLink(search);
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [error, setError] = useState('');
-  const [ready, setReady] = useState(null);
+  const [hasSession, setHasSession] = useState(null);
+  const [spent, setSpent] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [done, setDone] = useState(false);
   const pw = validatePassword(password);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setReady(Boolean(data?.session)));
-  }, []);
+    if (link.kind !== 'none') return undefined;
+    let live = true;
+    supabase.auth.getSession().then(({ data }) => live && setHasSession(Boolean(data?.session)));
+    return () => {
+      live = false;
+    };
+  }, [link.kind]);
+
+  const ready = link.kind === 'link' ? !spent : link.kind === 'invalid' ? false : hasSession;
 
   async function submit(e) {
     e.preventDefault();
+    if (saving) return undefined;
     if (!pw.isValid) return setError('Use at least 8 characters with a capital letter and a number.');
     if (password !== confirm) return setError('The two passwords do not match.');
     setError('');
-    const { error: err } = await supabase.auth.updateUser({ password });
-    if (err) return setError('Your password was not changed. Request a new reset link and try again.');
-    setDone(true);
+    setSaving(true);
+    try {
+      if (link.kind === 'link') {
+        const { error: linkErr } = await supabase.auth.verifyOtp({ token_hash: link.tokenHash, type: 'recovery' });
+        if (linkErr) {
+          if (isUnreachable(linkErr)) return setError(UNREACHABLE);
+          return setSpent(true);
+        }
+        // The link is used now and the person is signed in. Take it out of the address so a
+        // reload or a second try carries on from the session.
+        setHasSession(true);
+        navigate('/reset-password', { replace: true });
+      }
+      const { error: err } = await supabase.auth.updateUser({ password });
+      if (err) {
+        if (isUnreachable(err)) return setError(UNREACHABLE);
+        if (err.code === 'same_password') return setError('That is already your password. Choose a different one.');
+        return setError('Your password was not changed. Request a new reset link and try again.');
+      }
+      return setDone(true);
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -55,7 +93,7 @@ export default function ResetPasswordPage() {
               {(a) => <input {...a} className="input" type="password" autoComplete="new-password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />}
             </Field>
             {error ? <Banner tone="error">{error}</Banner> : null}
-            <Button type="submit" block disabled={ready === null}>
+            <Button type="submit" block disabled={ready === null || saving}>
               Save my new password
             </Button>
           </form>
